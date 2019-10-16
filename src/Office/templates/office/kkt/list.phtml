@@ -1,0 +1,66 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 22.03.18
+ * Time: 22:12
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var string $kktLocation */
+/** @var \Auth\Entity\User $user */
+
+$this->headLink()->prependStylesheet('/assets/vendors/pnotify/dist/pnotify.css')
+    ->prependStylesheet('/assets/vendors/pnotify/dist/pnotify.buttons.css')
+    ->prependStylesheet('/assets/vendors/pnotify/dist/pnotify.nonblock.css');
+
+$this->inlineScript()
+    ->prependFile('/assets/vendors/pnotify/dist/pnotify.buttons.js')
+    ->prependFile('/assets/vendors/pnotify/dist/pnotify.nonblock.js')
+    ->prependFile('/assets/vendors/pnotify/dist/pnotify.js');
+?>
+    <div class="row tile_count">
+
+        <div class="col-md-4 col-sm-6 col-xs-6 tile_stats_count">
+            <!--        <span class="count_top"><i class="fa fa-user"></i> --><?php //echo $company->getTitle(); ?><!--</span>-->
+            <!--        <div class="count js-company-balance">--><?php //echo $company->getBalance(); ?><!-- руб.</div>-->
+        </div>
+    </div>
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+
+                        <!-- Smart Wizard -->
+                        <h2>Кассы</h2>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-success js-get-access" data-url="<?php echo $this->url('office.access'); ?>">Получить</button>
+                            данные для подключения, <p style="color: red">старый логин/пароль будут не действительны!</p>
+                            <div class="js-show-access">
+                            </div>
+                        </div>
+                        <hr>
+                        <div id="wizard" class="form_wizard wizard_horizontal">
+                            <div id="step-1">
+                                <?php
+                                /** @var \Office\Entity\Company $company */
+                                foreach ($user->getCompany() as $company) {
+                                    foreach ($company->getShop() as $shop) {
+                                        echo $this->partial(
+                                            'office::kkt/kkt-table', [
+                                                'shop'        => $shop,
+                                                'company'     => $company,
+                                                'kktLocation' => $kktLocation,
+                                            ]
+                                        );
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php echo $this->partial('office::kkt/kkt-modal'); ?>

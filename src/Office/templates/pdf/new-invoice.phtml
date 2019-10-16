@@ -1,0 +1,549 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 28.03.18
+ * Time: 22:18
+ */
+/** @var \Office\Entity\Invoice $invoice */
+/** @var App\Renderer\PhpRenderer $this */
+
+$f = new NumberFormatter("ru", NumberFormatter::SPELLOUT);
+$sumP = $f->format($invoice->getSum());
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta name="generator" content="LibreOffice 5.4.5.1 (Linux)"/>
+    <meta name="created" content="2018-03-28T08:37:25.530120200"/>
+    <meta name="changed" content="2018-03-28T22:29:28.686972209"/>
+
+    <style type="text/css">
+        body, div, table, thead, tbody, tfoot, tr, th, td, p {
+            font-family: "DejaVu Sans";
+            font-size: xx-small
+        }
+
+        a.comment-indicator:hover + comment {
+            background: #ffd;
+            position: absolute;
+            display: block;
+            border: 1px solid black;
+            padding: 0.5em;
+        }
+
+        a.comment-indicator {
+            background: red;
+            display: inline-block;
+            border: 1px solid black;
+            width: 0.5em;
+            height: 0.5em;
+        }
+
+        comment {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+<table cellspacing="0" border="0" align="center" width="100%">
+    <tr>
+        <td colspan=37 align="center" valign="middle" width="100%" style="font-size: 8px">Внимание! Оплата данного счета означает согласие с условиями поставки товара. Уведомление
+            об оплате
+            обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту прихода денег на р/с Поставщика, самовывозом, при наличии
+            доверенности и паспорта.
+        </td>
+    </tr>
+    <tr>
+        <td colspan=37 align="center" valign="middle">
+            <img src="<?php echo ROOT_PATH.'src/Office/templates/pdf/header.jpg'; ?>" alt="">
+        </td>
+    </tr>
+</table>
+<table cellspacing="0" border="0">
+    <colgroup span="37" width="21"></colgroup>
+    <tr>
+        <td height="0" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+    </tr>
+    <tr>
+        <td style="border-top: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=18 rowspan=2 height="28" align="left" valign=top><font
+                    size=2>Филиал Банка ВТБ (ПАО) в г. Воронеже г. Воронеж</font></td>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=3 align="left"
+            valign=middle><font size=2>БИК</font></td>
+        <td style="border-top: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=16 align="left" valign=middle sdval="42007835"
+            sdnum="1049;0;000000000"><font size=2>042007835</font></td>
+    </tr>
+    <tr>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=3 rowspan=2
+            align="left" valign=top><font size=2>Сч. №</font></td>
+        <td style="border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=16 rowspan=2 align="left" valign=top><font size=2>30101810100000000835</font>
+        </td>
+    </tr>
+    <tr>
+        <td style="border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=18 height="10" align="left">Банк получателя</td>
+    </tr>
+    <tr>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121" colspan=2 height="17" align="left" valign=middle><font size=2>ИНН</font>
+        </td>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-right: 1px solid #212121" colspan=7 align="left" valign=middle sdval="4632126284"
+            sdnum="1049;0;0"><font size=2>4632126284</font></td>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121" colspan=2 align="left" valign=middle><font size=2>КПП</font>
+        </td>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-right: 1px solid #212121" colspan=7 align="left" valign=middle sdval="463201001"
+            sdnum="1049;0;0"><font size=2>463201001</font></td>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=3 rowspan=4
+            align="left" valign=top><font size=2>Сч. №</font></td>
+        <td style="border-top: 1px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=16 rowspan=4
+            align="left" valign=top><font size=2>40702810518250001002</font></td>
+    </tr>
+    <tr>
+        <td style="border-top: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=18 rowspan=2 height="15" align="left" valign=top><font
+                    size=2>Открытое акционерное общество &quot;СЧЕТМАШ&quot;</font></td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+        <td style="border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=18 height="15" align="left">Получатель</td>
+    </tr>
+    <tr>
+        <td style="border-bottom: 2px solid #212121" colspan=37 height="32" align="left" valign=middle>
+            <b>
+                <font size=4>
+                    Счет на оплату № СЧФ<?php echo $invoice->getNumber() ?? $invoice->getId(); ?> от <?php echo $invoice->getDate()->format('d.m.Y'); ?>
+                </font>
+            </b>
+        </td>
+    </tr>
+    <tr>
+        <td height="1" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+    </tr>
+    <tr>
+        <td colspan=6 height="20" align="left" valign=top><font size=2>Поставщик:</font></td>
+        <td colspan=31 align="left" valign=top><b><font size=1>Открытое акционерное общество &quot;СЧЕТМАШ&quot;, ИНН 4632126284, КПП 463201001, 305022, Курская обл, Курск г,
+                    Рабочая 2-я ул, дом № 23, лит.В2, помещение 53, тел.: (4712) 73-49-94</font></b></td>
+    </tr>
+    <tr>
+        <td height="14" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+    </tr>
+    <tr>
+        <td colspan=6 height="25" align="left" valign=top><font size=2>Покупатель:</font></td>
+        <td colspan=31 align="left" valign=top><b><font size=1><?php
+                    echo $this->escapeHtml($invoice->getCompany()->getDefaultTitle()); ?>, ИНН <?php echo $this->escapeHtml($invoice->getCompany()->getInn()); ?>,
+                    КПП <?php echo $this->escapeHtml($invoice->getCompany()->getKpp()); ?>, <?php echo $this->escapeHtml($invoice->getCompany()->getAddress()); ?>, тел.: <?php echo $this->escapeHtml($invoice->getCompany()
+                        ->getCompanyPhone()); ?>, <?php echo $this->escapeHtml($invoice->getCompany()->getCompanyEmail()); ?></font></b></td>
+    </tr>
+    <tr>
+        <td height="11" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+    </tr>
+    <tr>
+        <td colspan=31 height="12" align="left" valign=top><font size=1>расчеты по счету</font></td>
+    </tr>
+    <tr>
+        <td colspan=31 height="12" align="left" valign=top><font size=1>Условия ОПЛАТЫ и ПОСТАВКИ:</font></td>
+    </tr>
+    <tr>
+        <td colspan=36 align="left" valign=top>
+            1. Цены договорные. Продукция отпускается по ценам, действующим на момент получения денежных средств поставщиком.
+        </td>
+    </tr>
+    <tr>
+        <td colspan=31 align="left" valign=top>
+            2. Актуальные данные на: <?php echo date('d.m.Y H:i:s'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan=36 align="left" valign=top>
+            3.Счет действителен к оплате в течение 5 (пяти) банковских дней. По истечении этого срока цены на продукцию подлежат уточнению.
+        </td>
+    </tr>
+    <tr>
+        <td colspan=31 align="left" valign=top>
+            Заказ подтвержден клиентом <?php echo date('d.m.Y H:i:s'); ?>
+        </td>
+    </tr>
+    <?php
+    if ($invoice->getUser()) {
+        $user = $invoice->getUser();
+        ?>
+        <tr>
+            <td colspan=36 align="left" valign=top>
+                Реквизиты клиента: ФИО: <?php echo $user->getFIO(); ?> Телефон:<?php echo $user->getPhone(); ?> E-mail: <?php echo $user->getEmail(); ?>
+            </td>
+        </tr>
+        <?php
+    }
+    ?>
+    <tr>
+        <td height="7" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+    </tr>
+    <tr>
+        <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 2px solid #212121; border-right: 1px solid #212121" colspan=2 height="17"
+            align="center" valign=middle><b><font size=1>№</font></b></td>
+        <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=4 align="center"
+            valign=middle><b><font size=1>Код</font></b></td>
+        <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=17 align="center"
+            valign=middle><b><font size=1>Товары (работы, услуги)</font></b></td>
+        <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=3 align="center"
+            valign=middle><b><font size=1>Кол-во</font></b></td>
+        <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=2 align="center"
+            valign=middle><b><font size=1>Ед.</font></b></td>
+        <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=4 align="center"
+            valign=middle><b><font size=1>Цена</font></b></td>
+        <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 2px solid #212121" colspan=5 align="center"
+            valign=middle><b><font size=1>Сумма</font></b></td>
+    </tr>
+    <?php
+    /** @var \Office\Entity\InvoiceItem $item */
+    foreach ($invoice->getItem() as $key => $item) {
+        $service = $item->getService();
+        ?>
+        <tr>
+            <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 2px solid #212121; border-right: 1px solid #212121" colspan=2 height="17"
+                align="center" valign=middle><b><font size=1><?php echo $key + 1; ?></font></b></td>
+            <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=4 align="center"
+                valign=middle><b><font size=1></font></b></td>
+            <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=17 align="center"
+                valign=middle><b><font size=1><?php echo $item->getTitle(); ?></font></b></td>
+            <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=3 align="center"
+                valign=middle><b><font size=1><?php echo $item->getQuantity(); ?></font></b></td>
+            <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=2 align="center"
+                valign=middle><b><font size=1>
+                        <?php echo $service ? $service->getMeasure() : 'мес.'; ?>
+                    </font></b></td>
+            <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 1px solid #212121" colspan=4 align="center"
+                valign=middle><b><font size=1><?php echo $item->getPrice(); ?></font></b></td>
+            <td style="border-top: 2px solid #212121; border-bottom: 1px solid #212121; border-left: 1px solid #212121; border-right: 2px solid #212121" colspan=5 align="center"
+                valign=middle><b><font size=1><?php echo $item->getSum(); ?></font></b></td>
+        </tr>
+        <?php
+    }
+    ?>
+    <tr>
+        <td style="border-top: 2px solid #212121" height="0" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br><</td>
+        <td style="border-top: 2px solid #212121" align="left"><br></td>
+        <td style="border-top: 2px solid #212121" align="left"><br></td>
+        <td style="border-top: 2px solid #212121" align="left"><br></td>
+        <td style="border-top: 2px solid #212121" align="left" valign=top><br><</td>
+        <td style="border-top: 2px solid #212121" align="left"><br></td>
+        <td style="border-top: 2px solid #212121" align="left"><br></td>
+        <td style="border-top: 2px solid #212121" align="left"><br></td>
+        <td style="border-top: 2px solid #212121" align="left"><br></td>
+    </tr>
+    <tr>
+        <td height="11" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td colspan=4 align="right" valign=top><b><font size=1>Итого:</font></b></td>
+        <td align="left"><br></td>
+        <td colspan=3 align="right"><b><font size=1><?php echo $invoice->getSum(); ?>,00</font></b></td>
+    </tr>
+    <tr>
+        <td height="11" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td colspan=8 align="right" valign=top><b><font size=1>Сумма НДС:</font></b></td>
+        <td align="left"><br></td>
+        <td colspan=3 align="right"><b><font size=1><?php echo str_replace('.', ',', round(($invoice->getSum() / 1.20 - $invoice->getSum()) * -1, 2)); ?></font></b></td>
+    </tr>
+    <tr>
+        <td height="11" align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td align="left"><br></td>
+        <td colspan=8 align="right" valign=top><b><font size=1>Всего к уплате:</font></b></td>
+        <td align="left"><br></td>
+        <td colspan=3 align="right"><font size=1><b><?php echo $invoice->getSum(); ?>,00</font></b></td>
+    </tr>
+    <tr>
+        <td colspan=37 height="14" align="left"><font size=2>Всего наименований <?php echo $invoice->getItem()->count(); ?>, на сумму <?php echo $invoice->getSum(); ?> руб.</font>
+        </td>
+    </tr>
+    <tr>
+        <td colspan=37 height="14" align="left" valign=top><b><font size=2><?php echo $sumP; ?> рублей 00 копеек</font></b></td>
+    </tr>
+</table>
+<img src="<?php echo ROOT_PATH.'/src/Office/templates/pdf/footer.png'; ?>" alt="">
+<!-- ************************************************************************** -->
+</body>
+
+</html>
+

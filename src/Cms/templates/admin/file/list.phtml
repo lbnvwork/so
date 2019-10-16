@@ -1,0 +1,44 @@
+<?php
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \App\Entity\File[] $files */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Список файлов</h2>
+                    <a href="<?php echo $this->url('admin.file.edit', ['id' => 0]); ?>" class="btn btn-primary pull-right">Добавить</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Категория</th>
+                            <th>Файл</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($files as $file) {
+                            ?>
+                            <tr>
+                                <th scope="row"><?php echo $file->getId(); ?></th>
+                                <td><?php echo $file->getCategory()->getTitle(); ?></td>
+                                <td><?php echo $file->getFilename(); ?></td>
+                                <td></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

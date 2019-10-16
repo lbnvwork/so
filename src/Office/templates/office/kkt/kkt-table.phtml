@@ -1,0 +1,148 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 05.02.19
+ * Time: 14:40
+ */
+/** @var string $kktLocation */
+/** @var \Office\Entity\Company $company */
+/** @var \Office\Entity\Shop $shop */
+/** @var \App\Renderer\PhpRenderer $this */
+?>
+<?php
+$isKkt = false;
+/** @var \Office\Entity\Kkt $item */
+foreach ($shop->getKkt() as $item) {
+    if (!$item->getIsDeleted()) {
+        $isKkt = true;
+        break;
+    }
+}
+if ($isKkt){ ?>
+    <h3><?php echo $this->escapeHtmlAttr($shop->getTitle()); ?></h3>
+    <table class="table" data-shop="<?php echo $shop->getId() ?>" data-company="<?php echo $company->getId(); ?>">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th class="col-xs-1">Серийный номер</th>
+            <th class="col-xs-1">Номер РНМ</th>
+            <th class="col-xs-1">Номер ФН</th>
+            <th class="col-xs-1">Версия ФН</th>
+            <th class="col-xs-3">Адрес места установки</th>
+            <th class="col-xs-1">Статус</th>
+            <th class="col-xs-4">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        /** @var \Office\Entity\Kkt $kkt */
+        foreach ($shop->getKkt()->filter(
+            function ($ele) {
+                return !$ele->getIsDeleted();
+            }
+        ) as $key => $kkt) {
+            $minPrice = $kkt->getTariff()->getRentCost() * $kkt->getTariff()->getMonthCount();
+            $urlGetKkt = $this->url('office.kkt.get', ['id' => $kkt->getId()]);
+            $urlSetRnm = $this->url('office.kkt.rnm', ['id' => $kkt->getId()]);
+            $urlGetInfo = $this->url('office.kkt.info', ['id' => $kkt->getId()]);
+            ?>
+            <tr data-id="<?php echo $kkt->getId(); ?>">
+                <td><?php echo $key + 1; ?></td>
+                <td class="js-office-kkt-number"><?php echo $kkt->getSerialNumber(); ?></td>
+                <td class="js-rnm"><?php echo $this->escapeHtml($kkt->getRegNumber()); ?></td>
+                <td class="js-office-fn"><?php echo $kkt->getFsNumber(); ?></td>
+                <td class="js-office-fn-version"><?php echo $kkt->getFsVersion(); ?></td>
+                <td><?php echo $kktLocation; ?></td>
+                <td>
+                    <?php
+                    if ($kkt->getIsEnabled()) {
+                        if ($kkt->getIsFiscalized()) {
+                            ?>
+                            <span class="label label-success js-kkt-status-label">Активна</span>
+                            <?php
+                        } else {
+                            ?>
+                            <span class="label label-primary js-kkt-status-label">Установлена</span>
+                            <?php
+                        }
+                    } else {
+                        if ($kkt->getIsFiscalized()) {
+                            ?>
+                            <span class="label label-primary js-kkt-status-label">Для активации загрузите файлы</span>
+                            <?php
+                        } else {
+                            ?>
+                            <span class="label label-warning js-kkt-status-label">Не установлена</span>
+                            <?php
+                        }
+                    }
+                    ?>
+                </td>
+                <td>
+                    <?php
+
+                    if (!$kkt->getSerialNumber()) {
+                        ?>
+                        <button class="btn btn-success js-office-get-kkt" title="Получить кассу"
+                            <?php echo !$kkt->getIsEnabled() ? '' : ' style="display: none"' ?>
+                            <?php echo $company->getBalance() < $minPrice ? ' disabled' : 'data-url="'.$urlGetKkt.'"' ?>
+                        >
+                            <span class="glyphicon glyphicon-send"></span>
+                            <span class="fa fa-spinner fa-spin" style="display: none"></span>
+                        </button>
+                    <?php } elseif (!$kkt->getRegNumber()) { ?>
+
+                        <a target="_blank" href="<?php echo $this->url('office.kkt.registration', ['id' => $kkt->getId()]); ?>" class="btn btn-success js-get-access"
+                           title="Постановка ККТ на учет в ИФНС">Зарегистрировать ККТ</a>
+                    <?php } ?>
+                    <?php
+                    if (!$kkt->getIsFiscalized()) {
+                        ?>
+                        <button class="btn btn-primary js-office-kkt-rnm"
+                                data-toggle="modal" data-target="#setRnmModal"
+                                data-url="<?php echo $urlSetRnm; ?>"
+                                title="Установить РНМ" <?php echo $kkt->getSerialNumber() ? '' : 'style="display: none"' ?>>
+                            <span class="glyphicon glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <?php
+                    }
+                    ?>
+                    <a
+                            href="<?php echo $this->url('office.kkt.files', ['id' => $kkt->getId()]); ?>"
+                            class="btn btn-primary js-office-kkt-doc"
+                        <?php echo $kkt->getSerialNumber() ? '' : 'style="display: none"'; ?>
+                            title="Прикрепить документы"
+
+                    >
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </a>
+                    <?php
+                    if ($kkt->getIsFiscalized()) {
+                        ?>
+                        <a target="_blank" href="<?php echo $urlGetInfo; ?>" class="btn btn-primary " title="Информация о кассе">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </a>
+                        <?php
+                    }
+                    ?>
+                    <button class="btn btn-danger js-office-kkt-remove"
+                            data-url="<?php echo $urlGetKkt; ?>"
+                            data-toggle="modal" data-target="#myModal"
+                            data-send-fn="<?php echo $kkt->getFsNumber(); ?>"
+                            title="Удаление кассы">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                    </button>
+                    <?php if ($kkt->getSerialNumber()) { ?>
+                        <a target="_blank" href="<?php echo $this->url('office.kkt.kkt-tariff', ['id' => $kkt->getId()]); ?>" class="btn btn-warning" title="Редактирование тарифа">
+                            <span class="glyphicon glyphicon-check"></span>
+                        </a>
+                    <?php } ?>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+<?php } ?>

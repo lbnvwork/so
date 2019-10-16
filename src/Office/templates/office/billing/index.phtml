@@ -1,0 +1,23 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 26.03.18
+ * Time: 21:22
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Company[] $companies */
+?>
+<div class="row tile_count">
+    <?php
+    foreach ($companies as $company) {
+        ?>
+        <div class="col-md-4 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> <?php echo $this->escapeHtml($company->getTitle()); ?></span>
+            <div class="count"><?php echo $company->getBalance(); // $company->balance2;  ?> руб.</div>
+            <!--            <span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
+        </div>
+        <?php
+    }
+    ?>
+</div>

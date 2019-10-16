@@ -1,0 +1,156 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 22.11.18
+ * Time: 9:41
+ */
+
+use App\Renderer\PhpRenderer;
+use Auth\Entity\User;
+use Office\Entity\Processing;
+use Zend\Json\Json;
+
+/** @var PhpRenderer $this */
+/** @var Processing $item */
+/** @var User $user */
+
+$receipt = Json::decode($item->getRawData(), Json::TYPE_ARRAY);
+
+$types = [
+    0  => '',
+    1  => 'товар',
+    2  => 'подакцизный товар',
+    3  => 'работа',
+    4  => 'услуга',
+    5  => 'ставка азартной игры',
+    6  => 'выигрыш азартной игры',
+    7  => 'ставка лотереи',
+    8  => 'выигрыш лотереи',
+    9  => 'предоставление результатов интеллектуальной деятельности',
+    10 => 'платеж (аванс, задаток, предоплата, кредит, взнос в счет оплаты, пени, штраф, вознаграждение, бонус)',
+    11 => 'агентское вознаграждение',
+    12 => 'составной предмет расчета',
+    13 => 'иной предмет расчета',
+];
+
+$modes = [
+    0 => '',
+    1 => 'предоплата 100%',
+    2 => 'частичная предоплата',
+    3 => 'аванс',
+    4 => 'полный расчет полная оплата, в том числе с учетом аванса (предварительной оплаты) в момент передачи предмета расчета',
+    5 => 'частичный расчет и кредит (частичная оплата предмета расчета в момент его передачи с последующей оплатой в кредит)',
+    6 => 'передача в кредит (передача предмета расчета без его оплаты в момент его передачи с последующей оплатой в кредит)',
+    7 => 'оплата кредита',
+];
+
+$nds = [
+    'none'   => '-',
+    'vat0'   => '0%',
+    'vat10'  => '10%',
+    'vat18'  => '18%',
+    'vat20'  => '20%',
+    'vat110' => '110%',
+    'vat118' => '118%',
+];
+
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    Чек #<?php echo $item->getId(); ?> от <?php echo $item->getDatetime()->format('d.m.Y H:i:s'); ?>
+                    <?php
+                    if ($user->getUserRoleManager()->offsetExists('admin')) {
+                        ?>
+                        <a href="<?php echo $this->url('admin.processing.edit', ['id' => $item->getId()]); ?>">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                        <a
+                                href="<?php echo $this->url('admin.processing.rm', ['id' => $item->getId()]); ?>"
+                                onclick="return confirm('Уверены что хотите удалить чек?');"
+                        >
+                            <span class="fa fa-trash"></span>
+                        </a>
+                        <?php
+                    }
+                    ?>
+                </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-lg-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">Тип: <?php echo $item->getHumanOperation(); ?></li>
+                        <li class="list-group-item">Статус: <?php echo $item->getHumanStatus(); ?></li>
+                        <li class="list-group-item">Магазин: <?php echo $item->getShop()->getTitle(); ?></li>
+                        <li class="list-group-item">
+                            ККТ: <?php echo $item->getKkt() ? $item->getKkt()->getSerialNumber().' (<a target="_blank" href="https://consumer.1-ofd.ru/v1?'.$item->getOfdLink().'">посмотреть чек</a>)'
+                                : 'чек еще не печатался' ?>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">Внешний код: <?php echo $this->escapeHtml($item->getExternalId()); ?></li>
+                        <li class="list-group-item">Дата и время создания: <?php echo $this->escapeHtml($receipt['timestamp']); ?></li>
+                        <li class="list-group-item">Данные пользователя: <?php
+                            if (!empty($receipt['receipt']['attributes']['email'])) {
+                                echo $this->escapeHtml($receipt['receipt']['attributes']['email']);
+                            }
+                            ?>
+                            <br>
+                            <?php
+                            if (!empty($receipt['receipt']['attributes']['phone'])) {
+                                echo $this->escapeHtml($receipt['receipt']['attributes']['phone']);
+                            }
+                            ?>
+                        </li>
+                        <li class="list-group-item">Сумма по чеку: <?php echo $this->escapeHtml($receipt['receipt']['total']); ?></li>
+                    </ul>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                        <th>НДС</th>
+                        <th>Признак предмета расчета</th>
+                        <th>Признак способа расчета</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($receipt['receipt']['items'] as $element) {
+                        ?>
+                        <tr>
+                            <td><?php echo $this->escapeHtml($element['name']); ?></td>
+                            <td><?php echo $this->escapeHtml($element['price']); ?></td>
+                            <td><?php echo $this->escapeHtml($element['quantity']); ?></td>
+                            <td><?php echo $this->escapeHtml($element['sum']); ?></td>
+                            <td><?php echo isset($nds[$element['tax']]) ? $nds[$element['tax']] : $this->escapeHtml($element['tax']); ?></td>
+                            <td><?php echo isset($element['type']) ? $types[$element['type']] : ''; ?></td>
+                            <td><?php echo isset($element['mode']) ? $modes[$element['mode']] : ''; ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <?php
+                if ($item->getError()) {
+                    ?>
+                    <div class="text-danger">
+                        <?php echo $this->escapeHtml($item->getError()); ?>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

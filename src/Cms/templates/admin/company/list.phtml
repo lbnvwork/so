@@ -1,0 +1,235 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 09.04.18
+ * Time: 12:41
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Company[] $companies */
+/** @var array $countKkts */
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Компании</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div>
+                    <form action="<?php echo $this->url('admin.company.list'); ?>" method="get" class="form-inline">
+                        <h5>Фильтр</h5>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="filter[name]" value="<?php echo $filter['name']; ?>" placeholder="справа поле для поиска">
+
+                            <select name="filter[name_type]" class="form-control">
+                                <?php foreach ($form['name_type'] as $val => $label) { ?>
+                                    <option <?php if ($val == $filter['name_type']) {
+                                        echo 'selected';
+                                    } ?> value="<?php echo $val; ?>"><?php echo $label; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary form-control">Найти</button>
+                        </div>
+                        <br/> <br/>
+                        <div>
+                            <div class="form-group">
+                                <label class="control-label">Кассы</label>
+                                <select name="filter[kkt]" class="form-control">
+                                    <option></option>
+                                    <?php foreach ($form['kkt'] as $val => $label) { ?>
+                                        <option <?php if ($val == $filter['kkt']) {
+                                            echo 'selected';
+                                        } ?> value="<?php echo $val; ?>"><?php echo $label; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Налогооблажение</label>
+                                <select name="filter[c.nalog_system]" class="form-control">
+                                    <option></option>
+                                    <?php foreach ($form['c.nalog_system'] as $val => $label) { ?>
+                                        <option <?php if ($val == $filter['c.nalog_system']) {
+                                            echo 'selected';
+                                        } ?> value="<?php echo $val; ?>"><?php echo $label; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Тип</label>
+                                <select name="filter[c.org_type]" class="form-control">
+                                    <option></option>
+                                    <?php foreach ($form['c.org_type'] as $val => $label) { ?>
+                                        <option <?php if ($val == $filter['c.org_type']) {
+                                            echo 'selected';
+                                        } ?> value="<?php echo $val; ?>"><?php echo $label; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Удалена</label>
+                                <select name="filter[c.is_deleted]" class="form-control">
+                                    <option></option>
+                                    <?php foreach ($form['c.is_deleted'] as $val => $label) { ?>
+                                        <option <?php if ($val == $filter['c.is_deleted']) {
+                                            echo 'selected';
+                                        } ?> value="<?php echo $val; ?>"><?php echo $label; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <br>
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.company.list', [], [
+                                    'sort'  => 'c.id',
+                                    'order' => $order,
+                                ]
+                            ); ?>">
+                                #
+                                <?php if ($sortType === 'c.id') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.company.list', [],
+                                [
+                                    'sort'  => 'c.title',
+                                    'order' => $order,
+                                ]
+                            ); ?>">
+                                Название
+
+                                <?php if ($sortType === 'c.title') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.company.list', [],
+                                [
+                                    'sort'  => 'c.date',
+                                    'order' => $order,
+                                ]
+                            ); ?>">
+                                Дата создания
+                                <?php if ($sortType === 'c.date') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.company.list', [],
+                                [
+                                    'sort'  => 'u.last_name',
+                                    'order' => $order,
+                                ]
+                            ); ?>">
+                                Пользователь
+
+                                <?php if ($sortType === 'u.last_name') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.company.list', [],
+                                [
+                                    'sort'  => 'act',
+                                    'order' => $order,
+                                ]
+                            ); ?>">
+                                Кассы (активно/не активно)
+
+                                <?php if ($sortType === 'act') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($companies as $company) { ?>
+                        <tr>
+                            <th scope="row"><?php echo $company['id']; ?></th>
+                            <td>
+                                <a href="<?php echo $this->url('admin.company.edit', ['id' => $company['id']]); ?>">
+                                    <?php
+
+                                    if (!empty($company['title'])) {
+                                        echo $this->escapeHtml($company['title']);
+                                    } elseif (!empty($company['ip_last_name'].$company['ip_first_name'].$company['ip_middle_name'])) {
+                                        echo $this->escapeHtml('ИП '.$company['ip_last_name'].' '.$company['ip_first_name'].' '.$company['ip_middle_name']);
+                                    } elseif (!empty($company['director_last_name'].$company['director_first_name'].$company['director_middle_name'])) {
+                                        echo $this->escapeHtml($company['director_last_name'].' '.$company['director_last_name'].' '.$company['director_last_name']);
+                                    } else {
+                                        echo $this->escapeHtml($company['last_name'].' '.$company['first_name'].' '.$company['middle_name']);
+                                    } ?>
+                                </a>
+                            </td>
+                            <td>
+                                <?php echo $company['date'] ? $company['date']->format('d.m.Y') : ''; ?>
+                            </td>
+                            <td>
+                                <?php if ($user) { ?>
+                                    <a href="<?php echo $this->url('admin.user', ['id' => $company['userid']]); ?>">
+                                        <?php echo $this->escapeHtml($company['last_name'].' '.$company['first_name'].' '.$company['middle_name']); ?>
+                                    </a>
+                                    <?php
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <span class="label label-success" title="Активно"><?php echo $company['act']; ?></span>
+                                /
+                                <span class="label label-primary" title="Не активно"><?php echo $company['nact']; ?></span>
+                            </td>
+                            <td>
+                                <?php
+                                if ($user) {
+                                    ?>
+                                    <a href="<?php echo $this->url(
+                                        'admin.user', [
+                                            'id'     => $company['userid'],
+                                            'action' => 'auth',
+                                        ]
+                                    ) ?>" class="btn btn-primary">Авторизоваться</a>
+                                    <?php
+                                }
+                                ?>
+                                <button data-url="<?php echo $this->url('admin.company.delete', ['id' => $company['id']]); ?>" class="btn btn-danger js-company-remove">
+                                    Удалить
+                                </button>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+            </div>
+        </div>
+    </div>
+</div>

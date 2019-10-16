@@ -1,0 +1,239 @@
+stages:
+  - preparation
+  - testing
+  - clear_fail
+  - build
+  - clear
+
+variables:
+  GIT_CLONE_PATH: $CI_BUILDS_DIR/$CI_CONCURRENT_ID/$CI_PROJECT_PATH/$CI_BUILD_REF_NAME
+  GIT_CLEAN_FLAGS: none
+  CI_PROJECT_NAMESPACE: "schetmash-online"
+  MYSQL_TEST_PASSWORD: 12345
+  MYSQL_TEST_DATABASE: db-test
+
+composer:
+  stage: preparation
+  script:
+    - cp .env.dist .env
+    - docker build --build-arg server_uid=$UID -t app_cli_${CI_PIPELINE_ID} docker/php_cli
+    - docker run --rm -v "$PWD":/var/www/html -w /var/www/html app_cli_${CI_PIPELINE_ID} sudo -E -u www-data composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+  artifacts:
+    paths:
+      - vendor/
+    expire_in: 1 days
+    when: always
+  cache:
+    key: "$CI_BUILD_REF_NAME"
+    paths:
+      - vendor/
+
+test:
+  stage: testing
+  script:
+    - docker run -d --name mysql_test_${CI_JOB_ID} -e MYSQL_ROOT_PASSWORD=$MYSQL_TEST_PASSWORD -e MYSQL_DATABASE=$MYSQL_TEST_DATABASE mysql:5.7 --sql-mode=""
+    - sleep 40
+    - docker ps | grep mysql_test
+    # настройка файлов
+    - test -f ./config/autoload/doctrine.local.php || docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data ./install.sh $CI_PIPELINE_ID
+    - sed -i -e "s/mysql_1\/online/mysql_test\/db-test/g" ./config/autoload/doctrine.local.php
+    # миграции бд
+    - docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data ./valid-db.sh -f
+    # запуск тестов
+    - docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data composer test-gitlab
+    # очистка
+    - docker container rm -f mysql_test_${CI_JOB_ID}
+    - sed -i -e "s/mysql_test\/db-test/mysql_1\/online/g" ./config/autoload/doctrine.local.php
+  dependencies:
+    - composer
+
+codestyle:
+  stage: testing
+  script:
+    - docker run --rm -v "$PWD":/var/www/html -w /var/www/html app_cli_${CI_PIPELINE_ID} sudo -E -u www-data composer cs-check
+  dependencies:
+    - composer
+
+phpcpd:
+  stage: testing
+  script:
+    - docker run --rm -v "$PWD":/var/www/html -w /var/www/html app_cli_${CI_PIPELINE_ID} sudo -E -u www-data composer phpcpd
+  dependencies:
+    - composer
+
+coverage_master:
+  stage: testing
+  script:
+    - docker build --build-arg server_uid=$UID -t app_cli_${CI_PIPELINE_ID} docker/php_cli
+    - docker run -d --name mysql_test_${CI_JOB_ID} -e MYSQL_ROOT_PASSWORD=$MYSQL_TEST_PASSWORD -e MYSQL_DATABASE=$MYSQL_TEST_DATABASE mysql:5.7 --sql-mode=""
+    - sleep 40
+    - docker ps | grep mysql_test
+    # настройка файлов
+    - test -f ./config/autoload/doctrine.local.php || docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data ./install.sh $CI_PIPELINE_ID
+    - sed -i -e "s/mysql_1\/online/mysql_test\/db-test/g" ./config/autoload/doctrine.local.php
+    # миграции бд
+    - docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data ./valid-db.sh -f
+    # запуск тестов
+    - docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data composer test-gitlab-coverage
+    # очистка
+    - docker container rm -f mysql_test_${CI_JOB_ID}
+    - sed -i -e "s/mysql_test\/db-test/mysql_1\/online/g" ./config/autoload/doctrine.local.php
+
+    # Копирование файлов
+    - mkdir /tmp/${CI_PIPELINE_ID}/
+    - cp -R tests/_output/coverage/ /tmp/${CI_PIPELINE_ID}/public
+    - rsync -av --delete /tmp/${CI_PIPELINE_ID}/public /srv/nginx/pages/$CI_BUILD_REF_SLUG-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME
+    - rm -rf /tmp/${CI_PIPELINE_ID}/public
+    - rm -rf tests/_output/coverage/
+  environment:
+    name: coverage/$CI_BUILD_REF_NAME
+    url: http://$CI_BUILD_REF_SLUG-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME.git.keaz.ru
+    on_stop: stop_coverage
+  only:
+    - master
+  dependencies:
+    - composer
+  tags:
+    - nginx
+    - review-apps
+    - deploy
+
+coverage:
+  stage: testing
+  script:
+    - docker build --build-arg server_uid=$UID -t app_cli_${CI_PIPELINE_ID} docker/php_cli
+    - docker run -d --name mysql_test_${CI_JOB_ID} -e MYSQL_ROOT_PASSWORD=$MYSQL_TEST_PASSWORD -e MYSQL_DATABASE=$MYSQL_TEST_DATABASE mysql:5.7 --sql-mode=""
+    - sleep 40
+    - docker ps | grep mysql_test
+    # настройка файлов
+    - test -f ./config/autoload/doctrine.local.php || docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data ./install.sh $CI_PIPELINE_ID
+    - sed -i -e "s/mysql_1\/online/mysql_test\/db-test/g" ./config/autoload/doctrine.local.php
+    # миграции бд
+    - docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data ./valid-db.sh -f
+    # запуск тестовd
+    - docker run --rm
+      --link mysql_test_${CI_JOB_ID}:mysql_test
+      -v "$PWD":/var/www/html
+      -w /var/www/html
+      app_cli_${CI_PIPELINE_ID} sudo -E -u www-data composer test-gitlab-coverage
+    # очистка
+    - docker container rm -f mysql_test_${CI_JOB_ID}
+    - sed -i -e "s/mysql_test\/db-test/mysql_1\/online/g" ./config/autoload/doctrine.local.php
+
+    # Копирование файлов
+    - mkdir /tmp/${CI_PIPELINE_ID}/
+    - cp -R tests/_output/coverage/ /tmp/${CI_PIPELINE_ID}/public
+    - rsync -av --delete /tmp/${CI_PIPELINE_ID}/public /srv/nginx/pages/$CI_BUILD_REF_SLUG-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME
+    - rm -rf /tmp/${CI_PIPELINE_ID}/public
+    - rm -rf tests/_output/coverage/
+  environment:
+    name: coverage/$CI_BUILD_REF_NAME
+    url: http://$CI_BUILD_REF_SLUG-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME.git.keaz.ru
+    on_stop: stop_coverage
+  when: manual
+  dependencies:
+    - composer
+  tags:
+    - nginx
+    - review-apps
+    - deploy
+
+#Конфигурация для develop
+develop:
+  stage: build
+  tags:
+    - ssh-develop
+  environment:
+    name: $CI_BUILD_REF_NAME
+    url: https://online.schetmash$CI_PIPELINE_ID.test
+    on_stop: clear
+  when: manual
+  script:
+    - cp .env.dist .env
+    - sed -i -e "s/UID=1000/UID=${UID}/g" .env
+    - test -d public/assets/auth && rm -rf public/assets/auth
+    - mkdir public/assets/auth
+    - cd public/assets/auth/
+    - git init
+    - git remote add auth git@git.keaz.ru:schetmash/online/auth_design.git
+    - git fetch auth
+    - git checkout master
+    - cd ../../../
+    - cp -r /home/develop/keaz-files/.ssh  docker/php/.ssh  #ключи для ssh
+    - cp -r /home/develop/schetmash/online-module/app/upload public/upload
+    - sed -i -e "s/TEST_DOMAIN/online.schetmash$CI_PIPELINE_ID.test/g" docker-compose-gitlab.yml    #Замена имени домена
+    - docker-compose -f docker-compose-gitlab.yml down #на случай ребилда
+    - docker-compose -f docker-compose-gitlab.yml up -d --build  #билд образов
+    - work_dir=`dirname $0`
+    - p=`pwd`
+    - containerName=`basename $p`
+    - containerName="${containerName//./}"
+    - containerName="${containerName//-/}"
+    #запуск скрипта первичной настройки проекта
+    - docker exec ${containerName}_app_1 bash -c "cd ../ && sudo -E -u www-data ./install.sh $CI_PIPELINE_ID"
+    - sleep 60
+    - docker exec ${containerName}_app_1 bash -c "cd ../ && sudo -E -u www-data ./valid-db.sh -f"
+    - docker exec ${containerName}_app_1 bash -c "cd ../ && sudo -E -u www-data php public/console.php app:init"
+
+clear_project:
+  stage: clear
+  script:
+    - git clean
+  when: manual
+
+clear:
+  stage: clear
+  environment:
+    name: $CI_BUILD_REF_NAME
+    action: stop
+  script:
+    - docker-compose -f docker-compose-gitlab.yml down
+  when: manual
+  dependencies: []
+
+stop_coverage:
+  stage: clear
+  script:
+    - rm -rf public /srv/nginx/pages/$CI_BUILD_REF_SLUG-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME
+  variables:
+    GIT_STRATEGY: none
+  when: manual
+  environment:
+    name: coverage/$CI_BUILD_REF_NAME
+    action: stop
+  tags:
+    - nginx
+    - review-apps
+    - deploy

@@ -1,0 +1,109 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 26.03.18
+ * Time: 21:22
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Processing[] $checks */
+/** @var array $paginator */
+/** @var array $filter */
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Чеки</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div>
+                    <form action="<?php echo $this->url('office.check'); ?>" method="get" class="form-inline">
+                        <h5>Фильтр</h5>
+                        <div class="form-group">
+                            <label for="status">Статус</label>
+                            <select id="status" name="filter[status]" class="form-control">
+                                <option></option>
+                                <?php
+                                foreach (\Office\Entity\Processing::STATUS_LIST as $key => $value) {
+                                    ?>
+                                    <option value="<?php echo $key; ?>" <?php echo $filter['status'] == $key ? 'selected' : ''; ?>>
+                                        <?php echo $value; ?>
+                                    </option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Тип</label>
+                            <select id="type" name="filter[type]" class="form-control">
+                                <option></option>
+                                <?php
+                                foreach (\Office\Entity\Processing::OPERATION_LIST as $key => $value) {
+                                    ?>
+                                    <option value="<?php echo $key; ?>" <?php echo $filter['type'] == $key ? 'selected' : ''; ?>>
+                                        <?php echo $value; ?>
+                                    </option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary form-control">Найти</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Дата</th>
+                        <th>Сумма</th>
+                        <th>Тип</th>
+                        <th>ИНН</th>
+                        <th>Магазин</th>
+                        <th>Статус</th>
+                        <th>Ссылка на чек</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($checks as $check) {
+                        ?>
+                        <tr>
+                            <th scope="row">
+                                <a href="<?php echo $this->url('office.check.view', ['id' => $check->getId()]); ?>">
+                                    <?php echo $check->getId(); ?>
+                                </a>
+                            </th>
+                            <td>
+                                <?php echo $check->getDatetime()->format('d.m.Y H:i:s'); ?>
+                            </td>
+                            <td>
+                                <?php echo $this->escapeHtml($check->getSum()); ?>
+                            </td>
+                            <td><?php echo $check->getHumanOperation(); ?></td>
+                            <td><?php echo $this->escapeHtml($check->getShop()->getCompany()->getInn()); ?></td>
+                            <td><?php echo $this->escapeHtml($check->getShop()->getTitle()); ?></td>
+                            <td>
+                                <?php echo $check->getHumanStatus(); ?>
+                            </td>
+                            <td><?php echo $check->getOfdLink() ? '<a target="_blank" href="https://consumer.1-ofd.ru/v1?'.$check->getOfdLink().'">Ссылка</a>' : ''; ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+            </div>
+        </div>
+    </div>
+</div>

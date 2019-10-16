@@ -1,0 +1,76 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 26.03.18
+ * Time: 21:22
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Invoice[] $invoices */
+/** @var array $paginator */
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Счета</h2>
+                <!--                <a href="--><?php //echo $this->url('admin.role', ['id' => 0]); ?><!--" class="btn btn-primary pull-right">Создать</a>-->
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Дата</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th>Дата оплаты</th>
+                        <th>Скачать</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($invoices as $invoice) {
+                        ?>
+                        <tr>
+                            <th scope="row"><?php echo $invoice->getId(); ?></th>
+                            <td>
+                                <?php echo $invoice->getDate()->format('d.m.Y'); ?>
+                            </td>
+                            <td>
+                                <?php echo $invoice->getSum(); ?>
+                            </td>
+                            <td>
+                                <?php
+                                if ($invoice->getStatus() === 0) {
+                                    ?>
+                                    <span class="label label-warning">Не оплачен</span>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <span class="label label-success">Оплачен</span>
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <?php echo $invoice->getDateAccept() ? $invoice->getDateAccept()->format('d.m.Y') : '' ?>
+                            </td>
+                            <td>
+                                <a
+                                        class="btn-xs btn-success"
+                                        title="Скачать счет в формате PDF"
+                                        href="<?php echo $this->url('office.invoice', ['id' => $invoice->getId()]); ?>">
+                                    PDF <span class="fa fa-download"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+            </div>
+        </div>
+    </div>
+</div>

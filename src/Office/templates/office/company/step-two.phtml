@@ -1,0 +1,91 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 22.03.18
+ * Time: 22:12
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Company $company */
+/** @var \Office\Entity\Ofd[] $ofds */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <!-- Smart Wizard -->
+                    <h2>Информация о компании</h2>
+                    <div id="wizard" class="form_wizard wizard_horizontal">
+                        <ul class="wizard_steps">
+                            <li>
+                                <a href="<?php echo $this->url('office.company.stepOne', ['id' => $company->getId()]); ?>" class="selected">
+                                    <span class="step_no">1</span>
+                                    <span class="step_descr">
+                                              Шаг 1<br/>
+                                              <small>Информация о компании</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="selected">
+                                    <span class="step_no">2</span>
+                                    <span class="step_descr">
+                                              Шаг 2<br/>
+                                              <small>ОФД</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $company->getId() ? $this->url('office.company.stepThree', ['id' => $company->getId()]) : '#' ?>"
+                                   class="<?php echo $company->getId() ? 'selected' : 'disabled'; ?>">
+                                    <span class="step_no">3</span>
+                                    <span class="step_descr">
+                                              Шаг 3<br/>
+                                              <small>Точка приема платежей</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="disabled">
+                                    <span class="step_no">4</span>
+                                    <span class="step_descr">
+                                              Шаг 4<br/>
+                                              <small>ККТ</small>
+                                          </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div id="step-1">
+                            <form class="form-horizontal form-label-left" method="post" action="?">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ofdId">
+                                        Выбор ОФД <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="ofdId" name="ofdId" required="required" class="form-control col-md-7 col-xs-12">
+                                            <?php
+                                            foreach ($ofds as $ofd) {
+                                                ?>
+                                                <option value="<?php echo $ofd->getId(); ?>"><?php echo $ofd->getTitle(); ?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="actionBar">
+                                    <button class="buttonNext btn btn-success btn_margin">Далее</button>
+                                    <!--                                    <a href="#" class="buttonPrevious buttonDisabled btn btn-primary">Previous</a>-->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

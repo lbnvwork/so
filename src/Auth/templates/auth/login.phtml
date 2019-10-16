@@ -1,0 +1,24 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 19.01.18
+ * Time: 10:51
+ */
+$this->headTitle('Авторизация');
+?>
+<h1 class="page-title">Авторизация</h1>
+<form class="enter-form" action="?" method="post">
+    <input type="email" required name="username" class="enter-form_input" placeholder="example@email.ru" value="">
+    <input id="password" type="password" required name="password" class="enter-form_input" placeholder="Пароль" value="">
+    <i class="eye show" title="Показать пароль"></i>
+    <div class="enter-form_actions">
+        <button type="submit" name="button" class="enter-form_button">Войти</button>
+        <a href="<?php echo $this->url('user.forget'); ?>" class="enter-form_link">Забыли пароль?</a>
+    </div>
+</form>
+<div class="enter-form_registration">
+    Только пришли?
+    <a href="<?php echo $this->url('register') ?>" class="enter-form_link">Регистрация</a>
+</div>
+

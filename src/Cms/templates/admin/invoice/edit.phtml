@@ -1,0 +1,129 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 10.05.18
+ * Time: 21:06
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Invoice $invoice */
+/** @var \Office\Entity\Company[] $companies */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <form class="form-horizontal form-label-left" novalidate method="post" action="?">
+                        <span class="section"><?php echo $invoice->getId() === null ? 'Создание' : 'Редактирование' ?> счета</span>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="company">
+                                Компания <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select name="company" id="company" class="form-control col-md-7 col-xs-12" required>
+                                    <?php
+                                    foreach ($companies as $company) {
+                                        ?>
+                                        <option value="<?php echo $company->getId(); ?>" <?php echo $company == $invoice->getCompany() ? 'selected' : ''; ?>>
+                                            <?php echo $this->escapeHtml($company->getDefaultTitle()); ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">
+                                Номер счета
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="number" class="form-control col-md-7 col-xs-12" name="number"
+                                       value="<?php echo $invoice->getNumber(); ?>"
+                                       type="text">
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                                <button type="button"
+                                        data-url="<?php echo $this->url('admin.invoice.edit', ['id' => (int)$invoice->getId()]); ?>"
+                                        class="btn btn-danger js-invoice-remove">Удалить
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <?php
+                    if ($invoice->getId() !== null) {
+                        ?>
+                        <a href="<?php echo $this->url('admin.invoice.edit', [
+                            'id'         => $invoice->getId(),
+                            'itemId'     => 0,
+                            'itemAction' => 'edit'
+                        ]
+                        ); ?>" class="btn btn-primary">
+                            Добавить позицию
+                        </a>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Название</th>
+                                <th>Количество</th>
+                                <th>Цена</th>
+                                <th>Сумма</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            /**
+                             * @var int $key
+                             * @var \Office\Entity\InvoiceItem $item
+                             */
+                            foreach ($invoice->getItem() as $key => $item) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $key + 1; ?></td>
+                                    <td><?php echo $item->getTitle(); ?></td>
+                                    <td><?php echo $item->getQuantity(); ?></td>
+                                    <td><?php echo $item->getPrice(); ?></td>
+                                    <td><?php echo $item->getSum(); ?></td>
+                                    <td>
+                                        <a href="<?php echo $this->url('admin.invoice.edit', [
+                                            'id'         => $invoice->getId(),
+                                            'itemId'     => $item->getId(),
+                                            'itemAction' => 'edit'
+                                        ]
+                                        ); ?>"
+                                           class="btn btn-success"><span class="fa fa-edit"></span></a>
+                                        <button
+                                                type="button"
+                                                data-url="<?php echo $this->url('admin.invoice.edit', [
+                                                    'id'     => $invoice->getId(),
+                                                    'itemId' => $item->getId()
+                                                ]
+                                                ); ?>"
+                                                class="btn btn-danger js-invoice-item-remove">
+                                            <span class="fa fa-remove"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

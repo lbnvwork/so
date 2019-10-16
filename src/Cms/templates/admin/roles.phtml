@@ -1,0 +1,81 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 25.01.18
+ * Time: 14:09
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Permission\Entity\Role[] $roles */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Список ролей
+                    </h2>
+                    <a href="<?php echo $this->url('admin.role', ['id' => 0]); ?>"
+                       class="btn btn-primary pull-right">Добавить</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <a href="<?php echo $this->url('admin.roles', [],
+                                    ['sort' => 'id', 'order' => $order]); ?>">
+                                    #
+                                </a>
+                                <?php if ($sortType === 'id') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url('admin.roles', [],
+                                ['sort' => 'roleName', 'order' => $order]); ?>">
+                                    Роль
+                                </a>
+                                <?php if ($sortType === 'roleName') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url('admin.roles', [],
+                                ['sort' => 'title', 'order' => $order]); ?>">
+                                    Описание
+                                </a>
+                                <?php if ($sortType === 'title') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($roles as $role) {
+                        ?>
+                        <tr>
+                            <th scope="row"><?php echo $role->getId(); ?></th>
+                            <td>
+                                <a href="<?php echo $this->url('admin.role',
+                                ['id' => $role->getId()]); ?>">
+                                    <?php echo $role->getRoleName(); ?>
+                                </a>
+                            </td>
+                            <td>
+                                <?php echo $role->getTitle(); ?>
+                            </td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

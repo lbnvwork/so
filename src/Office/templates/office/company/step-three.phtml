@@ -1,0 +1,371 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 22.03.18
+ * Time: 22:12
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Company $company */
+/** @var \Office\Entity\Shop[] $shops */
+/** @var \Office\Entity\Shop $editShop */
+/** @var \Auth\Entity\User $user */
+/** @var \Office\Entity\Tariff[] $tariffs */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <!-- Smart Wizard -->
+                    <h2>Информация о компании</h2>
+                    <div id="wizard" class="form_wizard wizard_horizontal">
+                        <ul class="wizard_steps">
+                            <li>
+                                <a href="<?php echo $this->url('office.company.stepOne', ['id' => $company->getId()]); ?>" class="selected">
+                                    <span class="step_no">1</span>
+                                    <span class="step_descr">
+                                              Шаг 1<br/>
+                                              <small>Информация о компании</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('office.company.stepTwo', ['id' => $company->getId()]); ?>" class="selected">
+                                    <span class="step_no">2</span>
+                                    <span class="step_descr">
+                                              Шаг 2<br/>
+                                              <small>ОФД</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="selected">
+                                    <span class="step_no">3</span>
+                                    <span class="step_descr">
+                                              Шаг 3<br/>
+                                              <small>Точка приема платежей</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-4" class="disabled">
+                                    <span class="step_no">4</span>
+                                    <span class="step_descr">
+                                              Шаг 4<br/>
+                                              <small>ККТ</small>
+                                          </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div id="step-1">
+                            <hr>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Id магазина</th>
+                                    <th>Название магазина</th>
+                                    <th>Url</th>
+                                    <th>Адрес точки приема платежей</th>
+                                    <th>Кол-во КТТ</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                foreach ($shops as $shop) {
+                                    ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $shop->getId(); ?></th>
+                                        <td>
+                                            <a href="<?php echo $this->url('office.company.stepThree', ['shopId' => $shop->getId()]) ?>">
+                                                <?php echo $this->escapeHtml($shop->getTitle()); ?>
+                                            </a>
+                                        </td>
+                                        <td><?php echo $this->escapeHtml($shop->getUrl()); ?></td>
+                                        <td><?php echo $this->escapeHtml($shop->getAddress()); ?></td>
+                                        <td><?php echo $shop->getKkt()->filter(
+                                                function ($kkt) {
+                                                    /** @var \Office\Entity\Kkt $kkt */
+                                                    return !$kkt->getIsDeleted();
+                                                }
+                                            )->count(); ?></td>
+                                        <td></td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                            <?php
+                            if (isset($editShop)) {
+                                ?>
+                                <div class="js-new-kkt">
+                                    <form class="form-horizontal form-label-left" method="post"
+                                          action="<?php echo $this->url('office.company.stepThree', ['shopId' => (int)$editShop->getId()]) ?>">
+                                        <span>Данные магазина</span>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">
+                                                Название магазина <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="name" class="form-control col-md-7 col-xs-12" name="name"
+                                                       value="<?php echo $this->escapeHtmlAttr($editShop->getTitle()); ?>"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="name">
+                                                Выбор точки приема платежей <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select class="form-control" id="paymentPoint" name="paymentPoint">
+                                                    <option value="online" <?php if (!empty($editShop->getUrl())) {
+                                                        echo 'selected';
+                                                    } ?>>Интернет-магазин
+                                                    </option>
+                                                    <option value="offline" <?php if (!empty($editShop->getAddress())) {
+                                                        echo 'selected';
+                                                    } ?>>Оффлайн точка приема платежей
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group js-url">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="url">
+                                                Url <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="url" class="form-control col-md-7 col-xs-12" name="url"
+                                                       value="<?php echo $this->escapeHtmlAttr($editShop->getUrl()); ?>"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group js-address">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="address">
+                                                Адрес точки приема платежей <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="address" class="form-control col-md-7 col-xs-12" name="address"
+                                                       value="<?php echo $this->escapeHtmlAttr($editShop->getAddress()); ?>"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">Передача фискальных документов ОФД в зашифрованном виде
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label class="">
+                                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                                            <input type="checkbox" class="flat" name="shfr"
+                                                                   value="1"
+                                                                   checked
+                                                                   disabled
+                                                                   style="position: absolute; opacity: 0;">
+                                                            <ins class="iCheck-helper"></ins>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">Версия ФФД
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="url" class="form-control col-md-7 col-xs-12" value="1.05" required="required" type="text" disabled>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <span>Параметры торговли</span>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">
+                                                Контрольно-кассовая техника используется при приеме денежных средств при реализации лотерейных билетов, электронных лотерейных
+                                                билетов, приеме лотерейных ставок и выплате денежных средств в виде выигрыша при осуществлении деятельности по организации и
+                                                проведению
+                                                лотерей
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" class="flat" name="kktParams[]" disabled="disabled" value="1">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">
+                                                Контрольно-кассовая техника используется при приеме ставок и выплате денежных средств в виде выигрыша при осуществлении деятельности
+                                                по
+                                                организации и проведению азартных игр
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" class="flat" name="kktParams[]" disabled="disabled" value="2">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">
+                                                Контрольно-кассовая техника используется при осуществлении деятельности банковского платежного агента (субагента)
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" class="flat" name="kktParams[]" disabled="disabled" value="3">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">
+                                                Контрольно-кассовая техника используется при осуществлении деятельности платежного агента/субагента
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" class="flat" name="kktParams[]" disabled="disabled" value="4">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">
+                                                Контрольно-кассовая техника используется для расчетов в информационно-телекоммуникационной сети «Интернет»
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label class="">
+                                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                                            <input type="checkbox" class="flat" name="kktParams[]"
+                                                                   value="5"
+                                                                   disabled
+                                                                   style="position: absolute; opacity: 0;">
+                                                            <ins class="iCheck-helper"></ins>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 col-sm-4 col-xs-12 control-label">
+                                                Контрольно-кассовая техника входит в состав автоматического устройства для расчетов
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label class="">
+                                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                                            <input type="checkbox" class="flat" name="kktParams[]"
+                                                                   value="6"
+                                                                   disabled
+                                                                   style="position: absolute; opacity: 0;">
+                                                            <ins class="iCheck-helper"></ins>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <span>Калькулятор</span>
+                                        <?php
+                                        if ($editShop->getId() !== null) {
+                                            ?>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="usedKkt">
+                                                    Используется ККТ
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="usedKkt" class="form-control col-md-7 col-xs-12" disabled value="<?php echo $editShop->getKkt()->count(); ?>"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="transaction">
+                                                Количество транзакций в год
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="transaction" class="form-control col-md-7 col-xs-12" name="transaction"
+                                                       value="0"
+                                                       type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="peak">
+                                                Пиковое количество транзакций в секунду
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="peak" class="form-control col-md-7 col-xs-12" name="peak"
+                                                       value="0"
+                                                       type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="recomendedKKT">
+                                                Рекомендуемое количество ККТ
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="recomendedKKT" class="form-control col-md-7 col-xs-12" name="recomendedKKT"
+                                                       value="0"
+                                                       type="text" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="tariff">
+                                                Выбор тарифа
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select class="form-control" id="tariff" name="tariffId">
+                                                    <?php foreach ($tariffs as $tariff): ?>
+                                                        <option
+                                                                value="<?php echo $tariff->getId(); ?>"
+                                                            <?php if ($tariff->getId() == $currTariff) {
+                                                                echo ' selected';
+                                                            } ?>
+                                                        >
+                                                            <?php echo $tariff->getTitle(); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="userKKT">
+                                                Арендуемое количество ККТ (Будут добавлены к текущему количеству) <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="userKKT" class="form-control col-md-7 col-xs-12" name="userKKT"
+                                                       value="0"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="<?php echo $this->url('office.company.stepThree', ['shopId' => null]); ?>" class="btn btn-default">Отмена</a>
+                                            <button class="btn btn-success">Сохранить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <?php
+                            } else {
+                                ?>
+                                <a href="<?php echo $this->url('office.company.stepThree', ['shopId' => 0]) ?>" class="btn btn-success js-add-kkt">Добавить точку приема
+                                    платежей</a>
+                                <div class="actionBar">
+                                    <a href="<?php echo $this->url('office.company.stepFour', ['id' => $company->getId()]); ?>"
+                                       class="buttonNext btn btn-success btn_margin">Далее</a>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

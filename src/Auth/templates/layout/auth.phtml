@@ -1,0 +1,104 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 23.01.18
+ * Time: 15:10
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \App\Service\FlashMessage $flashMessage */
+
+$this->headLink()
+    ->prependStylesheet('/assets/auth/css/styles.css')
+    ->prependStylesheet('/assets/auth/css/uikit.min.css')
+    ->prependStylesheet('/assets/auth/css/font-awesome.css')
+    ->prependStylesheet('/assets/auth/css/animate.css');
+//    ->prependStylesheet('/assets/auth/css/owl.carousel.min.css')
+//    ->prependStylesheet('/assets/auth/css/owl.theme.default.min.css');
+
+$this->inlineScript()
+    ->prependFile('/assets/auth/js/script.js')
+    ->prependFile('/assets/landing/js/wow.min.js')
+    ->prependFile('/assets/landing/js/uikit.min.js')
+    ->prependFile('/assets/landing/js/uikit-icons.min.js')
+    ->prependFile('/assets/landing/js/uikit-icons.min.js')
+    ->prependFile('/assets/landing/js/owl.carousel.min.js')
+    ->prependFile('/assets/vendors/jquery/dist/jquery.min.js');
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdn.envybox.io/widget/cbk.css">
+    <?php echo $this->headTitle('Счетмаш онлайн')->setSeparator(' - '); ?>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink(); ?>
+</head>
+<body>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        m[i].l = 1 * new Date();
+        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(48966332, "init", {
+        id: 48966332,
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true
+    });
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/48966332" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
+
+<?php echo $this->partial('layout::header'); ?>
+<div class="container wrapper">
+    <?php echo $this->content; ?>
+</div>
+
+<?php echo $this->partial('layout::footer'); ?>
+<div class="flashmessages">
+    <?php
+    if (isset($flashMessage)) {
+        foreach ($flashMessage->getMessages() as $typeMessage => $messages) {
+            $messages = (array)$messages;
+
+            foreach ($messages as $message) {
+                ?>
+                <div class="<?php echo $typeMessage; ?> flashmessage fadeInRight" role="alert">
+                    <!--                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+                    <!--                        <span aria-hidden="true">×</span>-->
+                    <!--                    </button>-->
+                    <?php echo $message; ?>
+                    <i class="fa fa-times" aria-hidden="true" data-dismiss="alert" aria-label="Закрыть"></i>
+                </div>
+                <?php
+            }
+        }
+    }
+    ?>
+</div>
+<?php echo $this->inlineScript(); ?>
+<script type="text/javascript" src="https://cdn.envybox.io/widget/cbk.js?wcb_code=ee8b70c1216911d1f40ce7517b28014a" charset="UTF-8" async></script>
+<!-- B24 -->
+<script>
+    (function(w,d,u){
+        var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
+        var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+    })(window,document,'https://b24.schetmash.com/upload/crm/site_button/loader_5_pvlcr2.js');
+</script>
+<!-- B24 -->
+</body>
+</html>

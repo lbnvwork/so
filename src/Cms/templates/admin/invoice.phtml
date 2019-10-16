@@ -1,0 +1,164 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 26.03.18
+ * Time: 21:22
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Invoice[] $invoices */
+/** @var \App\Helper\Paginator $paginator */
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Счета</h2>
+                <a href="<?php echo $this->url('admin.invoice.edit', ['id' => 0]); ?>" class="btn btn-primary pull-right">Создать</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.invoice', [],
+                                [
+                                    'sort' => 'id',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                #
+                            </a>
+                            <?php if ($sortType === 'id') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.invoice', [],
+                                [
+                                    'sort' => 'date',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                Дата
+                            </a>
+                            <?php if ($sortType === 'date') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.invoice', [],
+                                [
+                                    'sort' => 'sum',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                Сумма
+                            </a>
+                            <?php if ($sortType === 'sum') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                        <th>
+                            Компания
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.invoice', [],
+                                [
+                                    'sort' => 'dateUpdate',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                Дата принятия
+                            </a>
+                            <?php if ($sortType === 'dateUpdate') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.invoice', [],
+                                [
+                                    'sort' => 'status',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                Статус
+                            </a>
+                            <?php if ($sortType === 'status') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($invoices as $invoice) {
+                        ?>
+                        <tr>
+                            <th scope="row">
+                                <a href="<?php echo $this->url('admin.invoice.download', ['id' => $invoice->getId()]); ?>">
+                                    <?php echo $invoice->getNumber() ?? $invoice->getId(); ?>
+                                </a>
+                            </th>
+                            <td>
+                                <?php echo $invoice->getDate()->format('d.m.Y'); ?>
+                            </td>
+                            <td>
+                                <?php echo $invoice->getSum(); ?>
+                            </td>
+                            <td>
+                                <?php
+                                $company = $invoice->getCompany();
+                                echo $this->escapeHtml($company->getDefaultTitle());
+                                ?>
+                            </td>
+                            <td>
+                                <?php echo $invoice->getDateAccept() ? $invoice->getDateAccept()->format('d.m.Y') : '' ?>
+                            </td>
+                            <td>
+                                <?php
+                                if ($invoice->getStatus() === 0) {
+                                    ?>
+                                    <span class="label label-warning">Не оплачен</span>
+                                    <button
+                                            class="btn btn-xs btn-success js-confirm-invoice"
+                                            title="Подтвердить оплату"
+                                            data-url="<?php echo $this->url('admin.invoice', ['id' => (int)$invoice->getId()]); ?>">
+                                        <span class="fa fa-check"></span>
+                                    </button>
+                                    <a
+                                            class="btn btn-xs btn-primary"
+                                            href="<?php echo $this->url('admin.invoice.edit', ['id' => (int)$invoice->getId()]); ?>"
+                                            title="Редактирование счета"
+                                    >
+                                        <span class="fa fa-edit"></span>
+                                    </a>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <span class="label label-success">Оплачен</span>
+                                <?php } ?>
+                                <a
+                                        class="btn-xs btn-success"
+                                        title="Скачать счет в формате PDF"
+                                        href="<?php echo $this->url('admin.invoice.download', ['id' => $invoice->getId()]); ?>">
+                                    <span class="fa fa-download"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+            </div>
+        </div>
+    </div>
+</div>

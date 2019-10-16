@@ -1,0 +1,304 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 22.03.18
+ * Time: 19:58
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Company $company */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <!-- Smart Wizard -->
+                    <h2>Информация о компании</h2>
+                    <div id="wizard" class="form_wizard wizard_horizontal">
+                        <ul class="wizard_steps">
+                            <li>
+                                <a href="#" class="selected">
+                                    <span class="step_no">1</span>
+                                    <span class="step_descr">
+                                              Шаг 1<br/>
+                                              <small>Информация о компании</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                        href="<?php echo $company->getId() ? $this->url('office.company.stepTwo', ['id' => $company->getId()]) : '#' ?>"
+                                        class="<?php echo $company->getId() ? 'selected' : 'disabled'; ?>">
+                                    <span class="step_no">2</span>
+                                    <span class="step_descr">
+                                              Шаг 2<br/>
+                                              <small>ОФД</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $company->getId() ? $this->url('office.company.stepThree', ['id' => $company->getId()]) : '#' ?>"
+                                   class="<?php echo $company->getId() ? 'selected' : 'disabled'; ?>">
+                                    <span class="step_no">3</span>
+                                    <span class="step_descr">
+                                              Шаг 3<br/>
+                                              <small>Точка приема платежей</small>
+                                          </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="disabled">
+                                    <span class="step_no">4</span>
+                                    <span class="step_descr">
+                                              Шаг 4<br/>
+                                              <small>ККТ</small>
+                                          </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div id="step-1">
+                            <form class="form-horizontal form-label-left" method="post" action="?">
+                                <span>Сведения о компании</span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inn">
+                                        ИНН <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="inn" name="inn" required="required" value="<?php echo $this->escapeHtmlAttr($company->getInn()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyOrgType">
+                                        Организационно-правовая форма <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="companyOrgType" name="orgType" required="required" class="form-control col-md-7 col-xs-12">
+                                            <option value="0" <?php echo $company->getOrgType() == 0 ? 'selected="selected"' : ''; ?>>Юридическое лицо</option>
+                                            <option value="1" <?php echo $company->getOrgType() == 1 ? 'selected="selected"' : ''; ?>>Индивидуальный предприниматель</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group js-company-type-ooo">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyType">
+                                        Тип юр.лица <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyType" name="type" required="required" value="<?php echo $this->escapeHtmlAttr($company->getType()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group js-company-type-ooo">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyTitle">
+                                        Наименование юр.лица <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyTitle" name="title" required="required" value="<?php echo $this->escapeHtmlAttr($company->getTitle()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group js-company-type-ooo">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kpp">
+                                        КПП <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="kpp" name="kpp" required="required" value="<?php echo $this->escapeHtmlAttr($company->getKpp()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group js-company-type-ooo">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ogrn">
+                                        ОГРН <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="ogrn" name="ogrn" required="required" value="<?php echo $this->escapeHtmlAttr($company->getOgrn()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group js-company-type-ip" style="display: none">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ogrnIP">
+                                        ОГРНИП <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="ogrnIP" name="ogrnIP" value="<?php echo $this->escapeHtmlAttr($company->getOgrnIp()); ?>" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyNalogSystem">
+                                        Система налогообложения <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="companyNalogSystem" name="nalogSystem" required="required" class="form-control col-md-7 col-xs-12">
+                                            <option value="0" <?php echo $company->getNalogSystem() == 0 ? 'selected="selected"' : ''; ?>>ОСН</option>
+                                            <option value="1" <?php echo $company->getNalogSystem() == 1 ? 'selected="selected"' : ''; ?>>УСН Доход</option>
+                                            <option value="2" <?php echo $company->getNalogSystem() == 2 ? 'selected="selected"' : ''; ?>>УСН Доход минус расход</option>
+                                            <option value="3" <?php echo $company->getNalogSystem() == 3 ? 'selected="selected"' : ''; ?>>ЕНВД</option>
+                                            <option value="4" <?php echo $company->getNalogSystem() == 4 ? 'selected="selected"' : ''; ?>>ЕСХН</option>
+                                            <option value="5" <?php echo $company->getNalogSystem() == 5 ? 'selected="selected"' : ''; ?>>ПСН</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="js-company-type-ip">
+                                    <hr>
+                                    <span>Индивидуальный предприниматель</span>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyIPLastName">
+                                            Фамилия <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="companyIPLastName" name="ipLastName"
+                                                   value="<?php echo $this->escapeHtmlAttr($company->getIpLastName()); ?>"
+                                                   class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyIPFirstName">
+                                            Имя <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="companyIPFirstName" name="ipFirstName"
+                                                   value="<?php echo $this->escapeHtmlAttr($company->getIpFirstName()); ?>"
+                                                   class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyIPMiddleName">
+                                            Отчество <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="companyIPMiddleName" name="ipMiddleName"
+                                                   value="<?php echo $this->escapeHtmlAttr($company->getIpMiddleName()); ?>"
+                                                   class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <span>Контактные данные</span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyAddress">
+                                        Фактический адрес <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyAddress" name="address"
+                                               value="<?php echo $this->escapeHtmlAttr($company->getAddress()); ?>"
+                                               required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyPhone">
+                                        Телефон <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyPhone" name="companyPhone"
+                                               value="<?php echo $this->escapeHtmlAttr($company->getCompanyPhone()); ?>"
+                                               required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyEmail">
+                                        E-mail <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyEmail" name="companyEmail"
+                                               value="<?php echo $this->escapeHtmlAttr($company->getCompanyEmail()); ?>"
+                                               required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <span>Руководитель / представитель</span>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyDirectorLastName">
+                                        Фамилия <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyDirectorLastName" name="directorLastName" required="required"
+                                               value="<?php echo $this->escapeHtmlAttr($company->getDirectorLastName()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyDirectorFirstName">
+                                        Имя <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyDirectorFirstName" name="directorFirstName" required="required"
+                                               value="<?php echo $this->escapeHtmlAttr($company->getDirectorFirstName()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyDirectorMiddleName">
+                                        Отчество <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyDirectorMiddleName" name="directorMiddleName" required="required"
+                                               value="<?php echo $this->escapeHtmlAttr($company->getDirectorMiddleName()); ?>"
+                                               class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyCheckEmail">
+                                        Адрес электронной почты отправителя чека <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="companyCheckEmail" name="companyCheckEmail"
+                                               value="<?php echo $this->escapeHtmlAttr($company->getCompanyCheckEmail()); ?>"
+                                               required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyAcept">
+                                        Я принимаю условия <a target="_blank" style="text-decoration: underline;" href="/upload/docs/offerta.pdf">оферты</a>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <input type="checkbox" id="companyAcept" name="companyAcept" required <?php echo $company->getId() !== 0 ? 'checked' : ''; ?>>
+                                </div>
+
+
+                                <div class="actionBar">
+                                    <button class="buttonNext btn btn-success btn_margin">Далее</button>
+                                    <!--                                    <a href="#" class="buttonPrevious buttonDisabled btn btn-primary">Previous</a>-->
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <!-- End SmartWizard Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<input id="party" name="party" type="text" size="100"/>-->
+<link href="https://cdn.jsdelivr.net/npm/suggestions-jquery@17.12.0/dist/css/suggestions.min.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/suggestions-jquery@17.12.0/dist/js/jquery.suggestions.min.js"></script>
+<script type="text/javascript">
+    $("#inn").suggestions({
+        token: "8181b78ac34eeafa893e9ef8d286a1a5cd385cc4",
+        type: "PARTY",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function (suggestion) {
+            $("#inn").val(suggestion.data.inn);
+            $("#kpp").val(suggestion.data.kpp);
+            $("#ogrn").val(suggestion.data.ogrn);
+            $("#companyTitle").val(suggestion.data.name.full);
+            var fio = suggestion.data.management.name.split(' ');
+
+            $('#companyDirectorLastName').val(fio[0]);
+            $('#companyDirectorFirstName').val(fio[1]);
+            $('#companyDirectorMiddleName').val(fio[2]);
+
+            $('#companyAddress').val(suggestion.data.address.unrestricted_value);
+            $('#companyType').val(suggestion.data.opf.full);
+        }
+    });
+</script>

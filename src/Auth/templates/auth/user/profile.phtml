@@ -1,0 +1,103 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 26.09.18
+ * Time: 14:10
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Auth\Entity\User $user */
+/** @var bool $uFirstEdit */
+if($uFirstEdit){
+    $this->inlineScript()->captureStart();
+    echo <<<JS
+   $(window).load(function() {
+        ym(48966332, 'reachGoal', 'EDITPROFILE');
+    });
+JS;
+    $this->inlineScript()->captureEnd();
+}
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <h2>Профиль пользователя</h2>
+                    <form class="form-horizontal form-label-left" method="post" action="?">
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastName">
+                                Фамилия <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="lastName" class="form-control col-md-7 col-xs-12" name="lastName" required="required" type="text"
+                                       value="<?php echo $this->escapeHtmlAttr($user->getLastName()); ?>">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstName">
+                                Имя <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="firstName" class="form-control col-md-7 col-xs-12" name="firstName" required="required" type="text"
+                                       value="<?php echo $this->escapeHtmlAttr($user->getFirstName()); ?>">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="middleName">
+                                Отчество <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middleName" class="form-control col-md-7 col-xs-12" name="middleName" required="required" type="text"
+                                       value="<?php echo $this->escapeHtmlAttr($user->getMiddleName()); ?>">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">
+                                Телефон <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input
+                                        id="phone"
+                                        class="form-control col-md-7 col-xs-12"
+                                        name="phone"
+                                        required="required"
+                                        type="text"
+                                        value="<?php echo $this->escapeHtmlAttr($user->getPhone()); ?>"
+                                >
+                            </div>
+                        </div>
+                        <?php
+                        if (!$user->getIsConfirmed()) {
+                            ?>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="newPassword">
+                                    Новый пароль <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="newPassword" class="form-control col-md-7 col-xs-12" name="newPassword" required="required" type="password">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="confirmPassword">
+                                    Подтверждение пароля <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="confirmPassword" class="form-control col-md-7 col-xs-12" name="confirmPassword" required="required" type="password">
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="send" type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

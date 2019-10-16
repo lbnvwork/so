@@ -1,0 +1,74 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 23.04.18
+ * Time: 8:55
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Kkt $kkt */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <form class="form-horizontal form-label-left" novalidate method="post" enctype="multipart/form-data" action="?">
+                        <span class="section">Прикрепление файлов к кассе #<?php echo $kkt->getSerialNumber(); ?></span>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rnm">
+                                Отчет о регистрации в ФНС (файл с РНМ) <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="rnm" class="form-control col-md-7 col-xs-12" name="rnm" type="file">
+                            </div>
+                        </div>
+                        <?php
+                        if ($kkt->getRnmFile()) {
+                            ?>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <span class="label label-success">
+                                        Загружен
+                                    </span>
+                                    <a href="<?php echo $this->escapeHtmlAttr($kkt->getRnmFile()); ?>"> скачать</a>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="finish">
+                                Результат регистрации ККТ в ФНС <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="finish" class="form-control col-md-7 col-xs-12" name="fiscalResult" type="file">
+                            </div>
+                        </div>
+                        <?php
+                        if ($kkt->getFiscalResultFile()) {
+                            ?>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <span class="label label-success">
+                                        Загружен
+                                    </span>
+                                    <a href="<?php echo $this->escapeHtml($kkt->getFiscalResultFile()); ?>"> скачать</a>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

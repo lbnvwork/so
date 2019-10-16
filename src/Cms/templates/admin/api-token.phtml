@@ -1,0 +1,54 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 19.10.18
+ * Time: 16:07
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\ApiKey[] $tokens */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Токены доступа</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Логин</th>
+                            <th>Пароль</th>
+                            <th>Токен</th>
+                            <th>Дата создания</th>
+                            <th>Дата протухания</th>
+                            <th>Пользователь</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($tokens as $apiKey) {
+                            ?>
+                            <tr>
+                                <td><?php echo $apiKey->getId(); ?></td>
+                                <td><?php echo $apiKey->getLogin(); ?></td>
+                                <td><?php echo $apiKey->getPassword(); ?></td>
+                                <td><?php echo $apiKey->getToken(); ?></td>
+                                <td><?php echo $apiKey->getDateCreate() ? $apiKey->getDateCreate()->format('d.m.Y H:i:s') : '-'; ?></td>
+                                <td><?php echo $apiKey->getDateExpiredToken() ? $apiKey->getDateExpiredToken()->format('d.m.Y H:i:s') : '-'; ?></td>
+                                <td><?php echo $apiKey->getUser()->getFIO(); ?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

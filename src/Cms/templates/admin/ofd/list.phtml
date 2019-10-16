@@ -1,0 +1,97 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 29.03.18
+ * Time: 20:59
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Ofd[] $items */
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>ОФД</h2>
+                <a href="<?php echo $this->url('admin.ofd.edit', ['id' => 0]); ?>" class="btn btn-primary pull-right">Создать</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.ofd', [],
+                                [
+                                    'sort' => 'id',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                #
+                            </a>
+                            <?php if ($sortType === 'id') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.ofd', [],
+                                [
+                                    'sort' => 'title',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                Название
+                            </a>
+                            <?php if ($sortType === 'title') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                        <th>
+                            <a href="<?php echo $this->url(
+                                'admin.ofd', [],
+                                [
+                                    'sort' => 'isEnabled',
+                                    'order' => $order
+                                ]
+                            ); ?>">
+                                Статус
+                            </a>
+                            <?php if ($sortType === 'isEnabled') { ?>
+                                <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                            <?php } ?>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($items as $item) {
+                        ?>
+                        <tr>
+                            <th scope="row"><?php echo $item->getId(); ?></th>
+                            <td>
+                                <a href="<?php echo $this->url('admin.ofd.edit', ['id' => $item->getId()]); ?>"><?php echo $item->getTitle(); ?></a>
+                            </td>
+                            <td>
+                                <?php
+                                if ($item->getIsEnabled()) {
+                                    ?>
+                                    <span class="label label-success">Активен</span>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <span class="label label-warning">Не активен</span>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

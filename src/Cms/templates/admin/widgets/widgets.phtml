@@ -1,0 +1,35 @@
+<?php
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var array $widgets */
+?>
+
+<h1>Сводная информация</h1>
+<div class="row tile_count">
+    <?php
+    if (isset($widgets['small'])) {
+        foreach ($widgets['small'] as $d) {
+            echo $this->partial('admin::widgets/'.$d['layout'], ['data' => $d['data']]);
+        }
+    }
+    ?>
+</div>
+
+<div class="row">
+    <?php
+    if (isset($widgets['middle'])) {
+        foreach ($widgets['middle'] as $d) {
+            echo $this->partial('admin::widgets/'.$d['layout'], ['data' => $d['data']]);
+        }
+    }
+    ?>
+</div>
+
+<div class="row">
+    <?php
+    if (isset($widgets['big'])) {
+        foreach ($widgets['big'] as $d) {
+            echo $this->partial('admin::widgets/'.$d['layout'], ['data' => $d['data']]);
+        }
+    }
+    ?>
+</div>

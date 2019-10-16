@@ -1,0 +1,29 @@
+# Codeception Test Suite Configuration
+#
+# Suite for functional tests
+# Emulate web requests and make application process them
+# Include one of framework modules (Symfony2, Yii2, Laravel5) to use it
+# Remove this suite if you don't use frameworks
+
+actor: FunctionalTester
+extensions:
+  enabled:
+    - Codeception\Extension\DatabaseMigrationExtension
+modules:
+  enabled:
+    # add a framework module here
+    - \Helper\Functional
+    - ZendExpressiveExt:
+        recreateApplicationBetweenTests: true #Похорошему нужно true для пересоздания приложения
+        recreateApplicationBetweenRequests: false
+    - Asserts
+    - Cli
+    - Doctrine2:
+        depends: ZendExpressiveExt
+        cleanup: true # All doctrine queries will be wrapped in a transaction, which will be rolled back at the end of each test
+    - REST:
+        depends: ZendExpressiveExt
+        url: http://localhost/
+        shortDebugResponse: 300
+        part: Json
+  step_decorators: ~

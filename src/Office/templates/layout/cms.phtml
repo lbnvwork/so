@@ -1,0 +1,121 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 23.01.18
+ * Time: 13:51
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \App\Service\FlashMessage $flashMessage */
+//css
+$this->headLink()->prependStylesheet('/assets/cms/build/css/custom-mobile.css')
+    ->prependStylesheet('/assets/cms/build/css/custom.min.css')
+    ->prependStylesheet('/assets/cms/vendors/bootstrap/dist/css/bootstrap.min.css')
+    ->prependStylesheet('/assets/cms/vendors/font-awesome/css/font-awesome.min.css')
+    ->prependStylesheet('/assets/cms/vendors/nprogress/nprogress.css')
+    ->prependStylesheet('/assets/cms/vendors/iCheck/skins/flat/green.css')
+    ->prependStylesheet('/assets/cms/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')
+    ->prependStylesheet('/assets/cms/vendors/jqvmap/dist/jqvmap.min.css')
+    ->prependStylesheet('/assets/cms/vendors/bootstrap-daterangepicker/daterangepicker.css')
+    ->prependStylesheet('/assets/cms/vendors/switchery/dist/switchery.min.css');
+
+//js
+$this->inlineScript()
+    ->prependFile('/assets/cms/build/js/app.js')
+    ->prependFile('/assets/cms/build/js/custom.js')
+    ->prependFile('/assets/cms/vendors/bootstrap-daterangepicker/daterangepicker.js')
+    ->prependFile('/assets/cms/vendors/moment/min/moment.min.js')
+    ->prependFile('/assets/cms/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')
+    ->prependFile('/assets/cms/vendors/jqvmap/dist/maps/jquery.vmap.world.js')
+    ->prependFile('/assets/cms/vendors/jqvmap/dist/jquery.vmap.js')
+    ->prependFile('/assets/cms/vendors/DateJS/build/date.js')
+    ->prependFile('/assets/cms/vendors/flot.curvedlines/curvedLines.js')
+    ->prependFile('/assets/cms/vendors/flot-spline/js/jquery.flot.spline.min.js')
+    ->prependFile('/assets/cms/vendors/flot.orderbars/js/jquery.flot.orderBars.js')
+    ->prependFile('/assets/cms/vendors/Flot/jquery.flot.resize.js')
+    ->prependFile('/assets/cms/vendors/Flot/jquery.flot.stack.js')
+    ->prependFile('/assets/cms/vendors/Flot/jquery.flot.time.js')
+    ->prependFile('/assets/cms/vendors/Flot/jquery.flot.pie.js')
+    ->prependFile('/assets/cms/vendors/Flot/jquery.flot.js')
+    ->prependFile('/assets/cms/vendors/skycons/skycons.js')
+    ->prependFile('/assets/cms/vendors/iCheck/icheck.min.js')
+    ->prependFile('/assets/cms/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')
+    ->prependFile('/assets/cms/vendors/gauge.js/dist/gauge.min.js')
+    ->prependFile('/assets/cms/vendors/Chart.js/dist/Chart.min.js')
+    ->prependFile('/assets/cms/vendors/nprogress/nprogress.js')
+    ->prependFile('/assets/cms/vendors/fastclick/lib/fastclick.js')
+    ->prependFile('/assets/cms/vendors/bootstrap/dist/js/bootstrap.min.js')
+    ->prependFile('/assets/cms/vendors/jquery/dist/jquery.min.js')
+    ->prependFile('/assets/vendors/validator/validator.js')
+    ->prependFile('/assets/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js');
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico" type="image/ico"/>
+
+    <?php echo $this->headTitle('CMS')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink(); ?>
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <?php echo $this->partial('layout::left-menu'); ?>
+
+        <!-- top navigation -->
+        <?php echo $this->partial('layout::top-navigation'); ?>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="x_content bs-example-popovers">
+                <?php
+                if (isset($flashMessage)) {
+                    foreach ($flashMessage->getMessages() as $typeMessage => $message) {
+                        ?>
+                        <div class="alert alert-<?php echo $typeMessage; ?> alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
+                            <?php echo $message; ?>
+                            <!--                        <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.-->
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
+
+            <?php echo $this->content ?>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+<!--            <div class="pull-right">-->
+<!--                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>-->
+<!--            </div>-->
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<?php echo $this->inlineScript(); ?>
+<!-- B24 -->
+<script>
+    (function(w,d,u){
+        var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
+        var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+    })(window,document,'https://b24.schetmash.com/upload/crm/site_button/loader_5_pvlcr2.js');
+</script>
+<!-- B24 -->
+</body>
+</html>
+

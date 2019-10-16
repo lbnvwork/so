@@ -1,0 +1,40 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 26.01.18
+ * Time: 11:13
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \App\Entity\Setting $settings */
+?>
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                     Настройки сайта
+                </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_main" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Основные</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab_main" aria-labelledby="home-tab">
+                            <?php echo $this->partial('admin::settings/tab', ['type' => 'main', 'settings' => $settings]); ?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

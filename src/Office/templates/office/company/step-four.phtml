@@ -1,0 +1,95 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 22.03.18
+ * Time: 22:12
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Company $company */
+/** @var \Office\Entity\Shop[] $shops */
+/** @var string $kktLocation */
+
+$this->headLink()->prependStylesheet('/assets/vendors/pnotify/dist/pnotify.css')
+    ->prependStylesheet('/assets/vendors/pnotify/dist/pnotify.buttons.css')
+    ->prependStylesheet('/assets/vendors/pnotify/dist/pnotify.nonblock.css');
+
+$this->inlineScript()
+    ->prependFile('/assets/vendors/pnotify/dist/pnotify.buttons.js')
+    ->prependFile('/assets/vendors/pnotify/dist/pnotify.nonblock.js')
+    ->prependFile('/assets/vendors/pnotify/dist/pnotify.js');
+?>
+    <div class="row tile_count">
+
+        <div class="col-md-4 col-sm-6 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> <?php echo $this->escapeHtml($company->getTitle()); ?></span>
+            <div class="count js-company-balance"><?php echo $company->getBalance(); ?> руб.</div>
+        </div>
+    </div>
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+
+                        <!-- Smart Wizard -->
+                        <h2>Информация о компании</h2>
+                        <div id="wizard" class="form_wizard wizard_horizontal">
+                            <ul class="wizard_steps">
+                                <li>
+                                    <a href="<?php echo $this->url('office.company.stepOne', ['id' => $company->getId()]); ?>" class="selected">
+                                        <span class="step_no">1</span>
+                                        <span class="step_descr">
+                                              Шаг 1<br/>
+                                              <small>Информация о компании</small>
+                                          </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('office.company.stepTwo', ['id' => $company->getId()]); ?>" class="selected">
+                                        <span class="step_no">2</span>
+                                        <span class="step_descr">
+                                              Шаг 2<br/>
+                                              <small>ОФД</small>
+                                          </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('office.company.stepThree', ['id' => $company->getId()]); ?>" class="selected">
+                                        <span class="step_no">3</span>
+                                        <span class="step_descr">
+                                              Шаг 3<br/>
+                                              <small>Точка приема платежей</small>
+                                          </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="selected">
+                                        <span class="step_no">4</span>
+                                        <span class="step_descr">
+                                              Шаг 4<br/>
+                                              <small>ККТ</small>
+                                          </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="step-1">
+                                <?php
+                                foreach ($shops as $shop) {
+                                    echo $this->partial(
+                                        'office::kkt/kkt-table', [
+                                            'shop'        => $shop,
+                                            'company'     => $company,
+                                            'kktLocation' => $kktLocation,
+                                        ]
+                                    );
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php echo $this->partial('office::kkt/kkt-modal'); ?>

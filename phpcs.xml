@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="KEAZ Expressive coding standard">
+    <description>KEAZ Expressive coding standard</description>
+
+    <!-- display progress -->
+    <arg value="p"/>
+    <arg name="colors"/>
+
+    <!-- inherit rules from: -->
+    <rule ref="PSR2"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <property name="ignoreBlankLines" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- Lines can be 80 chars long, show errors at 120 chars -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="165"/>
+            <property name="absoluteLineLimit" value="200"/>
+        </properties>
+    </rule>
+
+    <!-- Paths to check -->
+    <file>src</file>
+</ruleset>

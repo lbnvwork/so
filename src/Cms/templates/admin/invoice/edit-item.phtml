@@ -1,0 +1,86 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 10.05.18
+ * Time: 21:06
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Invoice $invoice */
+/** @var \Office\Entity\InvoiceItem $invoiceItem */
+/** @var \App\Entity\Service[] $services */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <form class="form-horizontal form-label-left" novalidate method="post" action="?">
+                        <span class="section">Редактирование счета #<?php echo $invoice->getNumber() ?? $invoice->getId(); ?></span>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="service">
+                                Наименование <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select name="service" id="service" class="form-control">
+                                    <?php
+                                    foreach ($services as $service) {
+                                        ?>
+                                        <option
+                                                value="<?php echo $service->getId(); ?>"
+                                                <?php echo $invoiceItem->getService() === $service ? 'selected' : ''; ?>
+                                        >
+                                            <?php echo $service->getName(); ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="quantity">
+                                Количество <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="quantity" class="form-control col-md-7 col-xs-12" name="quantity"
+                                       value="<?php echo $invoiceItem->getQuantity(); ?>"
+                                       required="required" type="number">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sum">
+                                Сумма
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="sum" class="form-control col-md-7 col-xs-12" name="sum"
+                                       value="<?php echo $invoiceItem->getSum(); ?>"
+                                       disabled
+                                       type="text">
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                                <button type="button"
+                                        data-url="<?php echo $this->url('admin.invoice.edit', [
+                                            'id'         => $invoice->getId(),
+                                            'itemId'     => $invoiceItem->getId(),
+                                            'itemAction' => 'remove'
+                                        ]
+                                        ); ?>"
+                                        class="btn btn-danger js-invoice-item-remove">
+                                    Удалить
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 25.01.18
+ * Time: 14:09
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \App\Entity\Service $service */
+
+$this->inlineScript()->prependFile('/assets/cms/vendors/validator/validator.js');
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <form class="form-horizontal form-label-left" novalidate method="post" action="?">
+                        <span class="section">Редактирование услуги</span>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Название <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="name" class="form-control col-md-7 col-xs-12" name="name"
+                                       value="<?php echo $service->getName(); ?>"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="measure">
+                                Ед. измерения <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="measure" class="form-control col-md-7 col-xs-12" name="measure"
+                                       value="<?php echo $service->getMeasure(); ?>"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">
+                                Цена <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="price" class="form-control col-md-7 col-xs-12" name="price"
+                                       value="<?php echo $service->getPrice(); ?>"
+                                       required="required" type="number">
+                            </div>
+                        </div><div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="defaultValue">
+                                Значение по умолчанию (первый счет) <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="defaultValue" class="form-control col-md-7 col-xs-12" name="defaultValue"
+                                       value="<?php echo $service->getDefaultValue(); ?>"
+                                       required="required" type="number">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="send" type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

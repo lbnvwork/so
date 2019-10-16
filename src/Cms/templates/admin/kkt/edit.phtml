@@ -1,0 +1,275 @@
+<?php
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Kkt $kkt */
+
+//$this->inlineScript()->prependFile('/assets/cms/vendors/validator/validator.js');
+$fnLiveTimes = [
+    '',
+    15,
+    36,
+];
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <form class="form-horizontal form-label-left js-kkt-edit-from" novalidate method="post" action="?">
+                        <span class="section">
+                            Редактирование кассы <?php echo $kkt->getId(); ?>
+                            <?php
+                            if ($kkt->getShop()) {
+                                echo '('.$this->escapeHtml($kkt->getShop()->getCompany()->getDefaultTitle()).')';
+                            }
+                            ?>
+                        </span>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="serialNumber">
+                                Серийный номер
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="serialNumber" class="form-control col-md-7 col-xs-12" name="serialNumber"
+                                       value="<?php echo $kkt->getSerialNumber(); ?>"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fnNumber">
+                                ФН
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="fnNumber" class="form-control col-md-7 col-xs-12" name="fnNumber"
+                                       value="<?php echo $kkt->getFsNumber(); ?>"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rnm">
+                                РНМ
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="rnm" class="form-control col-md-7 col-xs-12" name="rnm"
+                                       value="<?php echo $this->escapeHtmlAttr($kkt->getRegNumber()); ?>"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fnLiveTime">
+                                Срок жизни ФН
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select name="fnLiveTime" id="fnLiveTime" class="form-control col-md-7 col-xs-12">
+                                    <?php
+                                    foreach ($fnLiveTimes as $fnLiveTime) {
+                                        ?>
+                                        <option value="<?php echo $fnLiveTime; ?>" <?php echo $kkt->getFnLiveTime() === $fnLiveTime ? 'selected' : '' ?>>
+                                            <?php echo $fnLiveTime; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">Активна
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="checkbox">
+                                    <label class="">
+                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                            <input type="checkbox" class="flat" name="isEnabled"
+                                                <?php echo $kkt->getIsEnabled() ? 'checked="checked"' : '' ?>
+                                                   value="1"
+                                                   style="position: absolute; opacity: 0;">
+                                            <ins class="iCheck-helper"></ins>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">Фискализирована
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="checkbox">
+                                    <label class="">
+                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                            <input type="checkbox" class="flat" name="isFiscalized"
+                                                <?php echo $kkt->getIsFiscalized() ? 'checked="checked"' : '' ?>
+                                                   value="1"
+                                                   style="position: absolute; opacity: 0;">
+                                            <ins class="iCheck-helper"></ins>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <a
+                                        class="btn btn-primary"
+                                        title="Обновление данных из Армакс"
+                                        href="<?php echo $this->url(
+                                            'admin.kkt.info', [
+                                                'id'     => $kkt->getId(),
+                                                'action' => 'update',
+                                            ]
+                                        ); ?>"
+                                >
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </a>
+                                <?php
+                                if (!($kkt->getCloseFnRawData() && $kkt->getIsFiscalized())) {
+                                    ?>
+                                    <button type="button" data-toggle="modal" data-target="#fiscalModal" class="btn btn-success">Фискализация</button>
+                                    <?php
+                                }
+                                if ($kkt->getIsFiscalized()) {
+                                    ?>
+                                    <a
+                                            target="_blank"
+                                            href="<?php echo $this->url('admin.kkt.info', ['id' => $kkt->getId()]); ?>"
+                                            class="btn btn-primary"
+                                            title="Информация о фискализации"
+                                    >
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <?php
+                                    if (!$kkt->getCloseFnRawData()) {
+                                        ?>
+                                        <button type="button" data-toggle="modal" data-target="#closeFnModal" class="btn btn-warning">Закрытие ФН</button>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="<?php echo $this->url(
+                                            'admin.kkt.info', [
+                                                'id'     => $kkt->getId(),
+                                                'action' => 'close-report',
+                                            ]
+                                        ); ?>"
+                                           target="_blank"
+                                           class="btn btn-danger"
+                                           title="Информация о закрытии ФН"
+                                        >
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                        </a>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <a href="<?php echo $this->url('admin.kkt'); ?>" class="btn btn-default">Назад</a>
+                                <button id="send" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Изменение данных кассы</h4>
+            </div>
+            <div class="modal-body">
+                Нажимая на кнопку сохранить, я подтверждаю, что нахожусь в здравом уме, твердой памяти и понимаю, что делаю.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="margin-bottom: 1px" data-dismiss="modal">Отмена</button>
+                <button
+                        type="button"
+                        data-url="<?php echo $this->url('admin.kkt.edit', ['id' => $kkt->getId()]) ?>"
+                        class="btn btn-danger js-admin-kkt-edit"
+                >
+                    Да, я уверен
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="fiscalModal" tabindex="-1" role="dialog" aria-labelledby="fiscalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="fiscalModalLabel">Фискализация кассы</h4>
+            </div>
+            <form action="<?php echo $this->url(
+                'admin.kkt.info', [
+                    'id'     => $kkt->getId(),
+                    'action' => 'fiscal',
+                ]
+            ); ?>" method="post">
+                <div class="modal-body">
+                    Нажимая на кнопку сохранить, я подтверждаю, что нахожусь в здравом уме, твердой памяти и понимаю, что делаю.
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="">Причина регистрации</label>
+                        <?php
+                        foreach (\Office\Service\Umka::REASON_IDS as $key => $reason) {
+                            ?>
+                            <div class="radio">
+                                <label>
+                                    <input
+                                            type="radio"
+                                            class="flat" <?php echo $key === -1 ? 'checked=""' : '' ?>
+                                            name="reason"
+                                            value="<?php echo $key; ?>"
+                                    >
+                                    <?php echo $reason ?>
+                                </label>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" style="margin-bottom: 1px" data-dismiss="modal">Отмена</button>
+                    <button
+                            type="submit"
+                            class="btn btn-danger"
+                    >
+                        Да, я уверен
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="closeFnModal" tabindex="-1" role="dialog" aria-labelledby="closeFnModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="closeFnModalLabel">Закрытие ФН</h4>
+            </div>
+            <div class="modal-body">
+                Нажимая на кнопку сохранить, я подтверждаю, что нахожусь в здравом уме, твердой памяти и понимаю, что делаю.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="margin-bottom: 1px" data-dismiss="modal">Отмена</button>
+                <a href="<?php echo $this->url('admin.kkt.closeFn', ['id' => $kkt->getId()]) ?>"
+                   class="btn btn-danger"
+                >
+                    Да, я уверен
+                </a>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

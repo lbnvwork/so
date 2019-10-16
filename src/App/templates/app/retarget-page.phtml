@@ -1,0 +1,107 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 20.11.18
+ * Time: 10:39
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+?>
+<!-- - - - - - - - - - - - - - - ОСНОВНОЙ БЛОК -  - - - - - - - - - - - - - - - - - -->
+<h1 class="title title-retarget">Здравствуйте!</h1>
+<section class="whitebackground">
+    <div class="wrapper2">
+        <p class="target-text text-max-w">Вы успешно прошли регистрацию на сайте «Счетмаш Онлайн» и находитесь
+            всего в одном шаге от использования веб-кассы!</p>
+    </div>
+</section>
+
+
+<section class="lightbluebackground">
+    <div class="wrapper2">
+        <p class="target-text">Мы заметили, что Вы не завершили регистрацию и не заполнили
+            <a class="password-recovery" href="<?php echo $this->url('login');?>">профиль</a>
+            в личном кабинете.<br>Может быть у вас остались вопросы?</p>
+        <a onclick="jivo_api.open(); ym(48966332, 'reachGoal', 'CONSULTATION'); return true;" class="plugin-button uk-button uk-button-default uk-margin-small-right blue-border button-marg" href="#">Задать вопрос консультанту</a>
+        <p class="text text-max-w2 left-right-padd ">Вы можете вернуться к регистрации кассы и продолжить заполнение данных прямо сейчас перейдя по
+            ссылке из письма, либо запросив <a class="password-recovery" href="<?php echo $this->url('user.forget');?>">восстановление пароля</a>.</p>
+    </div>
+</section>
+
+
+<!-- - - - - - - - - - - - - - - -ВАС НЕ УСТРАИВАЕТ СТОИМОСТЬ УСЛУГ? -  - - - - - - - - - - - - - - - - - -->
+
+<div class="whitebackground">
+    <div class="center-title2">
+        <h3>Вас не устраивает стоимость услуг?</h3>
+        <span class="subtitle-mini">Специально для Вас мы подготовили выгодное предложение:</span>
+    </div>
+    <div class="wrapper2 wrap-padding">
+        <img src="<?php echo APP_PATH?>images/gift3.png" class="image-wrap padd-left-right" alt=""></img>
+
+        <div class="p-inline">
+            <p class="target-text">Первый месяц использования <br> мы предоставим бесплатно!<!--<br>Ссылка на тарифы.--></p>
+            <a href="#callbackwidget" class="plugin-button orange-center-button on-white uk-button uk-button-default uk-margin-small-right">Заказать обратный звонок</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- - - - - - - - - - - - - - - -ПОДКЛЮЧАЯСЬ К СЧЕТМАШ ВЫ ... -  - - - - - - - - - - - - - - - - - -->
+
+<div class="lightbluebackground padd ">
+
+    <div class="center-title2">
+        <h3>Подключаясь к «Счетмаш Онлайн», Вы:</h3>
+    </div>
+
+    <div class=wrapper>
+        <div class="advantage-block">
+
+            <div class="advantage-item backgroundcolor">
+                <div class="advantage-item-img">
+                    <img src="<?php echo APP_PATH?>images/num1.png" alt="">
+                </div>
+                <div class="advantage-item-text">
+                    Приобретаете сервис за 1800 ₽, вместо стандартной рыночной цены 2000-3000 ₽.
+                </div>
+            </div>
+
+            <div class="advantage-item backgroundcolor">
+                <div class="advantage-item-img">
+                    <img src="<?php echo APP_PATH?>images/num2.png" alt="">
+                </div>
+                <div class="advantage-item-text">
+                    Соответствуете требованиям 54-ФЗ.
+                </div>
+            </div>
+
+            <div class="advantage-item backgroundcolor">
+                <div class="advantage-item-img">
+                    <img src="<?php echo APP_PATH?>images/num3.png" alt="">
+                </div>
+
+                <div class="advantage-item-text">
+                    Получаете техническое сопровождение, надежность и энергонезависимость кассовой техники.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="wrapper2">
+        <p class="target-text">Это обеспечивает безопасность Ваших данных
+            и постоянный доступ к сервису.<br>
+            Мы даем больше, чем просто аренду кассы: мы избавляем Вас от забот.</p>
+    </div>
+</div>
+
+<section class="whitebackground">
+    <img src="<?php echo APP_PATH?>images/phone.png" class="image-wrap" alt=""></img>
+    <h2 class="wrap-padding">Всё ещё остались вопросы?</h2>
+    <span class="subtitle-mini">Звоните по бесплатному телефону горячей линии</span>
+    <label class="phone2">
+        <i class="fa fa-phone"></i>
+        <a href="tel:+74712734990" class="phone2">+7 (4712) 73-49-90</a>
+    </label>
+</section>

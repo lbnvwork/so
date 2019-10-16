@@ -1,0 +1,775 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 20.11.18
+ * Time: 10:39
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Tariff[] $tariffs */
+/** @var \Office\Entity\Tariff $defaultTariff */
+?>
+<section class="banner">
+    <div class="banner-head">
+        <img src="/upload/content/schetmash.png" alt="">
+        <div class="title-block">
+            <h1 class="main-title">«Счетмаш Онлайн»</h1>
+            <h2 class="main-subtitle">Интернет-касса для Вашего бизнеса <strong>1 месяц бесплатно</strong></h2>
+            <a class="plugin-button uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-order" href="#"
+               onclick="ym(48966332, 'reachGoal', 'CONNECT'); return true;">Подключиться</a>
+        </div>
+    </div>
+</section>
+<section class="exclamation-block wrapper">
+    <div class="exclamation-block-center">
+        <div class="exclamation-icon">
+            <img src="/upload/content/warning.png" alt="">
+        </div>
+        <div class="exclamation-text">
+            Поскольку теперь при любой онлайн-оплате должен выдаваться чек, владельцам сайтов нужно обеспечить бесперебойную работу кассы. Поэтому, чтобы клиенты смогли совершать
+            покупки у Вас 24/7 365 дней в году, Вам необходим сервис «Счетмаш Онлайн».
+        </div>
+    </div>
+</section>
+<section class="blue-block-responsive">
+    <div class="wrapper js-connect-parent">
+        <div class="blue-block-text">
+            «Счетмаш Онлайн» - это веб-касса для сайтов, где за товары или услуги можно расплатиться онлайн. С помощью этого сервиса покупатели получают электронные чеки, а Ваш
+            бизнес в интернете соответствует 54-ФЗ.
+        </div>
+        <!--<a class="orange-center-button uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-order" href="#">Подключиться</a>-->
+        <?= $this->partial(
+            'app::connect_form', [
+                'buttonClass'   => '',
+                'divWhiteClass' => '',
+            ]
+        ) ?>
+    </div>
+</section>
+<div class="wrapp center-title">
+    <h3>Подключить «Счетмаш Онлайн» просто: <span class="subtitle-mini">мы все сделаем за Вас.</span></h3>
+</div>
+<div class="wrapper js-connect-parent">
+    <div class="advantage-block">
+        <div class="advantage-item">
+            <div class="advantage-item-img">
+                <img src="/upload/content/agreement.png" alt="">
+            </div>
+            <h6 class="advantage-title">Сервис</h6>
+            <div class="advantage-item-text">
+                Поможем выполнить регистрацию кассового аппарата в налоговой службе, бесплатно предоставим услуги ОФД, интегрируем в Ваш сайт наш сервис.
+            </div>
+        </div>
+        <div class="advantage-item">
+            <div class="advantage-item-img">
+                <img src="/upload/content/jigsaws.png" alt="">
+            </div>
+            <h6 class="advantage-title">Кроссплатформенность</h6>
+            <div class="advantage-item-text">
+                Сервис поддерживает популярные CMS, и мы постоянно расширяем этот список. У «Счетмаш Онлайн» есть открытое API, благодаря которому Вы сможете интегрироваться с
+                сервисом в случае, если Ваш сайт имеет не стандартную архитектуру, у Вас CRM или другое решение.
+            </div>
+        </div>
+        <div class="advantage-item">
+            <div class="advantage-item-img">
+                <img src="/upload/content/data.png" alt="">
+            </div>
+            <h6 class="advantage-title">Расширяемость</h6>
+            <div class="advantage-item-text">
+                Вы сможете завести сколько угодно компаний и подключить огромное количество виртуальных веб-касс.
+            </div>
+        </div>
+        <div class="advantage-item">
+            <div class="advantage-item-img">
+                <img src="/upload/content/gear.png" alt="">
+            </div>
+            <h6 class="advantage-title">Стабильность</h6>
+            <div class="advantage-item-text">
+                «Счетмаш Онлайн» дает намного больше стабильности, чем стационарная онлайн-касса, у которой нет гарантий непрерывной работы.
+            </div>
+        </div>
+        <div class="advantage-item">
+            <div class="advantage-item-img">
+                <img src="/upload/content/distance.png" alt="">
+            </div>
+            <h6 class="advantage-title">Практичность</h6>
+            <div class="advantage-item-text">
+                Чтобы использовать этот сервис, Вам не нужно нанимать кассира и организовывать для него рабочее место. Физически веб-кассы находятся у нас, Вы же управляете ими
+                дистанционно.
+            </div>
+        </div>
+        <div class="advantage-item">
+            <div class="advantage-item-img">
+                <img src="/upload/content/smartphone.png" alt="">
+            </div>
+            <h6 class="advantage-title">Мобильность</h6>
+            <div class="advantage-item-text">
+                Благодаря «Счетмаш Онлайн» Вы сможете быть в курсе текущих дел даже с мобильного телефона.
+            </div>
+        </div>
+        <!--<a class="orange-center-button on-white uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-order" href="#">Подключиться</a>-->
+
+    </div>
+    <?= $this->partial(
+        'app::connect_form', [
+            'buttonClass'   => 'btn-gift-action-blue',
+            'divWhiteClass' => 'politic-privacy-nolabel',
+        ]
+    ) ?>
+</div>
+<br>
+<section class="calc calc-advantage">
+    <div class="wrapper">
+        <h3>«Счетмаш Онлайн» может выдавать электронные чеки при покупке любых продуктов и услуг, среди которых:</h3>
+        <div class="advantage-block">
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/faucet.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Жилищно-коммунальные услуги
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/graduation-hat.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Вебинары, курсы
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/tickets.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Авиа- и ж/д билеты
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/luggage.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Бронирование гостиниц
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/delivery.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Доставка еды
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/text-document-outlined-symbol.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Е-ОСАГО
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/online-shop.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Онлайн-сервисы
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/uniform.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Одежда и обувь
+                </div>
+            </div>
+            <div class="buy-item-block">
+                <div class="buy-item-icon">
+                    <img src="/upload/content/iconsv2/washing-machine.png" alt="">
+                </div>
+                <div class="buy-item-title">
+                    Электронная техника
+                </div>
+            </div>
+        </div>
+        <p>И многое другое</p>
+    </div>
+</section>
+<section class="howitworks wrapper js-connect-parent" id="howitworks">
+    <h2 class="title"> Как это работает? </h2>
+    <div class="scheme">
+        <img src="/upload/content/howwork/howitworks.jpg" class="full-img" alt="">
+        <img src="/upload/content/howwork/howitworks960.jpg" class="table-img" alt="">
+        <img src="/upload/content/howwork/howitworks640.jpg" class="phone-large-img" alt="">
+        <img src="/upload/content/howwork/howitworks380.jpg" class="phone-img" alt="">
+    </div>
+    <!--<a class="orange-center-button on-white uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-order" href="#">Подключиться</a>-->
+    <?= $this->partial(
+        'app::connect_form', [
+            'buttonClass'   => '',
+            'divWhiteClass' => 'politic-privacy-nolabel',
+        ]
+    ) ?>
+</section>
+<!-- - - - - - - - - - - - КАК ПОДКЛЮЧИТЬСЯ - - - - - - - - - - - - - - - - -->
+<section class="connect wrapper" id="connect">
+    <h2 class="title"> Как подключиться </h2>
+    <article class="steps">
+        <div class="step wow fadeInUpBig animated" data-wow-duration=".5s">
+            <img src="/upload/content/connect2/1.png"> <span class="step-desc">Зарегистрируйтесь в личном кабинете «Счетмаш.Онлайн», указав Ваше Ф.И.О. и контактные данные (e-mail, телефон). Данные для входа в личный кабинет будут отправлены Вам на указанный адрес e-mail. </span>
+        </div>
+        <div class="step wow fadeInUpBig animated" data-wow-duration="1s">
+            <img src="/upload/content/connect2/2.png" alt=""> <span class="step-desc">Внесите информацию о Ваших компаниях. Регистрационные данные компаний заполняются автоматически после выбора организационно-правовой формы (ЮЛ или ИП) и внесения ИНН. Вам остается внести только расчетные реквизиты Ваших компаний. </span>
+        </div>
+        <div class="step wow fadeInUpBig animated" data-wow-duration="1s">
+            <img src="/upload/content/connect2/3.png" alt=""> <span class="step-desc">Добавьте к Вашим компаниям интернет-магазины. Внесите название и адрес интернет-магазина, укажите направление Вашей деятельности. </span>
+        </div>
+        <div class="step wow fadeInUpBig animated" data-wow-duration="1s">
+            <img src="/upload/content/connect2/4.png" alt=""> <span class="step-desc">Выберите необходимое Вам количество касс для каждого, указанного Вами, интернет-магазина. Для удобства пользования нашим сервисом система рекомендует Вам необходимое количество касс, исходя из специфики Вашей деятельности. После ввода данных в Ваш адрес будет направлено письмо со счетом на оказание услуг. </span>
+        </div>
+        <div class="step wow fadeInUpBig animated" data-wow-duration="1s">
+            <img src="/upload/content/connect2/5.png" alt=""> <span class="step-desc">После оплаты счета в Вашем личном кабинете Вы получите данные, необходимые для регистрации кассы. Оформите заявку на регистрацию кассовой техники в личном кабинете ФНС и получите от них регистрационные данные. </span>
+        </div>
+        <div class="step wow fadeInUpBig animated" data-wow-duration="1s">
+            <img src="/upload/content/connect2/6.png" alt=""> <span class="step-desc">Активируйте сервис. Внесите номер РНМ, полученный от ФНС, и нажмите кнопку «Фискализировать ККТ». Касса готова к работе! </span>
+        </div>
+    </article>
+</section>
+<section class="banner-rhomb-block">
+    <div class="rhombl1-down fadeInUp wow animated" style="visibility: visible; animation-name: fadeInUp;">
+    </div>
+    <div class="rhombl2-down fadeInUp wow animated" style="visibility: visible; animation-name: fadeInUp;">
+    </div>
+    <div class="rhombl3-down fadeInUp wow animated" style="visibility: visible; animation-name: fadeInUp;">
+    </div>
+    <div class="get-cash js-connect-parent">
+        <div class="promo-red-text">
+            Бесплатная регистрация кассы <br>
+            при оплате за год! Под ключ.
+        </div>
+        <!--<a class="plugin-button uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-order" href="#">Получить</a></div>-->
+        <?= $this->partial(
+            'app::connect_form', [
+                'buttonClass'   => 'btn-gift-action-blue',
+                'divWhiteClass' => 'politic-privacy-nolabel',
+            ]
+        ) ?>
+        <div class="rhombl6-down fadeInRight wow animated" style="visibility: visible; animation-name: fadeInRight;">
+        </div>
+        <div class="rhombl5-down fadeInRight wow animated" style="visibility: visible; animation-name: fadeInRight;">
+        </div>
+        <div class="rhombl4-down fadeInRight wow animated" style="visibility: visible; animation-name: fadeInRight;">
+        </div>
+</section>
+<!-- - - - - - - - - - - - ТАРИФЫ - - - - - - - - - - - - - - - - -->
+<section id="tariffs" class="tariff-orange-block">
+    <div class="wrapper">
+        <h2>Тарифы</h2>
+        <p class="tariff-orange-block-text">Мы специально разработали несколько вариантов <br>
+                                            для Вашего удобства и разного уровня дохода.<br>
+            <b>Выберите свой тариф!</b></p>
+        <div class="tariff-flex-block">
+            <!--begin        Динамический вывод тарифов-->
+            <?php foreach ($tariffs as $tariff): ?>
+                <div class="tariff-flex-item <?php if ($tariff->isPopular()) {
+                    echo 'tariff-profit';
+                } ?>">
+                    <div class="tariff-flex-item-header">
+                        <?php echo $tariff->getTitle(); ?>
+                        <?php if ($tariff->isPopular()): ?>
+                            <div class="tariff-pop-label">ПОПУЛЯРНЫЙ</div><?php endif; ?>
+                    </div>
+                    <div class="tariff-item-body">
+                        <div class="tariff-item-sale">
+                            <?php if (!$tariff->isDefault()): ?>
+                                Без скидки: <span><?php echo $defaultTariff->getRentCost(); ?> <i class="fa fa-rub" aria-hidden="true"></i></span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="tariff-item-price"><?php echo $tariff->getRentCost() ?> <i class="fa fa-rub" aria-hidden="true"></i>
+                            <?php
+                            if ($tariff->getTurnoverPercent() !== null) {
+                                echo '+ '.$tariff->getTurnoverPercent().'%*';
+                            } ?>
+                        </div>
+                        <div class="tariff-item-desk">
+                            <?php
+                            if ($tariff->getTurnoverPercent()) {
+                                echo 'от оборота/мес.';
+                            } else {
+                                echo 'при оплате за '.$tariff->getMonthCount().' мес.';
+                            }
+                            ?>
+                        </div>
+                        <div class="tariff-item-desk-grey">Стоимость аренды 1 кассы</div>
+                        <ul class="accordion">
+                            <li>
+                                <a class="accordeon-link">
+                                    <hr class="mobile-line-more">
+                                    Подробнее <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                                    <hr class="mobile-line-more">
+                                </a>
+                                <p><?php echo $tariff->getDescription() ?></p>
+                            </li>
+                        </ul>
+                        <hr class="tariff-item-line">
+                        <div class="tariff-item-deskription"><?php echo $tariff->getDescription() ?></div>
+                        <div class="tariff-item-deskription-grey">
+                            <?php if ($tariff->getMaxTurnover() !== null): ?>
+                                *При обороте до <?php echo $tariff->getMaxTurnover() ?> <i class="fa fa-rub" aria-hidden="true"></i>
+                            <?php endif; ?>
+                        </div>
+                        <div class="tariff-btn-button">
+                            <?php if ($this->user) { ?>
+                                <a href="<?php echo $this->url('office.company'); ?>" class="tariff-btn-button js-tariff-button" id="<?php echo $tariff->getId(); ?>">
+                                    <span>Выбрать</span>
+                                </a>
+                                <?php
+                            } else {
+                                ?>
+                                <button class="tariff-btn-button js-tariff-button" id="<?php echo $tariff->getId(); ?>" uk-toggle="target: #popup-signin">
+                                    <span>Выбрать</span>
+                                </button>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<!--end        Динамический вывод тарифов-->
+
+<!-- - - - - - - - - - - - - - КАЛЬКУЛЯТОР - - - - - - - - - - - - - - - - - -->
+<section class="calc" id="calc">
+    <h2 class="title"> Калькулятор </h2>
+    <div class="calculator wrapper">
+        <div class="hiddenBlock">
+            Задать цену ККМ:
+            <div id="cenaKKM">
+                1800
+            </div>
+        </div>
+        <div class="hiddenBlock">
+            Задать цену ФН:
+            <div id="cenaFN15">
+                6900
+            </div>
+        </div>
+        <form class="right">
+            <div class="transaction">
+                <label for="transaction">Транзакций в год</label>
+                <input id="intransaction" value="1" type="text">
+                <input id="transaction" min="1" max="10000000" step="1" value="1" type="range">
+            </div>
+            <div class="highpoint">
+                <label for="highpoint">Пик транзакций в секунду</label>
+                <input id="inhighpoint" value="0" type="text">
+                <input id="highpoint" min="0" max="100" step="1" value="0" type="range">
+            </div>
+            <button onclick="ym(48966332, 'reachGoal', 'CONNECT'); return true;"
+                    class="orange-center-button on-white uk-button uk-button-default uk-margin-small-right plugin"
+                    uk-toggle="target: #popup-order">Подключиться
+            </button>
+        </form>
+        <div class="left">
+            Рекомендованое количество онлайн касс: <span id="fiskal1" class="huge">1</span>
+            <div class="periods">
+                <div class="period">
+                    На 1 месяц: <span class="large"><span id="mount">1 800</span> <i class="fa fa-ruble"></i> </span>
+                </div>
+                <div class="period">
+                    На 1 год: <span class="large"><span id="year">21 600</span> <i class="fa fa-ruble"></i> </span>
+                </div>
+            </div>
+            <span>Необходимо <span id="fiskal2" class="medium">1</span> фискальн<span id="suffix0">ых</span> накопите<span id="suffix1">лей</span> + услуги ОФД</span>
+            <div class="periods">
+                <div class="period">
+                    На 15 месяцев: <span class="large"><span id="summa15">6 900 </span><i class="fa fa-ruble"></i></span>
+                </div>
+                <div class="period">
+                    На 36 месяцев: <span class="large"><span id="summa36">9 990 </span><i class="fa fa-ruble"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="advantages wrapper js-connect-parent" id="advantages">
+    <h2 class="title"> Преимущества </h2>
+    <div class="adv">
+        <div class="advantage wow fadeInLeftBig animated" style="visibility: visible; animation-name: fadeInLeftBig;">
+            <div class="image">
+                <img src="/upload/content/advan2/img1.png" alt=""> <span class="subtitle">Быстро</span>
+            </div>
+            <span class="text">Личный кабинет пользователя позволяет осуществить настройку и активировать кассы, внося минимум данных - заполнение регистрационных данных Ваших компаний автоматизировано! Управление услугами, получение различной статистики по кассам, ввод и получение необходимой для регистрации кассы в ФНС информации осуществляется в режиме одного окна.</span>
+        </div>
+        <div class="advantage wow fadeInUpBig animated" style="visibility: visible; animation-name: fadeInUpBig;">
+            <div class="image">
+                <img src="/upload/content/advan2/img2.png" alt=""> <span class="subtitle">Надежно</span>
+            </div>
+            <span class="text">Круглосуточное техническое сопровождение, надежность и энергонезависимость кассовой техники обеспечивает безопасность Ваших данных и доступность сервиса в режиме 24/7/365. Система балансировки нагрузки обеспечивает работоспособность сервиса даже при лавинообразном росте количества продаж Вашего интернет-магазина!</span>
+        </div>
+        <div class="advantage wow fadeInRightBig animated" style="visibility: visible; animation-name: fadeInRightBig;">
+            <div class="image">
+                <img src="/upload/content/advan2/img3.jpeg" alt=""> <span class="subtitle">Выгодно</span>
+            </div>
+            <span class="text">Интеграция нашего сервиса с популярными платежными системами и распространенными CMS-системами сокращает финансовые и временные затраты на приведение Вашего интернет-магазина в соответствие требованиям 54-ФЗ! Интеллектуальная система автоматического мониторинга заранее предупредит Вас о необходимости замены фискального накопителя, что исключит необходимость остановки работы Вашего интернет-магазина.</span>
+        </div>
+    </div>
+    <!--<a class="plugin-button uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-order" href="#">Подключиться</a>-->
+    <?= $this->partial(
+        'app::connect_form', [
+            'buttonClass'   => '',
+            'divWhiteClass' => 'politic-privacy-nolabel',
+        ]
+    ) ?>
+</section><!-- - - - - - - - - - - - - - ВОПРОС-ОТВЕТ - - - - - - - - - - - - - - - - - -->
+<section class="faq wrapper" id="faq">
+    <h2 class="title"> Вопрос-ответ </h2>
+
+    <ul uk-accordion>
+        <li class="uk-open">
+            <a class="uk-accordion-title question" href="#">
+          <span class="angle">
+            <i class="fa fa-chevron-right"></i>
+          </span>
+                Особенности применения ККТ в интернет-магазине</a>
+            <div class="uk-accordion-content answer">
+                <p>В соответствии с Федеральным законом 54-ФЗ применение контрольно-кассовой техники при продаже товара в сети интернет с использованием банковских карт обязательно
+                   с 01.07.2017 г. Прием к оплате за товар электронных средств платежа делает обязательным применение ККТ с 01.07.2018 г. ККТ применяется вне зависимости от
+                   местонахождения покупателя — Федеральный закон 54-ФЗ не делает различий между покупателями, находящимися на территории РФ и находящимися за ее пределами. </p>
+            </div>
+        </li>
+        <li>
+            <a class="uk-accordion-title question" href="#">
+            <span class="angle">
+              <i class="fa fa-chevron-right"></i>
+            </span>
+                Необходимо ли использовать отдельную ККТ для продаж через интернет магазин?</a>
+            <div class="uk-accordion-content answer">
+                <p>В кассовом чеке в обязательном порядке указывается адрес точки продаж. Для физического магазина — это адрес местонахождения, а для интернет-магазина — это
+                   электронный адрес. Изменение адреса торговой точки производится путем настройки ККТ и фиксируется в ФН. Замена адреса точки продаж может производится на ФН не
+                   более 11 раз. На 12-й раз ФН блокируется.
+                   При осуществлении расчетов с использованием платежных карт кассовые чеки выдаются покупателям в момент оплаты товара. ст. 5 Закона № 54-ФЗ. Ответственный
+                   сотрудник магазина должен в режиме онлайн отслеживать оплаты, что технически невозможно – режим работы интернет магазина 24/7/365.
+                   Таким образом применение отдельной ККТ при осуществлении расчетов в сети интернет — обязательно.</p>
+            </div>
+        </li>
+        <li>
+            <a class="uk-accordion-title question" href="#">
+            <span class="angle">
+              <i class="fa fa-chevron-right"></i>
+            </span>
+                «Оплата на сайте отключена»: типичные ошибки интернет-магазинов после вступления в силу 54-ФЗ</a>
+            <div class="uk-accordion-content answer">
+                <p>Онлайн-платежи составляют 20–30% от всех платежей интернет-магазинов. Терять клиентов никто не хочет, поэтому нередко магазины предлагают платить через банк. Это
+                   не лучший выход. Во-первых, это не так удобно, как по карте. Во-вторых, банки берут комиссию до 7% от суммы покупки. В-третьих, с 01.07.2018 г. чек всё равно
+                   нужно выслать покупателю. То же касается оплаты электронными деньгами: «Яндекс.Деньги», Qiwi, EasyPay и других.</p>
+            </div>
+        </li>
+
+        <li>
+            <a class="uk-accordion-title question" href="#">
+            <span class="angle">
+              <i class="fa fa-chevron-right"></i>
+            </span>
+                Может ли одна касса использоваться для нескольких интернет-магазинов?</a>
+            <div class="uk-accordion-content answer">
+                <p>Одну ККТ можно использовать для нескольких интернет-магазинов, если они оформлены на одно юридическое лицо или ИП. При регистрации ККТ в ФНС необходимо указать
+                   адреса сайтов интернет-магазинов через запятую.</p>
+            </div>
+        </li>
+    </ul>
+</section>
+<div class="get-consult">
+    <h2 class="subtitle">Получите бесплатную консультацию по&nbsp;54-Ф3 и&nbsp;интернет-кассе</h2>
+    <span class="plugin-button uk-button uk-button-default uk-margin-small-right js-faq"
+          onclick="ym(48966332, 'reachGoal', 'CONSULTATION'); return true;">Консультация</span>
+</div>
+<br>
+<section class="integration wrapper" id="integration">
+    <h2 class="title"> Интеграция </h2>
+    <div class="tabs uk-subnav uk-subnav-pill" uk-switcher="">
+        <div class="tab uk-active" aria-expanded="true">
+            CMS
+        </div>
+        <div class="tab" aria-expanded="false">
+            API
+        </div>
+        <div class="tab" aria-expanded="false">
+            Платежные системы
+        </div>
+        <div class="tab" aria-expanded="false">
+            Партнёры
+        </div>
+    </div>
+    <div class="tabs-info uk-switcher uk-margin">
+        <div class="tab-info uk-active">
+            <div class="tabs-title-size">
+                Готовые модули для CMS:
+            </div>
+            <div class="tabs-title-size-small">
+                Нажмите на иконку, чтобы скачать
+            </div>
+            <div class="cms-logos">
+                <a href="https://marketplace.1c-bitrix.ru/solutions/retor.schetmash/" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo1.png" alt="">
+                </a>
+                <a href="https://shop.opencart-russia.ru/schetmash_modul" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo2.png" alt=""></a>
+                <a href="/for_cms/webasyst.tar.gz" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo3.png" alt="">
+                </a>
+                <a href="/for_cms/NetCat.zip" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo4.png" alt="">
+                </a>
+                <a href="/for_cms/cs.cart.zip" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo5.png" alt="">
+                </a>
+                <a href="//github.com/hrt4u/django-schetmash-online" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo6.png" alt="">
+                </a>
+                <a href="/for_cms/modschetmash-1.0.0-pl.transport.zip" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo7.png" alt="">
+                </a>
+                <a href="/for_cms/schetmash.zip" target="_blank" class="cms-logo">
+                    <img src="/upload/content/inv/logo8.png" alt="">
+                </a>
+                <a class="cms-logo" href="/for_cms/moguta.zip">
+                    <img src="/upload/content/inv/moguta-cms.jpg" alt="Модуль интеграции онлайн-кассы для CMS Moguta">
+                </a>
+                <a class="cms-logo" href="/for_cms/schetmash-online.tar.gz">
+                    <img src="/upload/content/inv/drupal.png" alt="Модуль интеграции онлайн-кассы для CMS Drupal">
+                </a>
+                <a class="cms-logo" href="https://www.insales.ru/collection/apps-online-kassa/product/schetmash-onlayn">
+                    <img src="/upload/content/inv/insales.png" alt="Модуль интеграции онлайн-кассы для CMS Insales">
+                </a>
+            </div>
+            <div class="tabs-title-size">
+                В разработке:
+            </div>
+            <div class="cms-logos">
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/1.png" alt="">
+                </a>
+                <!--                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">-->
+                <!--                    <img src="/upload/content/inv/2.png" alt="">-->
+                <!--                </a>-->
+                <!--                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">-->
+                <!--                    <img src="/upload/content/inv/3.png" alt="">-->
+                <!--                </a>-->
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/4.png" alt="">
+                </a>
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/5.png" alt="">
+                </a>
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/7.png" alt="">
+                </a>
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/8.png" alt="">
+                </a>
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/9.png" alt="">
+                </a>
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/10.png" alt="">
+                </a>
+                <a class="cms-logo disable" uk-toggle="target: #popup-cms" href="#">
+                    <img src="/upload/content/inv/11.png" alt="">
+                </a>
+            </div>
+            <a class="orange-center-button on-white uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-cms" href="#">У меня другая CMS</a>
+
+            <div id="popup-cms" uk-modal="">
+
+                <div class="popup-cms uk-modal-dialog uk-modal-body">
+                    <button class="uk-modal-close-default uk-close uk-icon" type="button" uk-close=""></button>
+                    <!--noindex-->
+                    <div class="alx-feedb-error alx-popup-mess-show-anime1 js-success-cms" style="display: none">
+                        <div class="afbf_success_block _without-popup">
+                            <div class="afbf_mess_ok">
+                                <div class="afbf_icon afbf_ok_icon"></div>
+                                <div class="mess">Ваше сообщение было успешно отправлено</div>
+                            </div>
+                        </div>
+                        <div class="afbf_send_another_message">
+                            <a href="https://online.schetmash.com/#integration">Отправить ещё одно сообщение</a>
+                        </div>
+                    </div>
+                    <!--/noindex-->
+                    <div class="afbf alx_feed_back js-cms-form" id="alx_feed_back_FID2">
+                        <h2 class="uk-modal-title">Запрос интеграции с CMS</h2>
+                        <form id="needCms" name="f_feedback_FID2" action="<?php echo $this->url('api.landing', ['action' => 'cms']); ?>" method="post" class="cms-form">
+
+                            <div style="margin-bottom:10px;">
+                                ФИО <span style="color:red;">*</span>
+                            </div>
+                            <input type="text" size="40" id="FIO_FID21"
+                                   name="fio"
+                                   class="email-input"
+                                   placeholder="Иванов Иван Иванович" required/>
+
+                            <!--                            <div class="afbf_error_text">Это поле обязательно для заполнения</div>-->
+
+
+                            <div style="margin-bottom:10px;">
+                                Электронный адрес <span style="color:red;">*</span>
+                            </div>
+                            <input type="email" size="40" id="EMAIL_FID21"
+                                   name="email"
+                                   class="email-input"
+                                   placeholder="email@email.com" required/>
+
+
+                            <!--                            <div class="afbf_error_text">Введён некорректный e-mail</div>-->
+
+                            <div style="margin-bottom:10px;">
+                                CMS <span style="color:red;">*</span>
+                            </div>
+                            <input type="text" size="40" id="CMS_FID21"
+                                   name="cms"
+                                   class="email-input"
+                                   placeholder="Opencart" required/>
+
+                            <!--                            <div class="afbf_error_text">Это поле обязательно для заполнения</div>-->
+
+                            <div class="afbf_item_pole">
+                                <div class="afbf_name">Текст сообщения</div>
+                                <div class="afbf_inputtext_bg" id="error_EMPTY_TEXT">
+                                    <textarea class="afbf_textarea" cols="10" rows="10" id="EMPTY_TEXTFID2"
+                                              name="text" required>Прошу реализовать интеграцию с моей CMS</textarea>
+                                </div>
+                                <!--                                <div class="afbf_error_text">Это поле обязательно для заполнения</div>-->
+                            </div>
+
+                            <!--begin Капча-->
+                            <?php echo $this->recaptcha->getHTML(); ?>
+                            <!--noindex--><span class="captchaError">Пожалуйста, выполните проверку капчи!</span><!--/noindex-->
+                            <!--end Капча-->
+                            <button type="submit" id="fb_close_FID2" name="SEND_FORM" value="Отправить" style="text-align:center !important;">
+                                Запросить
+                            </button>
+                            <!--<label data-bx-user-consent="{&quot;id&quot;:1,&quot;sec&quot;:&quot;gyzyh7&quot;,&quot;autoSave&quot;:true,&quot;actionUrl&quot;:&quot;\/local\/components\/bitrix\/main.userconsent.request\/ajax.php&quot;,&quot;replace&quot;:{&quot;button_caption&quot;:&quot;\u041e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c&quot;,&quot;fields&quot;:[&quot;\u0424\u0418\u041e&quot;,&quot;\u042d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u044b\u0439 \u0430\u0434\u0440\u0435\u0441&quot;,&quot;CMS&quot;,&quot;IP-\u0430\u0434\u0440\u0435\u0441&quot;],&quot;INPUT_LABEL&quot;:&quot;\u042f \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d \u0441 \u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438 \u0441\u0430\u0439\u0442\u0430.&quot;}}" class="politic-privacy">-->
+                            <label for="reg-check" class="register-check">
+                                <input type="checkbox" value="Y" checked name="agreement" id="reg-check" required>
+                                <span>Cогласен на <a href="/upload/docs/confidentiality.pdf" target="_blank">обработку персональных данных</a></span>
+                            </label>
+
+                            <!--                            <div class="afbf_error_text">Необходимо ваше согласие на обработку персональных данных</div>-->
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="tab-info">
+            <p>
+                Для подключения к сервису Счетмаш онлайн можно использовать API
+            </p>
+            <div class="buttons">
+                <a onclick="ym(48966332, 'reachGoal', 'DOWNLOADAPI'); return true;" href="/upload/docs/api.pdf" class="button-dark">Скачать документацию по API</a>
+            </div>
+            <p>
+                Данные для тестирования:
+            </p>
+            <br>
+            <p>
+                <b>Настройки для модулей CMS следующие:</b>
+            </p>
+            <p>
+                логин: test_api
+            </p>
+            <p>
+                пароль: 123456
+            </p>
+            <p>
+                Id Магазина: 42
+            </p>
+            <br>
+            <p>
+                <a href="/upload/docs/test_till_instruction.pdf" target="_blank">
+                    <b>Инструкция по работе с тестовой кассой</b>
+                </a>
+            </p>
+            <p>
+                <b> Чтобы зайти в аккаунт тестовой кассы и посмотреть свои чеки:</b>
+            </p>
+            <p>
+                testapi@schetmash.com
+            </p>
+            <p>
+                Пароль 123456789
+            </p>
+            <div class="cashbox-count">
+                <button type="button" onclick="ym(48966332, 'reachGoal', 'CONNECT'); return true;" name="button"
+                        class="plugin uk-button uk-button-default uk-margin-small-right uk-orande-button" uk-toggle="target: #popup-order">Подключиться
+                </button>
+            </div>
+        </div>
+        <div class="tab-info">
+            <p>Счетмаш Онлайн совместим с любыми платежными агрегаторами.</p>
+            <div class="payment">
+                <div class="payment__logo"><img src="/upload/content/payment/img1.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img2.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img3.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img4.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img5.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img6.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img7.jpg" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img8.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img9.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img10.png" alt=""></div>
+                <div class="payment__logo"><img src="/upload/content/payment/img11.jpg" alt=""></div>
+            </div>
+        </div>
+        <div class="tab-info">
+            <div class="partner-img">
+                <a href="#promo" uk-scroll=""> <img src="/upload/content/inv/robokassa.jpg" alt=""></a>
+            </div>
+            <p>
+                <a href="#promo" uk-scroll="">Получить</a> промокод со скидкой на три месяца от сервиса RoboKassa.
+            </p>
+            <div class="partner-img">
+                <img src="/upload/content/fondy.png" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--begin Промокод -->
+<?= $this->partial('app::promo_form') ?>
+<!--end Промокод -->
+
+<section class="clients">
+    <h2 class="title">Клиенты</h2>
+    <div class="wrapper">
+        <div class="owl-carousel owl-theme slider">
+            <div class="slider-item"><img src="/upload/content/clients/1.jpg" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/2.jpg" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/3.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/4.jpg" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/5.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/6.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/7.jpg" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/8.jpg" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/9.jpg" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/10.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/11.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/12.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/13.jpg" alt=""></div>
+
+            <div class="slider-item"><img src="/upload/content/clients/14.jpg" alt=""></div>
+            <!--            <div class="slider-item"><img src="/upload/content/clients/15.png" alt=""></div>-->
+            <div class="slider-item"><img src="/upload/content/clients/16.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/17.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/18.png" alt=""></div>
+            <div class="slider-item"><img src="/upload/content/clients/19.png" alt=""></div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,170 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 18.09.18
+ * Time: 9:15
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Auth\Entity\User $user */
+/** @var \Office\Entity\ReferralPayment[] $payments */
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Реферальные начисления</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                    <form action="<?php echo $this->url('admin.referral'); ?>" method="get" class="form-inline">
+                        <h5>Фильтр</h5>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="filter[diler]" value="<?php echo $filter['diler']; ?>"
+                             placeholder="Фамилия дилера">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="filter[name]" value="<?php echo $filter['name']; ?>"
+                             placeholder="Фамилия или компания реферала">
+                        </div>
+                        <div class="form-group">
+                            <select name="filter[pay]" class="form-control">
+                                <option></option>
+                                <option <?php if($filter['pay'] == 0) { echo 'selected'; } ?> value="0">Ожидает выплаты</option>
+                                <option <?php if($filter['pay'] == 1) { echo 'selected'; } ?> value="1">Выплачено</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary form-control">Найти</button>
+                        </div>
+                    </form>
+                    <br>
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="<?php $field = 'r.id';
+                                echo $this->url('admin.referral', [], ['sort' => $field,'order' => $order]); ?>"> #
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'ud.lastName';
+                                echo $this->url('admin.referral', [], ['sort' => $field,'order' => $order]); ?>"> ФИО дилера
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'u.lastName';
+                                echo $this->url('admin.referral', [], ['sort' => $field,'order' => $order]); ?>"> ФИО реферала
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'c.title';
+                                 echo $this->url('admin.referral', [], ['sort' => $field,'order' => $order]); ?>"> Компания
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'r.datetime';
+                                 echo $this->url('admin.referral', [], ['sort' => $field,'order' => $order]); ?>"> Дата начисления
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'r.sum';
+                                 echo $this->url('admin.referral', [], ['sort' => $field,'order' => $order]); ?>"> Сумма
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'r.pay';
+                                 echo $this->url('admin.referral', [], ['sort' => $field,'order' => $order]); ?>">Статус
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($referrals as $item) {
+                        ?>
+                        <tr>
+                            <td><?php echo $item->getId(); ?></td>
+                            <td><a href="<?php echo $this->url('admin.user', ['id' => $item->getUser()->getId()]); ?>">
+                                    <?php echo $item->getUser()->getFio(); ?>
+                                </a>
+                            </td>
+                            <td><?php echo $this->escapeHtml($item->getFromUser()->getFio()); ?></td>
+                            <td><?php echo $this->escapeHtml($item->getCompany()->getTitle()); ?></td>
+                            <td><?php echo $item->getDatetime()->format('d.m.Y'); ?></td>
+                            <td><?php echo $item->getSum(); ?></td>
+                            <td><?php
+                                if($item->getPay() === 1) {
+                                    echo '<span class="label label-success">Выплачено</span>';
+                                } else {
+                                    echo '<span class="label label-warning">Ожидает выплаты</span>'; ?>
+
+                                    <button type="button" class="btn btn-xs btn-success" title="Подтвердить оплату"
+                                        data-toggle="modal" data-target="#confirmModal"  data-id="<?php echo  $item->getId(); ?>">
+                                        <span class="fa fa-check"></span>
+                                    </button>
+                                <?php } ?>
+
+
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+
+                <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="<?php echo $this->url('admin.referral'); ?>" method="post" >
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="confirmModalLabel">Потверждение операции</h4>
+      </div>
+      <div class="modal-body">
+            Вы уверены, что хотите установить статус оплачено?
+      </div>
+      <div class="modal-footer">
+        <input  type="hidden" name="id" value="" />
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button type="submit" class="btn btn-primary">Да</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</form>
+

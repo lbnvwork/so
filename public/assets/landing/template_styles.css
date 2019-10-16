@@ -1,0 +1,3 @@
+.errorMess { color: red; padding: 5px 0; } 
+.succMess { font-size: var(--medium-s); }
+.hiddenBlock { display: none; }

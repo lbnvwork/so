@@ -1,0 +1,19 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 22.03.18
+ * Time: 22:12
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/**@var int $id*/
+
+?>
+<div class="x_panel">
+    <h1>Вы можете поставить ККТ на учет в ИФНС двумя способами:</a></h1>
+    <h3>Способ 1</h3>
+    <p>Постановка контрольно-кассовой техники (ККТ) на учет с посещением отделения ИФНС.</p>
+    <p><a href="<?php echo $this->url('office.kkt.statement', ['id' => $id]); ?>" class="btn btn-primary"><span class="fa fa-download"></span></a> Скачайте заявление о постановке ККТ на учет в ИФНС.</p>
+    <h3>Способ 2</h3>
+    <p>Используйте электронную цифровую подпись (ЭЦП) для постановки ККТ на учет в личном кабинете ИФНС дистанционно.</p>
+</div>

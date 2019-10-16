@@ -1,0 +1,116 @@
+<?php
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Kkt[] $kkts */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Список касс</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Серийный номер</th>
+                            <th>Компания</th>
+                            <th>ФН</th>
+                            <th>Версия ФН</th>
+                            <th>Срок жизни</th>
+                            <th>РНМ</th>
+                            <th>Фискализация</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($kkts as $kkt) {
+                            $fiscalDate = null;
+                            if ($kkt->getFiscalRawData() && $kkt->getIsFiscalized()) {
+                                $data = \Zend\Json\Json::decode($kkt->getFiscalRawData(), \Zend\Json\Json::TYPE_ARRAY);
+                                $fiscalDate = new \App\Service\DateTime($data['docDt']);
+                            }
+                            ?>
+                            <tr>
+                                <th scope="row">
+                                    <a href="<?php echo $this->url('admin.kkt.edit', ['id' => $kkt->getId()]); ?>">
+                                        <?php echo $kkt->getId(); ?>
+                                    </a>
+                                </th>
+                                <td>
+
+                                    <a href="<?php echo $this->url('admin.kkt.edit', ['id' => $kkt->getId()]); ?>">
+                                        <?php echo $kkt->getSerialNumber(); ?>
+                                    </a>
+                                </td>
+                                <td><?php echo $this->escapeHtml($kkt->getShop()->getCompany()->getDefaultTitle()); ?></td>
+                                <td><?php echo $kkt->getFsNumber(); ?></td>
+                                <td><?php echo $kkt->getFsVersion(); ?></td>
+                                <td><?php echo $kkt->getFnLiveTime(); ?></td>
+                                <td><?php echo $this->escapeHtml($kkt->getRegNumber()); ?></td>
+                                <td>
+                                    <?php
+                                    if ($fiscalDate) {
+                                        $color = null;
+                                        $diff = (new \App\Service\DateTime())->diff($fiscalDate);
+                                        if ($kkt->getFnLiveTime()) {
+                                            if ($diff->days >= $kkt->getFnLiveTime() * 30 - 45) {
+                                                $color = 'warning';
+                                            }
+
+                                            if ($diff->days >= $kkt->getFnLiveTime() * 30 - 25) {
+                                                $color = 'danger';
+                                            }
+//                                            if ($diff->m > $kkt->getFnLiveTime() - 1) {
+//                                                $color = 'warning';
+//
+//                                                if ($diff->d < 10) {
+//                                                    $color = 'danger';
+//                                                }
+//                                            }
+                                        }
+                                        if ($color) {
+                                            ?>
+                                            <span class="label label-<?php echo $color; ?>" title="Скоро менять ФН">
+                                            <?php echo $fiscalDate->format('d.m.Y H:i:s'); ?>
+                                        </span>
+                                            <?php
+                                        } else {
+                                            echo $fiscalDate->format('d.m.Y H:i:s');
+                                        }
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($kkt->getIsDeleted()) {
+                                        ?>
+                                        <span class="label label-danger">Удалена</span>
+                                        <?php
+                                    } elseif ($kkt->getIsFiscalized()) {
+                                        ?>
+                                        <span class="label label-success">Фискализирована</span>
+                                        <?php
+                                    } elseif ($kkt->getIsEnabled()) {
+                                        ?>
+                                        <span class="label label-primary">Ожидает РНМ</span>
+                                        <?php
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                    <!--                    --><?php //echo $this->paginator($paginator, 'office::paginator'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

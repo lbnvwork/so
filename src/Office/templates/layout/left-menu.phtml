@@ -1,0 +1,102 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 24.01.18
+ * Time: 9:35
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Auth\Entity\User $user */
+/** @var \App\Service\FlashMessage $flashMessage */
+?>
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="/" class="site_title"><img src="https://online.schetmash.com/upload/content/logo.png" alt=""></a>
+        </div>
+
+        <div class="clearfix"></div>
+        <br/>
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <h3>Меню</h3>
+                <ul class="nav side-menu">
+                    <li><a href="<?php echo $this->url('home'); ?>"><i class="fa fa-home"></i>Дом</a></li>
+                    <?php
+                    if ($this->isGranted('admin.left-menu')) {
+                        ?>
+                        <li><a>Общие настройки <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="<?php echo $this->url('admin.settings'); ?>">Настройки</a></li>
+                                <li><a href="<?php echo $this->url('admin.roles'); ?>">Роли</a></li>
+                                <li><a href="<?php echo $this->url('admin.ofd'); ?>">ОФД</a></li>
+                                <li><a href="<?php echo $this->url('admin.service'); ?>">Список услуг</a></li>
+                                <li><a href="<?php echo $this->url('admin.tariff'); ?>">Тарифы</a></li>
+                                <!--                                <li><a href="--><?php //echo $this->url('admin.file'); ?><!--">Файлы</a></li>-->
+                            </ul>
+                        </li>
+                        <li><a href="<?php echo $this->url('admin.rfn'); ?>">Реестр ФН</a></li>
+                        <?php
+                    }
+                    if ($this->isGranted('admin.kkt')) {
+                        ?>
+                        <li><a href="<?php echo $this->url('admin.kkt'); ?>">Список касс</a></li>
+                        <?php
+                    }
+                    if ($this->isGranted('manager.left-menu')) {
+                        ?>
+                        <li><a href="<?php echo $this->url('admin.users'); ?>">Пользователи</a></li>
+                        <li><a href="<?php echo $this->url('admin.invoice'); ?>">Счета</a></li>
+                        <li><a href="<?php echo $this->url('admin.moneyHistory'); ?>">Списания</a></li>
+                        <li><a href="<?php echo $this->url('admin.processing'); ?>">Чеки</a></li>
+                        <li><a href="<?php echo $this->url('admin.company.list'); ?>">Компании</a></li>
+                        <li><a href="<?php echo $this->url('admin.kkt.deleted'); ?>">Удаленные кассы</a></li>
+                        <li><a href="<?php echo $this->url('admin.referral'); ?>">Реферальные начисления</a></li>
+                        <?php
+                    }
+                    if (!$this->isGranted('manager.left-menu')) {
+                        ?>
+                        <li>
+                            <a href="<?php echo $this->url('office.company'); ?>"><i class="fa fa-edit"></i> Мои компании </span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->url('office.kkt.list'); ?>"><i class="fa fa-laptop"></i> Кассы </span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->url('office.check'); ?>"><i class="fa fa-laptop"></i> Чеки </span></a>
+                        </li>
+                        <li><a><i class="fa fa-edit"></i> Оплата <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li>
+                                    <a href="<?php echo $this->url('office.billing'); ?>">Баланс</a>
+                                    <a href="<?php echo $this->url('office.invoice'); ?>">Счета</a>
+                                    <?php
+                                    if ($user->getUserRoleManager()->offsetExists('referral')) {
+                                        ?>
+                                        <a href="<?php echo $this->url('office.referral'); ?>">Мои рефералы</a>
+                                        <a href="<?php echo $this->url('office.referralpay'); ?>">Мои начисления с рефералов</a>
+                                        <?php
+                                    }
+                                    ?>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Выход" href="<?php echo $this->url('logout'); ?>">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+    </div>
+</div>

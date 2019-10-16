@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * Development-only configuration.
+ *
+ * Put settings you want enabled when under development mode in this file, and
+ * check it into your repository.
+ *
+ * Developers on your team will then automatically enable them by calling on
+ * `composer development-enable`.
+ */
+
+use Zend\Expressive\Container;
+use Zend\Expressive\Middleware\ErrorResponseGenerator;
+
+return [
+    'dependencies' => [
+        'invokables' => [
+//            DebugBar\DataCollector\MessagesCollector::class => DebugBar\DataCollector\MessagesCollector::class,
+//            DebugBar\DataCollector\TimeDataCollector::class => DebugBar\DataCollector\TimeDataCollector::class
+        ],
+        'factories'  => [
+            ErrorResponseGenerator::class                   => Container\WhoopsErrorResponseGeneratorFactory::class,
+            'Zend\Expressive\Whoops'                        => Container\WhoopsFactory::class,
+            'Zend\Expressive\WhoopsPageHandler'             => Container\WhoopsPageHandlerFactory::class,
+            \App\Middleware\PhpDebugBarMiddleware::class    => \App\Middleware\PhpDebugBarMiddlewareFactory::class,
+            \DebugBar\DebugBar::class                       => \PhpMiddleware\PhpDebugBar\StandardDebugBarFactory::class,
+            DebugBar\DataCollector\ConfigCollector::class   => PhpMiddleware\PhpDebugBar\ConfigCollectorFactory::class,
+//            \DebugBar\Storage\FileStorage::class                    => function () {
+//                return new \DebugBar\Storage\FileStorage(__DIR__.'/data/cache');
+//            },
+
+        ],
+    ],
+
+    'whoops' => [
+        'json_exceptions' => [
+            'display'    => true,
+            'show_trace' => true,
+            'ajax_only'  => true,
+        ],
+    ],
+
+    'phpmiddleware' => [
+        'phpdebugbar' => [
+            'javascript_renderer' => [
+                'base_url' => '/phpdebugbar',
+            ],
+            'collectors'          => [
+                DebugBar\DataCollector\ConfigCollector::class,
+//                DebugBar\DataCollector\TimeDataCollector::class,
+//                DebugBar\DataCollector\MessagesCollector::class,
+            ],
+            'storage'             => null,
+        ],
+    ],
+];

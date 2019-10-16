@@ -1,0 +1,76 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: m-lobanov
+ * Date: 14.02.19
+ * Time: 14:19
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Kkt $kkt */
+/** @var \Office\Entity\Tariff[] $tariffs */
+/** @var  \Office\Entity\Tariff $currTariff */
+/** @var  \Office\Entity\Tariff $nextTariff */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <form class="form-horizontal form-label-left" method="post" action="?">
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="tariff">
+                                Текущий тариф
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control" id="tariff" disabled>
+                                    <option value="" selected>
+                                        <?php echo $currTariff->getTitle(); ?>
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <?php
+                        if ($kkt->getTariffNext()) {
+                            ?>
+                            <div class="item form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="tariff">
+                                    Следующий тариф
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" id="tariff" disabled>
+                                        <option value="" selected>
+                                            <?php echo $nextTariff->getTitle(); ?>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                        <div class="item form-group">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" for="tariff">
+                                Сменить на
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control" id="tariff" name="tariffId">
+                                    <?php foreach ($tariffs as $tariff): ?>
+                                        <option
+                                                value="<?php echo $tariff->getId(); ?>"<?php if ($tariff == $nextTariff) {
+                                            echo ' selected';
+                                        } ?>
+                                        >
+                                            <?php echo $tariff->getTitle(); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <button class="btn btn-success">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

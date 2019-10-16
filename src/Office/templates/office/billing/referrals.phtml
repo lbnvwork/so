@@ -1,0 +1,95 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 15.06.18
+ * Time: 14:02
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Auth\Entity\User $user */
+/** @var \Office\Entity\ReferralPayment[] $payments */
+?>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Мои рефералы</h2>
+                <div class="clearfix"></div>
+                Ссылка для привлечения https://online.schetmash.com/lk/user/register?referral=<?php echo $user->getId(); ?>
+            </div>
+            <div class="x_content">
+                    <form action="" method="get" class="form-inline">
+                        <h5>Фильтр</h5>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="filter[name]" value="<?php echo $filter['name']; ?>"
+                             placeholder="Фамилия или компания">
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary form-control">Найти</button>
+                        </div>
+                    </form>
+                    <br>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="<?php $field = 'u.id';
+                                echo $this->url('office.referral', [], ['sort' => $field,'order' => $order]); ?>"> #
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'u.lastName';
+                                echo $this->url('office.referral', [], ['sort' => $field,'order' => $order]); ?>"> ФИО реферала
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'c.company';
+                                 echo $this->url('office.referral', [], ['sort' => $field,'order' => $order]); ?>"> Компания
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="<?php $field = 'u.dateCreate';
+                                 echo $this->url('office.referral', [], ['sort' => $field,'order' => $order]); ?>"> Дата регистрации
+                                <?php if ($sortType === $field) { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($referrals as $item) {
+                        ?>
+                        <tr>
+                            <td><?php echo $item->getId(); ?></td>
+                            <td><?php echo $this->escapeHtml($item->getFio()); ?></td>
+                            <td><?php $companies = $item->getCompany();
+                                $title = [];
+                                foreach($companies as $company){
+                                    $title[] = $company->getTitle();
+                                }
+                                echo $this->escapeHtml(implode(', ', $title));
+                                ?>
+                            </td>
+                            <td><?php echo $item->getDateCreate()->format('d.m.Y'); ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+            </div>
+        </div>
+    </div>
+</div>

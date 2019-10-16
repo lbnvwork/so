@@ -1,0 +1,47 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 08.02.18
+ * Time: 15:35
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \App\Entity\Setting[] $settings */
+/** @var string $type */
+?>
+<div class="x_content">
+    <br/>
+    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="?" enctype="multipart/form-data">
+        <?php
+        foreach (\Cms\Service\SettingService::DEFAULT_SETTINGS[$type] as $settingName => $mainSetting) {
+            ?>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="<?php echo $settingName; ?>">
+                    <?php echo $mainSetting['title']; ?><?php echo $mainSetting['required'] ? '<span class="required">*</span>' : ''; ?>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <?php
+                    if ($mainSetting['type'] === 'file') {
+                        ?>
+                        <img style="width: 20%; display: block;" src="<?php echo $settings[$settingName]->getValue(); ?>" alt="">
+                    <?php
+                    }
+                    ?>
+                    <input type="<?php echo $mainSetting['type']; ?>" id="<?php echo $settingName; ?>" name="main[<?php echo $settingName; ?>]"
+                        <?php echo $mainSetting['required'] ? ' required="required"' : ''; ?>
+                           value="<?php echo $mainSetting['type'] === 'file' ? '' : $settings[$settingName]->getValue(); ?>"
+                           class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <div class="ln_solid"></div>
+        <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            </div>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: m-lobanov
+ * Date: 13.12.18
+ * Time: 14:17
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+?>
+<!--noindex-->
+<div class="js-success-register alx-feedb-error alx-popup-mess-show-anime1" style="display: none;">
+    <div class="afbf_success_block _without-popup">
+        <div class="afbf_mess_ok">
+            <div class="afbf_icon"></div>
+            <div class="mess"></div>
+        </div>
+    </div>
+</div>
+<!--/noindex-->
+<div class="form-button-block js-register-form">
+    <div class="form-side-main <?php echo $divWhiteClass?>">
+        <form class="js-register" action="<?php echo $this->url('api.landing',['action'=>'register']); ?>" method="post">
+            <input type="email" size="40" name="email" class="email-input" placeholder="Введите Ваш email" required="">
+            <button type="submit" class="get-gift btn-gift-action <?php echo $buttonClass?>" name="SEND_FORM" value="Отправить">Подключиться
+            </button>
+            <label class="politic-privacy">
+                <input type="checkbox" value="Y" checked="" name="alx_fb_agreement" required="">
+                Согласен с <a href="/upload/docs/confidentiality.pdf" target="_blank">политикой конфиденциальности сайта</a>
+            </label>
+        </form>
+    </div>
+</div>

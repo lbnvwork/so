@@ -1,0 +1,52 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 05.02.19
+ * Time: 14:49
+ */
+?>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Удаление кассы</h4>
+            </div>
+            <div class="modal-body">
+                КТТ будет отлючена и откреплена от компании. Вы уверены что хотите продолжить?
+            </div>
+            <div class="modal-footer js-office-send-fn">
+                <div class="pull-left">
+                    <input name="sendKkt" type="checkbox"> Отправить ФН на юридический адрес?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="margin-bottom: 1px" data-dismiss="modal">Отмена</button>
+                <button type="button" data-url="" class="btn btn-danger js-office-kkt-remove-confirm">Да, я уверен</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="setRnmModal" tabindex="-1" role="dialog" aria-labelledby="setRnmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="setRnmModalLabel">Установка РНМ</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Введите РНМ</label>
+                    <input name="rnm" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="margin-bottom: 1px" data-dismiss="modal">Отмена</button>
+                <button type="button" data-url="" class="btn btn-success js-office-kkt-rnm-set">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>

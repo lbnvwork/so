@@ -1,0 +1,271 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 24.01.18
+ * Time: 11:26
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Auth\Entity\User[] $users */
+/** @var \Permission\Entity\Role[] $roles */
+/** @var array $paginator */
+//@TODO escapeHtmlAttr почему-то не корректно работает с utf-8
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Список пользователей
+                    </h2>
+                    <a href="<?php echo $this->url('admin.user', ['id' => 0]); ?>" class="btn btn-primary pull-right">Добавить</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form action="?" method="get" class="form-inline">
+                        <h5>Фильтр</h5>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="fio"
+                                   value="<?php echo htmlspecialchars($paginator['query']['fio']) ?>" placeholder="ФИО">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="company"
+                                   value="<?php echo htmlspecialchars($paginator['query']['company']) ?>"
+                                   placeholder="Компания">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="email"
+                                   value="<?php echo $this->escapeHtmlAttr($paginator['query']['email']) ?>"
+                                   placeholder="E-mail">
+                        </div>
+                        <?php
+                        /*
+<!--                        <div class="form-group">-->
+<!--                            <select name="role" class="form-control">-->
+<!--                                <option>Не выбрано</option>-->
+<!--                                --><?php
+//                                foreach ($roles as $role) {
+//                                    ?>
+<!--                                    <option value="--><?php //echo $role->getId(); ?><!--" --><?php //echo $paginator['query']['email'] == $role->getId() ? 'selected' : ''; ?><!-->-->
+<!--                                        --><?php //echo $role->getTitle(); ?>
+<!--                                    </option>-->
+<!--                                    --><?php
+//                                }
+//                                ?>
+<!--                                ?>-->
+<!--                            </select>-->
+<!--                        </div>-->
+                        */
+                        ?>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary form-control">Применить</button>
+                        </div>
+                    </form>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.users', [], [
+                                    'sort' => 'id',
+                                    'order' => $order
+                                ]
+                                ); ?>">
+                                    #
+                                </a>
+                                <?php if ($sortType === 'id') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.users', [],
+                                    [
+                                        'sort' => 'lastName',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    ФИО
+                                </a>
+                                <?php if ($sortType === 'lastName') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <!--                                <a href="-->
+                                <?php //echo $this->url('admin.users', [],
+                                //                                    ['sort' => 'company']); ?><!--">-->
+                                Компания
+                                <!--                                </a>-->
+                                <?php if ($sortType === 'company') { ?>
+                                    <span class="fa fa-chevron-down"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.users', [],
+                                    [
+                                        'sort' => 'email',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Email
+                                </a>
+                                <?php if ($sortType === 'email') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.users', [],
+                                    [
+                                        'sort' => 'phone',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Телефон
+                                </a>
+                                <?php if ($sortType === 'phone') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <!--                                <a href="-->
+                                <?php //echo $this->url('admin.users', [],
+                                //                                    ['sort' => 'userRole']); ?><!--">-->
+                                Роли
+                                <!--                                </a>-->
+                                <?php if ($sortType === 'userRole') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.users', [],
+                                    [
+                                        'sort' => 'dateCreate',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Дата регистрации
+                                </a>
+                                <?php if ($sortType === 'dateCreate') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.users', [],
+                                    [
+                                        'sort' => 'dateLastAuth',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Дата авторизации
+                                </a>
+                                <?php if ($sortType === 'dateLastAuth') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.users', [],
+                                    [
+                                        'sort' => 'isConfirmed',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Статус
+                                </a>
+                                <?php if ($sortType === 'isConfirmed') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($users as $user) {
+                            ?>
+                            <tr>
+                                <th scope="row"><?php echo $user->getId(); ?></th>
+                                <td>
+                                    <a href="<?php echo $this->url('admin.user', ['id' => $user->getId()]); ?>">
+                                        <?php echo $this->escapeHtml($user->getFIO()); ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <?php
+                                    $companyArr = [];
+                                    foreach ($user->getCompany() as $company) {
+                                        echo $this->escapeHtml($company->getDefaultTitle());
+                                    }
+                                    echo implode(',', $companyArr);
+                                    ?>
+                                </td>
+                                <td>
+                                    <a href="mailto:<?php echo $this->escapeHtmlAttr($user->getEmail()); ?>"><?php echo $this->escapeHtml($user->getEmail()); ?></a>
+                                </td>
+                                <td>
+                                    <a href="tel:<?php echo str_replace(
+                                        [
+                                            '(',
+                                            ')',
+                                            ' ',
+                                            '-'
+                                        ], '', $user->getPhone()
+                                    ); ?>"><?php echo $this->escapeHtml($user->getPhone()); ?></a>
+                                </td>
+                                <!--                                <td>-->
+                                <!--                                    <a href="-->
+                                <?php //echo $this->url('admin.super.site', ['id' => $user->getSiteId()]); ?><!--">-->
+                                <!--                                        --><?php //echo $user->getSite()->getDomen(); ?>
+                                <!--                                    </a>-->
+                                <!--                                </td>-->
+                                <td>
+                                    <?php
+                                    $userRoles = [];
+                                    /** @var \Auth\Entity\UserHasRole $role */
+                                    foreach ($user->getUserRoles() as $role) {
+                                        $userRoles[] = $roles[$role->getRoleName()]->getTitle();
+                                    }
+                                    echo implode(', ', $userRoles);
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $user->getDateCreate()->format('d.m.Y H:i:s'); ?>
+                                </td>
+                                <td>
+                                    <?php echo $user->getDateLastAuth() ? $user->getDateLastAuth()->format('d.m.Y H:i:s') : '-'; ?>
+                                </td>
+                                <td>
+                                    <?php echo $user->getIsConfirmed() ? 'Активен' : 'Не подтвержден'; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if (!$user->getUserRoleManager()->offsetExists('admin') && $user->getIsConfirmed()) {
+                                        ?>
+                                        <a href="<?php echo $this->url(
+                                            'admin.user', [
+                                                'id' => $user->getId(),
+                                                'action' => 'auth'
+                                            ]
+                                        ) ?>" class="btn btn-primary">Авторизоваться</a>
+                                        <?php
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                    <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: *.php
+Disallow: /*?referral=
+Disallow: /retarget
+
+Crawl-delay: 2
+Sitemap: https://online.schetmash.com/sitemap.xml
+Host: https://online.schetmash.com

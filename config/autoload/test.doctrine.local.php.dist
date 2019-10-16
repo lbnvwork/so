@@ -1,0 +1,12 @@
+<?php
+return [
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'params' => [
+                    'url' => 'mysql://root:12345@mysql_test/db-test',
+                ],
+            ],
+        ],
+    ],
+];

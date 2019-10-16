@@ -1,0 +1,145 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 24.01.18
+ * Time: 14:29
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Auth\Entity\User $user */
+/** @var \Auth\Entity\User $editUser */
+/** @var \Permission\Entity\Role[] $roles */
+/** @var array $userRoles */
+
+$this->inlineScript()->prependFile('/assets/cms/vendors/validator/validator.js');
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <form class="form-horizontal form-label-left" novalidate method="post" action="?">
+                        <span class="section">Информация о пользователе</span>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastName">
+                                Фамилия <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="lastName" class="form-control col-md-7 col-xs-12" name="lastName"
+                                       value="<?php echo $this->escapeHtmlAttr($editUser->getLastName()); ?>"
+                                       placeholder="" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstName">
+                                Имя
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="firstName" class="form-control col-md-7 col-xs-12" name="firstName"
+                                       value="<?php echo $this->escapeHtmlAttr($editUser->getFirstName()); ?>"
+                                       placeholder="" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="middleName">
+                                Отчество
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middleName" class="form-control col-md-7 col-xs-12" name="middleName"
+                                       value="<?php echo $this->escapeHtmlAttr($editUser->getMiddleName()); ?>"
+                                       placeholder="" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                                Email <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="email" id="email" name="email"
+                                       value="<?php echo $editUser->getEmail(); ?>"
+                                       required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="password" class="control-label col-md-3">Пароль</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <!-- data-validate-length="6,8" -->
+                                <input id="password" type="password" name="password"
+                                    <?php echo $editUser->getId() === null ? 'required="required"' : ''; ?>
+                                       class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Повтор пароля</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="password2" type="password"
+                                    <?php echo $editUser->getId() === null ? 'required="required"' : ''; ?>
+                                       name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">Подтвержен?
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="checkbox">
+                                    <label class="">
+                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                            <input type="checkbox" class="flat" name="isConfirmed"
+                                                <?php echo $editUser->getIsConfirmed() ? 'checked="checked"' : '' ?>
+                                                   value="1"
+                                                   style="position: absolute; opacity: 0;">
+                                            <ins class="iCheck-helper"></ins>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">Роли
+                            </label>
+
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <?php
+                                foreach ($roles as $role) {
+                                    if ($user->getUserRoleManager()->offsetExists('manager') && \in_array($role->getRoleName(),  ['admin', 'manager', 'main_manager'], true)) {
+                                        continue;
+                                    }
+                                    ?>
+                                    <div class="checkbox">
+                                        <label class="">
+                                            <div class="icheckbox_flat-green checked" style="position: relative;">
+                                                <input type="checkbox" class="flat" name="userRoles[]"
+                                                    <?php echo in_array($role->getRoleName(), $userRoles, true) ? 'checked="checked"' : '' ?>
+                                                       value="<?php echo $role->getRoleName(); ?>"
+                                                       style="position: absolute; opacity: 0;">
+                                                <ins class="iCheck-helper"></ins>
+                                            </div>
+                                            <?php echo $role->getTitle(); ?>
+                                        </label>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <?php
+                        if ($editUser->getRoboPromo()) {
+                            ?>
+                            Участвует в акции с Робокассой
+                        <?php
+                        }
+                        ?>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="send" type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

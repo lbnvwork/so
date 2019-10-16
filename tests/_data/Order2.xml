@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+    <id type="integer">22086842</id>
+    <account-id type="integer">test-account-id-value</account-id>
+    <fulfillment-status>accepted</fulfillment-status>
+    <comment></comment>
+    <delivery-variant-id type="integer">2085763</delivery-variant-id>
+    <payment-gateway-id type="integer">923967</payment-gateway-id>
+    <created-at type="timestamp">2019-08-05 10:14:50 +0300</created-at>
+    <updated-at type="timestamp">2019-08-08 15:43:38 +0300</updated-at>
+    <payment-title>Наличным курьеру</payment-title>
+    <payment-description>Наличными курьеру</payment-description>
+    <delivery-description>Курьером (Доставка курьером&amp;nbsp;)</delivery-description>
+    <delivery-price type="decimal">500.0</delivery-price>
+    <number type="integer">1000</number>
+    <key>ae9fd74134b03bc5345659805b3468aa</key>
+    <accepted-at type="timestamp" nil="true"/>
+    <delivered-at type="timestamp" nil="true"/>
+    <referer nil="true"/>
+    <current-location nil="true"/>
+    <query nil="true"/>
+    <source-domain nil="true"/>
+    <delivery-date type="date" nil="true"/>
+    <delivery-from-hour type="integer" nil="true"/>
+    <delivery-to-hour type="integer" nil="true"/>
+    <financial-status>pending</financial-status>
+    <paid-at type="timestamp" nil="true"/>
+    <first-referer nil="true"/>
+    <first-current-location nil="true"/>
+    <first-query nil="true"/>
+    <first-source-domain nil="true"/>
+    <delivery-title>Курьером</delivery-title>
+    <margin type="decimal">0.0</margin>
+    <archived type="boolean">false</archived>
+    <manager-comment></manager-comment>
+    <responsible-user-id type="integer" nil="true"/>
+    <currency-code>RUR</currency-code>
+    <client-transaction-id nil="true"/>
+    <first-source>Прямой трафик</first-source>
+    <source>Прямой трафик</source>
+    <locale>ru</locale>
+    <total-profit type="decimal">4290.0</total-profit>
+    <fields-values type="array"/>
+    <shipping-address>
+        <id type="integer">25395218</id>
+        <name>Иванов Иван Иванович</name>
+        <phone>88888888888</phone>
+        <country nil="true"/>
+        <state>обл Курская</state>
+        <city>Курск</city>
+        <address></address>
+        <zip nil="true"/>
+        <surname nil="true"/>
+        <middlename nil="true"/>
+        <street nil="true"/>
+        <house nil="true"/>
+        <flat nil="true"/>
+        <full-locality-name>обл Курская, Курск</full-locality-name>
+        <full-delivery-address>обл Курская, Курск</full-delivery-address>
+        <full-name>Иванов Иван Иванович</full-name>
+        <address-for-gis>обл Курская, Курск</address-for-gis>
+        <location-valid type="boolean">true</location-valid>
+        <fields-values type="array"/>
+        <location>
+            <kladr-code>4600000100000</kladr-code>
+            <zip nil="true"/>
+            <region-zip>305000</region-zip>
+            <country>RU</country>
+            <state>Курская</state>
+            <state-type>обл</state-type>
+            <area nil="true"/>
+            <area-type nil="true"/>
+            <city>Курск</city>
+            <city-type>г</city-type>
+            <settlement nil="true"/>
+            <settlement-type nil="true"/>
+            <address></address>
+            <street nil="true"/>
+            <street-type nil="true"/>
+            <house nil="true"/>
+            <flat nil="true"/>
+            <is-kladr type="boolean">true</is-kladr>
+            <latitude>51.71944618947403</latitude>
+            <longitude>36.181741499999994</longitude>
+            <autodetected nil="true"/>
+        </location>
+    </shipping-address>
+    <discounts type="array">
+        <discount>
+            <id type="integer">5014004</id>
+            <discount type="decimal">200.0</discount>
+            <type-id type="integer">2</type-id>
+            <created-at type="timestamp">2019-08-08 14:04:18 +0300</created-at>
+            <updated-at type="timestamp">2019-08-08 14:04:18 +0300</updated-at>
+            <description></description>
+            <reference-id type="integer" nil="true"/>
+            <discount-products-ids type="array"/>
+            <reference-type nil="true"/>
+            <discount-order-lines-ids type="array"/>
+            <percent nil="true"/>
+            <discount-code-id nil="true"/>
+            <amount type="decimal">200.0</amount>
+            <full-amount type="decimal">200.0</full-amount>
+        </discount>
+    </discounts>
+    <client>
+        <id type="integer">23769130</id>
+        <email></email>
+        <name>Иванов Иван Иванович</name>
+        <phone>88888888888</phone>
+        <created-at type="timestamp">2019-08-05 10:14:50 +0300</created-at>
+        <updated-at type="timestamp">2019-08-08 15:43:38 +0300</updated-at>
+        <registered type="boolean">false</registered>
+        <subscribe type="boolean">true</subscribe>
+        <client-group-id type="integer" nil="true"/>
+        <surname nil="true"/>
+        <middlename nil="true"/>
+        <bonus-points type="integer">0</bonus-points>
+        <ip-addr type="inet" nil="true"/>
+        <type>Client::Individual</type>
+        <correspondent-account nil="true"/>
+        <settlement-account nil="true"/>
+        <consent-to-personal-data type="boolean" nil="true"/>
+        <progressive-discount nil="true"/>
+        <group-discount nil="true"/>
+        <fields-values type="array"/>
+    </client>
+    <order-lines type="array">
+        <order-line>
+            <id type="integer">77639190</id>
+            <order-id type="integer">22086842</order-id>
+            <variant-id type="integer">257086124</variant-id>
+            <sale-price type="decimal">1500.0</sale-price>
+            <title>Демо-товар 2</title>
+            <sku>2001</sku>
+            <created-at type="timestamp">2019-08-05 10:14:50 +0300</created-at>
+            <updated-at type="timestamp">2019-08-08 14:03:44 +0300</updated-at>
+            <weight type="decimal">1.0</weight>
+            <product-id type="integer">148071217</product-id>
+            <discounts-amount type="decimal">133.63</discounts-amount>
+            <unit>pce</unit>
+            <barcode nil="true"/>
+            <comment nil="true"/>
+            <bundle-id type="integer" nil="true"/>
+            <vat type="integer">-1</vat>
+            <dimensions nil="true"/>
+            <fiscal-product-type type="integer">1</fiscal-product-type>
+            <quantity type="integer">2</quantity>
+            <reserved-quantity type="integer">2</reserved-quantity>
+            <full-sale-price type="decimal">1433.19</full-sale-price>
+            <total-price type="decimal">3000.0</total-price>
+            <full-total-price type="decimal">2866.37</full-total-price>
+        </order-line>
+        <order-line>
+            <id type="integer">78163587</id>
+            <order-id type="integer">22086842</order-id>
+            <variant-id type="integer">257086125</variant-id>
+            <sale-price type="decimal">1490.0</sale-price>
+            <title>Демо-товар 3 (черный)</title>
+            <sku>3001</sku>
+            <created-at type="timestamp">2019-08-08 15:43:28 +0300</created-at>
+            <updated-at type="timestamp">2019-08-08 15:43:28 +0300</updated-at>
+            <weight type="decimal">1.0</weight>
+            <product-id type="integer">148071219</product-id>
+            <discounts-amount type="decimal">66.37</discounts-amount>
+            <unit>pce</unit>
+            <barcode nil="true"/>
+            <comment nil="true"/>
+            <bundle-id type="integer" nil="true"/>
+            <vat type="integer">-1</vat>
+            <dimensions nil="true"/>
+            <fiscal-product-type type="integer">1</fiscal-product-type>
+            <quantity type="integer">1</quantity>
+            <reserved-quantity type="integer">1</reserved-quantity>
+            <full-sale-price type="decimal">1423.63</full-sale-price>
+            <total-price type="decimal">1490.0</total-price>
+            <full-total-price type="decimal">1423.63</full-total-price>
+        </order-line>
+    </order-lines>
+    <discount>
+        <id type="integer">5014004</id>
+        <discount type="decimal">200.0</discount>
+        <type-id type="integer">2</type-id>
+        <created-at type="timestamp">2019-08-08 14:04:18 +0300</created-at>
+        <updated-at type="timestamp">2019-08-08 14:04:18 +0300</updated-at>
+        <description></description>
+        <reference-id type="integer" nil="true"/>
+        <discount-products-ids type="array"/>
+        <reference-type nil="true"/>
+        <discount-order-lines-ids type="array"/>
+        <percent nil="true"/>
+        <discount-code-id nil="true"/>
+        <amount type="decimal">200.0</amount>
+        <full-amount type="decimal">200.0</full-amount>
+    </discount>
+    <cookies></cookies>
+    <items-price type="decimal">4290.0</items-price>
+    <total-price type="decimal">4790.0</total-price>
+    <full-delivery-price type="decimal">500.0</full-delivery-price>
+    <order-changes type="array">
+        <order-change>
+            <id type="integer">140969641</id>
+            <action>financial_status_changed</action>
+            <value-was>pending</value-was>
+            <value-is>paid</value-is>
+            <created-at type="dateTime">2019-08-08T15:43:38+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Статус оплаты изменен с 'Оплачен' на 'Не оплачен' пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">140969539</id>
+            <action>order_line_created</action>
+            <value-was nil="true"/>
+            <value-is>
+                <sale-price type="float">1490.0</sale-price>
+                <title>Демо-товар 3 (черный)</title>
+                <quantity type="integer">1</quantity>
+            </value-is>
+            <created-at type="dateTime">2019-08-08T15:43:28+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Добавлена позиция "Демо-товар 3 (черный)" с ценой 1490.0 и количеством 1 пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">140923258</id>
+            <action>financial_status_changed</action>
+            <value-was>pending</value-was>
+            <value-is>paid</value-is>
+            <created-at type="dateTime">2019-08-08T14:04:23+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Статус оплаты изменен с 'Не оплачен' на 'Оплачен' пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">140923233</id>
+            <action>discount_created</action>
+            <value-was nil="true"/>
+            <value-is>
+                <type-id type="integer">2</type-id>
+                <discount>200.0</discount>
+                <description></description>
+                <value>200.0 руб</value>
+            </value-is>
+            <created-at type="dateTime">2019-08-08T14:04:18+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Добавлена скидка "" на 200.0 руб пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">140923115</id>
+            <action>delivery_price_changed</action>
+            <value-was>0.0</value-was>
+            <value-is type="float">500.0</value-is>
+            <created-at type="dateTime">2019-08-08T14:04:00+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Стоимость доставки изменена с 0.0 руб на 500.0 руб пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">140923114</id>
+            <action>delivery_variant_changed</action>
+            <value-was>Самовывоз</value-was>
+            <value-is>Курьером</value-is>
+            <created-at type="dateTime">2019-08-08T14:04:00+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Изменен способ доставки c 'Самовывоз' на 'Курьером' пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">140922976</id>
+            <action>order_line_quantity_changed</action>
+            <value-was>
+                <title>Демо-товар 2</title>
+                <quantity type="integer">1</quantity>
+            </value-was>
+            <value-is>
+                <title>Демо-товар 2</title>
+                <quantity type="integer">2</quantity>
+            </value-is>
+            <created-at type="dateTime">2019-08-08T14:03:44+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Изменено кол-во в позиции "Демо-товар 2" с 1 на 2 пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">139756955</id>
+            <action>financial_status_changed</action>
+            <value-was>paid</value-was>
+            <value-is>pending</value-is>
+            <created-at type="dateTime">2019-08-05T12:45:54+03:00</created-at>
+            <user-name>Lobanov</user-name>
+            <full-description>Статус оплаты изменен с 'Оплачен' на 'Не оплачен' пользователем Lobanov</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">139701686</id>
+            <action>financial_status_changed</action>
+            <value-was>pending</value-was>
+            <value-is>paid</value-is>
+            <created-at type="dateTime">2019-08-05T10:18:38+03:00</created-at>
+            <user-name>Лобанов Максим Викторович</user-name>
+            <full-description>Статус оплаты изменен с 'Не оплачен' на 'Оплачен' пользователем Лобанов Максим Викторович</full-description>
+        </order-change>
+        <order-change>
+            <id type="integer">139700458</id>
+            <action>order_created</action>
+            <value-was nil="true"/>
+            <value-is nil="true"/>
+            <created-at type="dateTime">2019-08-05T10:14:50+03:00</created-at>
+            <user-name>Лобанов Максим Викторович</user-name>
+            <full-description>Заказ создан пользователем Лобанов Максим Викторович</full-description>
+        </order-change>
+    </order-changes>
+    <delivery-info>
+        <delivery-variant-id type="integer">2085763</delivery-variant-id>
+        <tariff-id nil="true"/>
+        <title nil="true"/>
+        <description nil="true"/>
+        <price type="float">300.0</price>
+        <shipping-company nil="true"/>
+        <shipping-company-handle nil="true"/>
+        <delivery-interval>
+            <min-days nil="true"/>
+            <max-days nil="true"/>
+            <description></description>
+        </delivery-interval>
+        <errors type="array"/>
+        <warnings type="array"/>
+        <outlet>
+            <id nil="true"/>
+            <external-id nil="true"/>
+            <latitude nil="true"/>
+            <longitude nil="true"/>
+            <title nil="true"/>
+            <description nil="true"/>
+            <address nil="true"/>
+            <payment-method type="array"/>
+            <source-id nil="true"/>
+        </outlet>
+    </delivery-info>
+    <custom-status>
+        <permalink>accepted</permalink>
+        <title>В обработке</title>
+    </custom-status>
+</order>

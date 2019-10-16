@@ -1,0 +1,277 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 24.01.18
+ * Time: 11:26
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Fn[] $rfns */
+/** @var \Doctrine\ORM\Tools\Pagination\Paginator $paginator */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Реестр ФН
+                    </h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!--                    <form action="?" method="get" class="form-inline">-->
+                    <!--                        <h5>Фильтр</h5>-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <input type="text" class="form-control" name="fio"-->
+                    <!--                                   value="--><?php //echo htmlspecialchars($paginator['query']['fio']) ?><!--"-->
+                    <!--                                   placeholder="ФИО">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <input type="text" class="form-control" name="company"-->
+                    <!--                                   value="--><?php //echo htmlspecialchars($paginator['query']['company']) ?><!--"-->
+                    <!--                                   placeholder="Компания">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <input type="text" class="form-control" name="email"-->
+                    <!--                                   value="--><?php //echo $this->escapeHtmlAttr($paginator['query']['email']) ?><!--"-->
+                    <!--                                   placeholder="E-mail">-->
+                    <!--                        </div>-->
+                    <?php
+                    /*
+<!--                        <div class="form-group">-->
+<!--                            <select name="role" class="form-control">-->
+<!--                                <option>Не выбрано</option>-->
+<!--                                --><?php
+//                                foreach ($roles as $role) {
+//                                    ?>
+<!--                                    <option value="--><?php //echo $role->getId(); ?><!--" --><?php //echo $paginator['query']['email'] == $role->getId() ? 'selected' : ''; ?><!-->-->
+<!--                                        --><?php //echo $role->getTitle(); ?>
+<!--                                    </option>-->
+<!--                                    --><?php
+//                                }
+//                                ?>
+<!--                                ?>-->
+<!--                            </select>-->
+<!--                        </div>-->
+                    */
+                    ?>
+                    <!--                        <div class="form-group">-->
+                    <!--                            <button type="submit" class="btn btn-primary form-control">Применить</button>-->
+                    <!--                        </div>-->
+                    <!--                    </form>-->
+                    <!--                    <br>-->
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'id',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    #
+                                </a>
+                                <?php if ($sortType === 'id') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'company',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Компания
+                                </a>
+                                <?php if ($sortType === 'company') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'serialNumber',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Серийный номер
+                                </a>
+                                <?php if ($sortType === 'serialNumber') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="
+                                <?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'fnNumber',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Номер ФН
+                                </a>
+                                <?php if ($sortType === 'fnNumber') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'fnVersion',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Версия ФН
+                                </a>
+                                <?php if ($sortType === 'fnVersion') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'status',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Статус
+                                </a>
+                                <?php if ($sortType === 'status') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'dateFiscalized',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Дата фискализиции
+                                </a>
+                                <?php if ($sortType === 'dateFiscalized') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'dateDeleted',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Дата удаления
+                                </a>
+                                <?php if ($sortType === 'dateDeleted') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.rfn', [],
+                                    [
+                                        'sort' => 'documentNumber',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Напечатанных чеков
+                                </a>
+                                <?php if ($sortType === 'documentNumber') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($rfns as $rfn) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $rfn->getId(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $this->escapeHtml($rfn->getCompany()); ?>
+                                </td>
+                                <td>
+                                    <?php echo $rfn->getSerialNumber(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $rfn->getFnNumber() ?>
+                                </td>
+                                <td>
+                                    <?php echo $rfn->getFnVersion(); ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $status = (int)$rfn->getStatus();
+                                    switch ($status) {
+                                        case 1:
+                                            echo 'Фискализирована';
+                                            break;
+                                        case 2:
+                                            echo 'Установлена';
+                                            break;
+                                        case 3:
+                                            echo 'Удалена';
+                                            break;
+                                        default:
+                                            echo 'Свободна';
+                                            break;
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $rfn->getDateFiscalized() ? $rfn->getDateFiscalized()->format('d.m.Y H:i:s') : ''; ?>
+                                </td>
+                                <td>
+                                    <?php echo $rfn->getDateDeleted() ? $rfn->getDateDeleted()->format('d.m.Y H:i:s') : ''; ?>
+                                </td>
+                                <td>
+                                    <div class="progress_title">
+                                        <?php
+                                        if ($rfn->getDocumentNumber() === 0) {
+                                            $total = 100;
+                                        } else {
+                                            $used = $rfn->getDocumentNumber() / \Cms\Action\RfnAction::TOTAL * 100;
+                                            $total = round(100 - $used, 3);
+                                        }
+                                        ?>
+                                        <span class="right">Свободно <?php echo $total; ?>%</span>
+                                        <div class="col-xs-2">
+                                            <span><?php echo $rfn->getDocumentNumber(); ?></span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <div class="progress progress_sm">
+                                                <?php
+                                                $bgProgress = $total < 11 ? 'red' : 'green';
+                                                ?>
+                                                <div class="progress-bar bg-<?php echo $bgProgress; ?>"
+                                                     role="progressbar"
+                                                     data-transitiongoal="<?php echo round($used); ?>"
+                                                     style="width: 60%;"
+                                                     aria-valuenow="68"></div>
+                                            </div>
+                                        </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                    <?php echo $this->paginator($paginator, 'office::paginator'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

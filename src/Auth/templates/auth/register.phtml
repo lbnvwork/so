@@ -1,0 +1,26 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 19.01.18
+ * Time: 10:51
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+
+$this->headTitle('Регистрация');
+$this->headMeta('Для регистрации на сайте укажите email адрес. На него будет отправлена инструкция.', 'description');
+?>
+<h1 class="page-title">Регистрация</h1>
+<form class="enter-form" action="?" method="post">
+    <input type="email" required name="email" class="enter-form_input" pattern="<?php echo \Auth\Action\RegisterAction::REGEXP_EMAIL;?>" placeholder="example@email.ru" value="">
+<!--    <div><input type="tel" pattern="--><?php //echo \Auth\Action\RegisterAction::REGEXP_PHONE;?><!--" class="enter-form_input" name="phone" value="" required="required" placeholder="Телефон"></div>-->
+    <div class="enter-form_actions centered">
+        <button onclick="ym(48966332, 'reachGoal', 'REGISTRATION'); return true;" type="submit" name="button" class="enter-form_button">Регистрация</button>
+    </div>
+    <br>
+    <span>Нажимая кнопку "Регистрация", Вы даете согласие на <a target="_blank" href="/upload/docs/confidentiality.pdf">обработку персональных данных</a></span>
+</form>
+<div class="enter-form_registration">
+    Уже зарегестрированы?
+    <a href="<?php echo $this->url('login') ?>" class="enter-form_link">Войти</a>
+</div>

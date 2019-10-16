@@ -1,0 +1,105 @@
+version: '3'
+services:
+  app:
+    build:
+      context: docker/php
+      args:
+        server_uid: $UID
+    restart: always
+    working_dir: /var/www/html/public
+    volumes:
+      - /etc/localtime:/etc/localtime/:ro
+      - ./:/var/www/html
+    links:
+      - mailcatcher
+      - mysql
+      - mysql_test
+    environment:
+      XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+
+  app_cli:
+    #Нужен для запуска скриптов и отладки консоли из шторма, чтобы не пересоздавать основной контейнер
+    build:
+      context: docker/php_cli
+      args:
+        server_uid: $UID
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    links:
+      - mailcatcher
+      - mysql
+      - mysql_test
+
+  nginx:
+    build:
+      context: docker/nginx
+      args:
+        server_uid: $UID
+    restart: always
+    volumes:
+      - ./:/var/www/html
+    links:
+      - app
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - proxy
+      - default
+
+  mailcatcher:
+    image: mailhog/mailhog
+    environment:
+      #MH_HOSTNAME: mail.TEST_DOMAIN
+      MH_API_BIND_ADDR: 0.0.0.0:80
+      MH_UI_BIND_ADDR: 0.0.0.0:80
+    restart: always
+    ports:
+      - 8081:80
+    user: root
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    command: --max_allowed_packet=902505856 --sql-mode=""
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: online
+    volumes:
+      - /etc/localtime:/etc/localtime/:ro
+      - ./data/docker/mysql-db:/var/lib/mysql # сохранение файлов БД на хосте
+    #    - /home/develop/keaz-files/keaz.sql:/docker-entrypoint-initdb.d/dump.sql
+
+  mysql_test:
+    image: mysql:5.7
+    restart: always
+    command: --max_allowed_packet=902505856 --sql-mode=""
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: db-test
+    volumes:
+      - /etc/localtime:/etc/localtime/:ro
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links:
+      - mysql
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 12345
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql_1
+    ports:
+      - 8080:80
+networks:
+  proxy:
+    external: true
+#networks:
+#  default:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet:  10.103.0.1/16 #Заменить на любую кроме 172.17 172.18

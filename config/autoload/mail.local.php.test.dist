@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 16.03.18
+ * Time: 23:12
+ */
+
+return [
+    'sendMail' => [
+        'host' => 'mailcatcher_1',
+        'port' => 1025,
+        'login' => 'noreply@online.schetmash.com',
+        'from' => ['noreply@online.schetmash.com'],
+        'password' => '3HwDgn',
+        'siteUrl' => 'https://TEST_DOMAIN/lk'
+    ]
+];

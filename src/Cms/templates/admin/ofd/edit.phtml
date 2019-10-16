@@ -1,0 +1,142 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 29.03.18
+ * Time: 20:59
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Ofd $ofd */
+$this->inlineScript()->prependFile('/assets/vendors/validator/validator.js');
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+
+                    <form class="form-horizontal form-label-left" novalidate method="post" action="?">
+                        <span class="section">Редактирование ОФД</span>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="server">
+                                Сервер <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="server" class="form-control col-md-7 col-xs-12" name="server"
+                                       value="<?php echo $ofd->getServer(); ?>"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="port">
+                                Порт <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="port" class="form-control col-md-7 col-xs-12" name="port"
+                                       value="<?php echo $ofd->getPort(); ?>"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeout">
+                                Таймаут (мс) <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="timeout" class="form-control col-md-7 col-xs-12" name="timeout"
+                                       value="<?php echo $ofd->getTimeout(); ?>"
+                                       required="required" type="number">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inn">
+                                ИНН <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="inn" class="form-control col-md-7 col-xs-12" name="inn"
+                                       value="<?php echo $ofd->getInn(); ?>"
+                                       required="required" type="number">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">
+                                Имя <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="title" class="form-control col-md-7 col-xs-12" name="title"
+                                       value="<?php echo $ofd->getTitle(); ?>"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">
+                                URL ОФД <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="url" class="form-control col-md-7 col-xs-12" name="url"
+                                       value="<?php echo $ofd->getUrl(); ?>"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="urlNalog">
+                                URL налог. органа <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="urlNalog" class="form-control col-md-7 col-xs-12" name="urlNalog"
+                                       value="<?php echo $ofd->getUrlNalog(); ?>"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timerConnect">
+                                Таймер соединения с ОФД <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="timerConnect" class="form-control col-md-7 col-xs-12" name="timerConnect"
+                                       value="<?php echo $ofd->getTimerConnect(); ?>"
+                                       maxlength="3"
+                                       required="required" type="number">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timerRequest">
+                                Таймер опроса ФН <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="timerRequest" class="form-control col-md-7 col-xs-12" name="timerRequest"
+                                       value="<?php echo $ofd->getTimerRequest(); ?>"
+                                       maxlength="3"
+                                       required="required" type="number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">
+                                Включен
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="checkbox">
+                                    <label class="">
+                                        <div class="icheckbox_flat-green checked" style="position: relative;">
+                                            <input type="checkbox" class="flat" name="isEnabled"
+                                                <?php echo $ofd->getIsEnabled() ? 'checked="checked"' : '' ?>
+                                                   style="position: absolute; opacity: 0;">
+                                            <ins class="iCheck-helper"></ins>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                                <button type="button" class="btn btn-danger js-ofd-remove">Удалить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+@media (max-width: 1460px){
+.x_content{
+	overflow-x: auto;
+	overflow-y: hidden;
+	}
+}
+
+#instruction{
+	text-decoration: underline;font-weight: bold;color: #000!important;
+}
+
+.nav_title {
+	width: 230px;
+	float: left;
+	background: #ffffff;
+	border-radius: 0;
+	height: 62px;
+}
+
+.nav_title img{
+	width: 192px;
+}
+
+.btn_margin{margin-right: 90px;}

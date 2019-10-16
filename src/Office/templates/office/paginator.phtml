@@ -1,0 +1,27 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 27.02.18
+ * Time: 11:54
+ */
+/** @var array $buttons */
+if (count($buttons) <= 3) {
+    return;
+}
+?>
+<ul class="pagination">
+    <?php
+    foreach ($buttons as $button) {
+        ?>
+        <li class="<?php echo $button['isCurrent'] ? 'active' : ''; ?> <?php echo $button['isDisabled'] ? 'is-disabled' : ''; ?>"
+            <?php echo $button['isDisabled'] ? 'disabled' : ''; ?>>
+            <a href="<?php echo $button['url']; ?>">
+                <?php echo $button['num']; ?>
+            </a>
+        </li>
+        <?php
+    }
+    ?>
+</ul>
+

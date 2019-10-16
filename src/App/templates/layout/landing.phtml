@@ -1,0 +1,177 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 23.01.18
+ * Time: 15:10
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \App\Service\FlashMessage $flashMessage */
+
+$this->showLogin = true;
+$this->ukScrollString = 'uk-scroll';
+
+$this->headLink()
+    //
+    ->prependStylesheet('/assets/auth/css/owl.theme.default.min.css')
+    ->prependStylesheet('/assets/auth/css/owl.carousel.min.css')
+    ->prependStylesheet('/assets/auth/css/styles.css')
+    ->prependStylesheet('/assets/auth/css/animate.css')
+    ->prependStylesheet('/assets/auth/css/font-awesome.css')
+    ->prependStylesheet('/assets/auth/css/uikit.min.css');
+    //->prependStylesheet('/assets/auth/css/form.css');
+
+
+$this->inlineScript()
+    ->prependFile('/assets/landing/js/script.js')
+    ->prependFile('/assets/landing/js/wow.min.js')
+    ->prependFile('/assets/landing/js/uikit.min.js')
+    ->prependFile('/assets/landing/js/uikit-icons.min.js')
+    ->prependFile('/assets/landing/js/uikit-icons.min.js')
+    ->prependFile('/assets/landing/js/owl.carousel.min.js')
+    ->prependFile('/assets/vendors/jquery/dist/jquery.min.js')
+    ->prependFile('https://www.google.com/recaptcha/api.js')
+    ->prependFile('/assets/vendors/js-cookie/js.cookie.min.js')
+
+?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="Disallow: *.php"/>
+    <meta name="keywords" content="онлайн касса, интернет-магазин, Счетмаш-онлайн,  54-ФЗ"/>
+    <meta name="description"
+          content="«Счетмаш Онлайн» - это веб-касса для сайтов, где за товары или услуги можно расплатиться онлайн. С помощью этого сервиса покупатели получают электронные чеки, а Ваш бизнес в интернете соответствует 54-ФЗ."/>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink(); ?>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.envybox.io/widget/cbk.css">
+    <title>Счетмаш онлайн — аренда онлайн кассы для вашего бизнеса</title>
+</head>
+<body>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(48966332, "init", {
+        id:48966332,
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/48966332" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<!-- Oneretarget container -->
+<script type="text/javascript">
+    (function (w,d) {
+        var ts = d.createElement("script");
+        ts.type = "text/javascript";
+        ts.async = true;
+        var domain = window.location.hostname;
+        ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//tag.oneretarget.com/8539_" + domain + ".js";
+        var f = function () { var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s); };
+        if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+    })(window, document);
+</script>
+<?php
+echo $this->partial('layout::header'); ?>
+
+<?php echo $this->content; ?>
+
+<?php echo $this->partial('layout::footer'); ?>
+<!--noindex-->
+<div id="popup-signin" uk-modal="">
+    <div class="popup-signin uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close=""></button>
+        <h2 class="uk-modal-title">Авторизация</h2>
+        <ul class="uk-subnav uk-subnav-pill signin-tab" uk-switcher="">
+            <li class="uk-active"><a href="#">Вход</a></li>
+            <li><a href="#">Регистрация</a></li>
+        </ul>
+        <ul class="uk-switcher uk-margin">
+            <li class="uk-active">
+                <form class="sigin-form" id="js-login" method="post" action="<?php echo $this->url('login'); ?>">
+                    <div>
+                        <input type="text" name="username" value="" placeholder="Email">
+                    </div>
+                    <div>
+                        <input type="password" id="password" name="password" value="" placeholder="Пароль">
+                        <i class="eye show" title="Показать пароль"></i>
+                    </div>
+                    <div class="row-input">
+                        <button type="submit">Войти</button>
+                    </div>
+                    <div class="row-input">
+                        <a href="<?php echo $this->url('user.forget'); ?>" rel="nofollow">Забыли свой пароль?</a>
+                    </div>
+                </form>
+            </li>
+            <li>
+                <form class="reg-form" method="post" action="<?php echo $this->url('register'); ?>" name="regform">
+                    <!--<div><input type="text" name="lastName" value="" required="required" placeholder="Фамилия"></div>
+                 <div><input type="text" name="firstName" value="" required="required" placeholder="Имя"></div>
+                 <div><input type="text" name="middleName" value="" required="required" placeholder="Отчество"></div>-->
+                    <div>
+                        <input type="email" name="email" value="" pattern="<?php echo \Auth\Action\RegisterAction::REGEXP_EMAIL;?>" required="required" placeholder="Email">
+                    </div>
+<!--                    <div><input type="tel" pattern="--><?php //echo \Auth\Action\RegisterAction::REGEXP_PHONE;?><!--" name="phone" value="" required="required" placeholder="Телефон"></div>-->
+                    <div class="row-input">
+                        <button type="submit" name="register_submit_button" onclick="ym(48966332, 'reachGoal', 'REGISTRATION'); return true;">Зарегистрироваться</button>
+                    </div>
+                    <span>Нажимая кнопку "Зарегистрироваться", Вы даете согласие на <a target="_blank" href="/upload/docs/confidentiality.pdf">обработку персональных данных</a></span>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/noindex-->
+<!--noindex-->
+<div id="popup-order" uk-modal>
+    <div class="popup-signin uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Подключиться</h2>
+        <form class="reg-form" method="post" action="<?php echo $this->url('register'); ?>" name="regform">
+            <!--<div><input type="text" name="lastName" value="" required="required" placeholder="Фамилия"></div>
+            <div><input type="text" name="firstName" value="" required="required" placeholder="Имя"></div>
+            <div><input type="text" name="middleName" value="" required="required" placeholder="Отчество"></div>-->
+            <div><input type="email" name="email" value="" pattern="<?php echo \Auth\Action\RegisterAction::REGEXP_EMAIL;?>" required="required" placeholder="Email"></div>
+<!--            <div><input type="tel" pattern="--><?php //echo \Auth\Action\RegisterAction::REGEXP_PHONE;?><!--" name="phone" value="" required="required" placeholder="Телефон"></div>-->
+
+            <div class="row-input">
+                <button type="submit" name="register_submit_button" onclick="ym(48966332, 'reachGoal', 'REGISTRATION'); return true;">Подключиться</button>
+            </div>
+            <label for="order-check" class="register-check">
+                <input type="checkbox" name="confirm" id="order-check" required="required" style="width:auto" checked>
+                <span>Cогласен на <a target="_blank" href="/upload/docs/confidentiality.pdf">обработку персональных данных</a></span>
+            </label>
+
+        </form>
+    </div>
+</div>
+<!--/noindex-->
+<?php echo $this->inlineScript(); ?>
+<script type="text/javascript" src="https://cdn.envybox.io/widget/cbk.js?wcb_code=ee8b70c1216911d1f40ce7517b28014a" charset="UTF-8" async></script>
+<!-- B24 -->
+<script>
+    (function (w, d, u) {
+        var s = d.createElement('script');
+        s.async = true;
+        s.src = u + '?' + (Date.now() / 60000 | 0);
+        var h = d.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s, h);
+    })(window, document, 'https://b24.schetmash.com/upload/crm/site_button/loader_5_pvlcr2.js');
+</script>
+<!-- B24 -->
+<script>
+    $('.js-faq').on('click', function () {
+        $('.b24-widget-button-social-tooltip').trigger("click");
+
+    });</script>
+</body>
+</html>

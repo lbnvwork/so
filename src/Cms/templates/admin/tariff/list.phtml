@@ -1,0 +1,232 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 25.01.18
+ * Time: 14:09
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var \Office\Entity\Tariff[] $tariffs */
+?>
+<div class="">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Список тарифов
+                    </h2>
+                    <a href="<?php echo $this->url('admin.tariff.edit', ['id' => 0]); ?>"
+                       class="btn btn-primary pull-right">Добавить</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [], [
+                                        'sort'  => 'sort',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Сортировка
+                                </a>
+                                <?php if ($sortType === 'sort') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'title',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Название
+                                </a>
+                                <?php if ($sortType === 'title') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'description',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Описание
+                                </a>
+                                <?php if ($sortType === 'description') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'rentCost',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Стоимость аренды
+                                </a>
+                                <?php if ($sortType === 'rentCost') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'turnoverPercent',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Процент от оборота
+                                </a>
+                                <?php if ($sortType === 'turnoverPercent') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'monthLimit',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Ограничение действия тарифа по количеству месяцев
+                                </a>
+                                <?php if ($sortType === 'monthLimit') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'monthCount',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Количество месяцев покупки тарифа как условие подключения
+                                </a>
+                                <?php if ($sortType === 'monthCount') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'maxTurnover',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Предельный размер оборота
+                                </a>
+                                <?php if ($sortType === 'maxTurnover') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'popular',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Популярный
+                                </a>
+                                <?php if ($sortType === 'popular') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'beginner',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Только новичкам
+                                </a>
+                                <?php if ($sortType === 'popular') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                            <th>
+                                <a href="<?php echo $this->url(
+                                    'admin.tariff', [],
+                                    [
+                                        'sort'  => 'promotime',
+                                        'order' => $order
+                                    ]
+                                ); ?>">
+                                    Первый месяц бесплатно
+                                </a>
+                                <?php if ($sortType === 'promotime') { ?>
+                                    <span class="fa fa-chevron-<?php echo $chevron; ?>"></span>
+                                <?php } ?>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($tariffs as $tariff) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $tariff->getSort(); ?>
+                                </td>
+                                <td>
+                                    <a href="<?php echo $this->url('admin.tariff.edit', ['id' => $tariff->getId()]); ?>">
+                                        <?php echo $tariff->getTitle(); ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getDescription(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getRentCost(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getTurnoverPercent(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getMonthLimit(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getMonthCount(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getMaxTurnover(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->isPopular() ? 'Да' : 'Нет'; ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getIsBeginner() ? 'Да' : 'Нет'; ?>
+                                </td>
+                                <td>
+                                    <?php echo $tariff->getIsPromotime() ? 'Да' : 'Нет'; ?>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

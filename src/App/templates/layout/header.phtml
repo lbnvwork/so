@@ -1,0 +1,122 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 20.11.18
+ * Time: 11:45
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var string $ukScrollString */
+
+$onlyLandingUkScroll = '';
+if (isset($ukScrollString)) {
+    $onlyLandingUkScroll = $ukScrollString;
+}
+$navArr = [
+    'howitworks'  => 'Как это работает?',
+    'connect'     => 'Подключение',
+    'tariffs'     => 'Тарифы',
+    'calc'        => 'Калькулятор',
+    'advantages'  => 'Преимущества',
+    'faq'         => 'Вопрос-ответ',
+    'integration' => 'Интеграция',
+    'promo'       => 'Акции',
+];
+?>
+<header>
+    <div class="headline" uk-sticky="animation: uk-animation-slide-top">
+        <div class="info">
+            <div class="info-flex wrapper">
+
+                <div class="mail">
+                    <i class="fa fa-envelope"></i>
+                    <a href="mailto: online@schetmash.com">online@schetmash.com</a>
+                </div>
+                <!--<button type="button" name="button" class="callback" uk-toggle="target: #call-me">
+                  <i class="fas fa-phone"></i>
+                  <span>Заказать звонок</span>
+                </button>-->
+                <a href="#callbackwidget" class="callback">
+                    <i class="fa fa-phone"></i>
+                    <span>Заказать звонок</span>
+                </a>
+
+
+                <div class="phone">
+                    <i class="fa fa-phone"></i>
+                    <a href="tel:+74712734990">+7 (4712) 73-49-90</a>
+                </div>
+
+            </div>
+        </div>
+        <div class='navigation wrapper'>
+            <div class="logo">
+                <a href="/"><img src="/upload/content/logo.png"></a>
+            </div>
+
+            <nav class="nav">
+                <?php
+                foreach ($navArr as $key => $value) {
+                    echo '<a href="'.$this->url('landing').'#'.$key.'" '.$onlyLandingUkScroll.'>'.$value.'</a>';
+                }
+                ?>
+            </nav>
+
+
+            <nav class="nav-burger">
+                <a href="#nav-burger" class="burger uk-button uk-button-default" uk-toggle>
+                    <i class="fa fa-bars"></i> Меню
+                </a>
+                <div id="nav-burger" uk-offcanvas>
+                    <div class="uk-offcanvas-bar">
+                        <ul class="uk-nav uk-nav-default">
+                            <?php
+                            if (isset($showLogin)) {
+                                if ($this->user) {
+                                    ?>
+                                    <li>
+                                        <a href="<?php echo $this->url('home'); ?>">Войти</a>
+                                    </li>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <li>
+                                        <a class="" uk-toggle="target: #popup-signin">
+                                            Войти
+                                        </a>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                            foreach ($navArr as $key => $value) {
+                                echo '<li><a href="'.$this->url('landing').'#'.$key.'" '.$onlyLandingUkScroll.'>'.$value.'</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <?php
+            if (isset($showLogin)) {
+                if ($this->user) {
+                    ?>
+                    <a href="<?php echo $this->url('home'); ?>" class="signin uk-button uk-button-default uk-margin-small-right">
+                        <i class="fa fa-user"></i>
+                        <span>Войти</span>
+                    </a>
+                    <?php
+                } else {
+                    ?>
+                    <button class="signin uk-button uk-button-default uk-margin-small-right" uk-toggle="target: #popup-signin">
+                        <i class="fa fa-user"></i>
+                        <span>Войти</span>
+                    </button>
+                    <?php
+                }
+            }
+            ?>
+
+        </div>
+    </div>
+
+</header>

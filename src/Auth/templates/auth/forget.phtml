@@ -1,0 +1,24 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: afinogen
+ * Date: 19.01.18
+ * Time: 10:51
+ */
+/** @var \App\Renderer\PhpRenderer $this */
+
+$this->headTitle('Восстановление пароля');
+$this->headMeta('Пожалуйста, введите email адрес, указанный Вами при регистрации на сайте. На него будет отправлена инструкция по восстановлению пароля.', 'description');
+?>
+<h1 class="page-title">Восстановление пароля</h1>
+<form class="enter-form" action="?" method="post">
+    <input type="email" required name="email" class="enter-form_input" placeholder="example@email.ru" value="">
+    <div class="enter-form_actions">
+        <button type="submit" name="button" class="enter-form_button">Восстановить</button>
+        <a href="<?php echo $this->url('login'); ?>" class="enter-form_link">Войти</a>
+    </div>
+</form>
+<div class="enter-form_registration">
+    Только пришли?
+    <a href="<?php echo $this->url('register') ?>" class="enter-form_link">Регистрация</a>
+</div>

@@ -1,0 +1,43 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: m-lobanov
+ * Date: 14.12.18
+ * Time: 12:49
+ */?>
+<!--noindex-->
+<div id="promoSuccess" class="alx-feedb-error alx-popup-mess-show-anime1" style="display: none;">
+    <div class="afbf_success_block _without-popup">
+        <div class="afbf_mess_ok">
+            <div class="afbf_icon afbf_ok_icon"></div>
+            <div class="mess">Ваш промокод выслан на почту</div>
+        </div>
+    </div>
+</div>
+<!--/noindex-->
+<div class="afbf alx_feed_back " id="promoForm">
+    <section class="promocode" id="promo">
+        <h2 class="title">Акции</h2>
+        <div class="promo wrapper">
+            <div class="image-side"><img src="/upload/content/gift3.png" alt=""></div>
+            <div class="form-side">
+                <h3 class="title">Зарегистрируйтесь в нашем сервисе и получите промокод от платежной системы <img src="/upload/content/logo-robokassa.png" alt="robokassa"></h3>
+                <form id="needPromo" name="f_feedback_FID1" action="<?php echo $this->url('api.landing', ['action' => 'promo']); ?>" method="post">
+                    <input type="email" size="40" id="EMAIL_FID11"
+                           name="email"
+                           class="email-input"
+                           placeholder="Введите Ваш email" required/>
+
+                    <button type="submit" class="get-gift"
+                            id="fb_close_FID1" name="SEND_FORM"
+                            value="Отправить">Получить
+                    </button>
+                    <label class="politic-privacy">
+                        <input type="checkbox" value="Y" checked name="alx_fb_agreement" required>
+                        Согласен с <a href="/upload/docs/confidentiality.pdf" target="_blank">политикой конфиденциальности сайта</a>
+                    </label>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

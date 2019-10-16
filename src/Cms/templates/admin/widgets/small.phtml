@@ -1,0 +1,20 @@
+<?php
+/** @var \App\Renderer\PhpRenderer $this */
+/** @var array $data */
+?>
+<div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
+    <span class="count_top"><i class="fa <?php if (isset($data['icon'])) {
+            echo $data['icon'];
+        } ?> "></i> <?php echo $data['label']; ?> </span>
+    <div class="count"><?php echo $data['total']; ?></div>
+
+    <?php foreach ($data['items'] as $item) { ?>
+
+        <div class="count_bottom"><i class="<?php if (isset($item['class'])) {
+                echo $item['class'];
+            } ?>"><?php echo $this->escapeHtml($item['value']); ?></i>
+            <?php echo $item['label']; ?></div>
+
+    <?php } ?>
+
+</div>

@@ -1,0 +1,39 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: m-lobanov
+ * Date: 09.07.19
+ * Time: 16:30
+ *
+ * @var \Office\Entity\Shop $shop
+ * @var \Doctrine\ORM\PersistentCollection $shops
+ */
+?>
+<h1 class="page-title">Настройки магазина Insales</h1>
+<form class="enter-form" action="" method="post">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="shopSchetmash">
+        ID магазина <span class="required">*</span>
+    </label>
+    <select
+            required
+            name="shopSchetmash"
+            id="shopSchetmash"
+            class="enter-form_input"
+    >
+        <?php
+        /** @var \Office\Entity\Shop $item */
+        foreach ($shops as $item) { ?>
+            <option
+                    value="<?php echo $item->getId(); ?>"
+                <?php if ($item === $shop) {
+                    echo 'selected';
+                } ?>
+            >
+                <?php echo $item->getTitle(); ?>
+            </option>
+        <?php } ?>
+    </select>
+    <div class="enter-form_actions">
+        <button type="submit" name="button" class="enter-form_button">Отправить</button>
+    </div>
+</form>

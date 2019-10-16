@@ -1,0 +1,88 @@
+version: '3'
+services:
+  app:
+    build:
+      context: docker/php
+      args:
+        server_uid: $UID
+    restart: always
+    working_dir: /var/www/html/public
+    volumes:
+      - /etc/localtime:/etc/localtime/:ro
+      - ./:/var/www/html
+    links:
+      - mailcatcher
+      - mysql
+    environment:
+      XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+
+  nginx:
+    build:
+      context: docker/nginx
+      args:
+        server_uid: $UID
+    restart: always
+    volumes:
+      - ./:/var/www/html
+    links:
+      - app
+    labels:
+      - traefik.enabled=true
+      #    - traefik.backend=keaz
+      - traefik.frontend.rule=Host:TEST_DOMAIN
+      - traefik.docker.network=proxy
+      - traefik.port=443
+      - traefik.protocol=https
+    networks:
+      - proxy
+      - default
+
+  mailcatcher:
+    image: mailhog/mailhog
+    environment:
+      MH_HOSTNAME: mail.TEST_DOMAIN
+      MH_API_BIND_ADDR: 0.0.0.0:80
+      MH_UI_BIND_ADDR: 0.0.0.0:80
+    restart: always
+    labels:
+      - traefik.enabled=true
+      - traefik.frontend.rule=Host:mail.TEST_DOMAIN
+      - traefik.docker.network=proxy
+      - traefik.port=80
+      - traefik.default.protocol=http
+    expose:
+      - 80
+    user: root
+    networks:
+      - proxy
+      - default
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    command: --sql-mode=""
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: online
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links:
+      - mysql
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 12345
+      PMA_HOST: mysql_1
+    labels:
+      - traefik.enabled=true
+      - traefik.frontend.rule=Host:pma.TEST_DOMAIN
+      - traefik.docker.network=proxy
+      - traefik.port=80
+      - traefik.default.protocol=http
+    networks:
+      - proxy
+      - default
+networks:
+  proxy:
+    external: true
